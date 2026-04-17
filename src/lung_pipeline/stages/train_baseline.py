@@ -5,8 +5,11 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
+import torch
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GroupKFold
+from torch import nn
+from torch.utils.data import DataLoader, TensorDataset
 
 from ..config import stage_output_dir
 from ..io import ensure_dir, write_json
@@ -18,6 +21,7 @@ DEFAULT_TRAIN_BASELINE_SETTINGS = {
     "group_column": "canonical_drug_id",
     "n_splits": 3,
     "conditions": ["no_gtex", "sample_only", "pair_only", "full_gtex"],
+    "models": ["random_forest", "flat_mlp"],
     "random_forest": {
         "n_estimators": 240,
         "max_depth": None,
@@ -25,6 +29,16 @@ DEFAULT_TRAIN_BASELINE_SETTINGS = {
         "max_features": "sqrt",
         "n_jobs": -1,
         "random_state": 42,
+    },
+    "flat_mlp": {
+        "hidden_dims": [128, 64],
+        "dropout": 0.1,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "batch_size": 512,
+        "epochs": 18,
+        "random_state": 42,
+        "device": "auto",
     },
 }
 
@@ -51,6 +65,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
             extra={
                 "mode": settings["mode"],
                 "conditions": settings["conditions"],
+                "models": settings["models"],
                 "n_splits": settings["n_splits"],
             },
         )
@@ -79,31 +94,24 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     )
     write_json(output_dir / "oof_manifest.json", oof_manifest)
 
-    best_condition = max(
-        groupcv_results["conditions"].items(),
-        key=lambda item: item[1]["spearman"],
-    )
+    best = _best_model_condition(groupcv_results)
 
     return build_stage_manifest(
         cfg,
         "train_baseline",
         ["model_input_table"],
         notes + [
-            "Executed quick GTEx ablation with RandomForest only.",
+            f"Executed quick GTEx ablation with models: {', '.join(settings['models'])}.",
             f"Conditions: {', '.join(settings['conditions'])}",
-            f"Best GroupCV condition: {best_condition[0]} ({best_condition[1]['spearman']:.4f})",
+            f"Best GroupCV result: {best['model']} / {best['condition']} ({best['spearman']:.4f})",
         ],
         dry_run=False,
         status="implemented",
         extra={
             "mode": settings["mode"],
-            "model": "RandomForestRegressor",
+            "models": settings["models"],
             "conditions": settings["conditions"],
-            "best_condition": {
-                "name": best_condition[0],
-                "spearman": best_condition[1]["spearman"],
-                "rmse": best_condition[1]["rmse"],
-            },
+            "best_result": best,
         },
     )
 
@@ -115,8 +123,20 @@ def _stage_settings(cfg: dict[str, Any]) -> dict[str, Any]:
         **DEFAULT_TRAIN_BASELINE_SETTINGS["random_forest"],
         **section.get("random_forest", {}),
     }
+    settings["flat_mlp"] = {
+        **DEFAULT_TRAIN_BASELINE_SETTINGS["flat_mlp"],
+        **section.get("flat_mlp", {}),
+    }
     settings["n_splits"] = int(settings["n_splits"])
     settings["conditions"] = [str(value) for value in settings["conditions"]]
+    settings["models"] = [str(value) for value in settings["models"]]
+    settings["flat_mlp"]["hidden_dims"] = [int(v) for v in settings["flat_mlp"]["hidden_dims"]]
+    settings["flat_mlp"]["batch_size"] = int(settings["flat_mlp"]["batch_size"])
+    settings["flat_mlp"]["epochs"] = int(settings["flat_mlp"]["epochs"])
+    settings["flat_mlp"]["random_state"] = int(settings["flat_mlp"]["random_state"])
+    settings["flat_mlp"]["learning_rate"] = float(settings["flat_mlp"]["learning_rate"])
+    settings["flat_mlp"]["weight_decay"] = float(settings["flat_mlp"]["weight_decay"])
+    settings["flat_mlp"]["dropout"] = float(settings["flat_mlp"]["dropout"])
     return settings
 
 
@@ -137,65 +157,246 @@ def _run_quick_gtex_groupcv_ablation(
     splitter = GroupKFold(n_splits=settings["n_splits"])
     split_indices = list(splitter.split(train_table, y, groups))
 
-    results: dict[str, Any] = {
-        "mode": settings["mode"],
-        "model": "RandomForestRegressor",
-        "n_rows": int(train_table.shape[0]),
-        "n_numeric_columns_full": int(len(numeric_columns)),
-        "conditions": {},
-    }
+    model_results: dict[str, Any] = {}
     oof_manifest: dict[str, Any] = {"files": []}
 
-    for condition in settings["conditions"]:
-        feature_columns = _feature_columns_for_condition(numeric_columns, condition)
-        X = train_table[feature_columns].apply(pd.to_numeric, errors="coerce").fillna(0.0).to_numpy(dtype=float)
-        oof = np.zeros(train_table.shape[0], dtype=float)
-        fold_metrics: list[dict[str, Any]] = []
+    for model_name in settings["models"]:
+        model_results[model_name] = {
+            "n_rows": int(train_table.shape[0]),
+            "n_numeric_columns_full": int(len(numeric_columns)),
+            "conditions": {},
+        }
+        for condition in settings["conditions"]:
+            feature_columns = _feature_columns_for_condition(numeric_columns, condition)
+            X = train_table[feature_columns].apply(pd.to_numeric, errors="coerce").fillna(0.0).to_numpy(dtype=float)
+            if model_name == "random_forest":
+                metrics, oof = _run_random_forest_groupcv(
+                    X=X,
+                    y=y,
+                    split_indices=split_indices,
+                    settings=settings["random_forest"],
+                )
+            elif model_name == "flat_mlp":
+                metrics, oof = _run_flat_mlp_groupcv(
+                    X=X,
+                    y=y,
+                    split_indices=split_indices,
+                    settings=settings["flat_mlp"],
+                )
+            else:
+                raise ValueError(f"Unsupported quick ablation model: {model_name}")
 
-        for fold_idx, (train_idx, valid_idx) in enumerate(split_indices, start=1):
-            model = RandomForestRegressor(**settings["random_forest"])
-            model.fit(X[train_idx], y[train_idx])
-            preds = model.predict(X[valid_idx])
-            oof[valid_idx] = preds
+            metrics["n_features"] = int(len(feature_columns))
+            metrics["feature_columns"] = feature_columns
+            model_results[model_name]["conditions"][condition] = metrics
 
-            fold_metrics.append(
+            oof_path = oof_dir / f"gtex_ablation_groupcv_{model_name}_{condition}.parquet"
+            pd.DataFrame(
                 {
-                    "fold": fold_idx,
-                    "n_train": int(len(train_idx)),
-                    "n_valid": int(len(valid_idx)),
-                    "spearman": _spearman(y[valid_idx], preds),
-                    "rmse": _rmse(y[valid_idx], preds),
+                    "pair_id": pair_ids,
+                    "group": groups,
+                    "y_true": y,
+                    "y_pred": oof,
+                    "condition": condition,
+                    "model": model_name,
+                }
+            ).to_parquet(oof_path, index=False)
+            oof_manifest["files"].append(
+                {
+                    "model": model_name,
+                    "condition": condition,
+                    "path": str(oof_path),
+                    "n_features": int(len(feature_columns)),
                 }
             )
 
-        overall = {
-            "n_features": int(len(feature_columns)),
-            "feature_columns": feature_columns,
-            "spearman": _spearman(y, oof),
-            "rmse": _rmse(y, oof),
-            "fold_metrics": fold_metrics,
-        }
-        results["conditions"][condition] = overall
+    return {
+        "mode": settings["mode"],
+        "models": model_results,
+    }, oof_manifest
 
-        oof_path = oof_dir / f"gtex_ablation_groupcv_randomforest_{condition}.parquet"
-        pd.DataFrame(
+
+def _run_random_forest_groupcv(
+    *,
+    X: np.ndarray,
+    y: np.ndarray,
+    split_indices: list[tuple[np.ndarray, np.ndarray]],
+    settings: dict[str, Any],
+) -> tuple[dict[str, Any], np.ndarray]:
+    oof = np.zeros(X.shape[0], dtype=float)
+    fold_metrics: list[dict[str, Any]] = []
+    for fold_idx, (train_idx, valid_idx) in enumerate(split_indices, start=1):
+        model = RandomForestRegressor(**settings)
+        model.fit(X[train_idx], y[train_idx])
+        preds = model.predict(X[valid_idx])
+        oof[valid_idx] = preds
+        fold_metrics.append(
             {
-                "pair_id": pair_ids,
-                "group": groups,
-                "y_true": y,
-                "y_pred": oof,
-                "condition": condition,
+                "fold": fold_idx,
+                "n_train": int(len(train_idx)),
+                "n_valid": int(len(valid_idx)),
+                "spearman": _spearman(y[valid_idx], preds),
+                "rmse": _rmse(y[valid_idx], preds),
             }
-        ).to_parquet(oof_path, index=False)
-        oof_manifest["files"].append(
+        )
+    return {
+        "spearman": _spearman(y, oof),
+        "rmse": _rmse(y, oof),
+        "fold_metrics": fold_metrics,
+    }, oof
+
+
+def _run_flat_mlp_groupcv(
+    *,
+    X: np.ndarray,
+    y: np.ndarray,
+    split_indices: list[tuple[np.ndarray, np.ndarray]],
+    settings: dict[str, Any],
+) -> tuple[dict[str, Any], np.ndarray]:
+    device = _resolve_torch_device(settings["device"])
+    oof = np.zeros(X.shape[0], dtype=float)
+    fold_metrics: list[dict[str, Any]] = []
+
+    for fold_idx, (train_idx, valid_idx) in enumerate(split_indices, start=1):
+        preds = _fit_predict_flat_mlp(
+            X_train=X[train_idx],
+            y_train=y[train_idx],
+            X_valid=X[valid_idx],
+            settings=settings,
+            device=device,
+            fold_seed=settings["random_state"] + fold_idx,
+        )
+        oof[valid_idx] = preds
+        fold_metrics.append(
             {
-                "condition": condition,
-                "path": str(oof_path),
-                "n_features": int(len(feature_columns)),
+                "fold": fold_idx,
+                "n_train": int(len(train_idx)),
+                "n_valid": int(len(valid_idx)),
+                "spearman": _spearman(y[valid_idx], preds),
+                "rmse": _rmse(y[valid_idx], preds),
             }
         )
 
-    return results, oof_manifest
+    return {
+        "device": str(device),
+        "spearman": _spearman(y, oof),
+        "rmse": _rmse(y, oof),
+        "fold_metrics": fold_metrics,
+    }, oof
+
+
+def _fit_predict_flat_mlp(
+    *,
+    X_train: np.ndarray,
+    y_train: np.ndarray,
+    X_valid: np.ndarray,
+    settings: dict[str, Any],
+    device: torch.device,
+    fold_seed: int,
+) -> np.ndarray:
+    torch.manual_seed(fold_seed)
+    np.random.seed(fold_seed)
+
+    x_mean = X_train.mean(axis=0, keepdims=True)
+    x_std = X_train.std(axis=0, keepdims=True)
+    x_std[x_std < 1e-6] = 1.0
+    X_train_scaled = ((X_train - x_mean) / x_std).astype(np.float32)
+    X_valid_scaled = ((X_valid - x_mean) / x_std).astype(np.float32)
+
+    y_mean = float(y_train.mean())
+    y_std = float(y_train.std())
+    if y_std < 1e-6:
+        y_std = 1.0
+    y_train_scaled = ((y_train - y_mean) / y_std).astype(np.float32)
+
+    train_dataset = TensorDataset(
+        torch.from_numpy(X_train_scaled),
+        torch.from_numpy(y_train_scaled).unsqueeze(1),
+    )
+    train_loader = DataLoader(
+        train_dataset,
+        batch_size=settings["batch_size"],
+        shuffle=True,
+    )
+
+    model = _FlatMLP(
+        input_dim=X_train.shape[1],
+        hidden_dims=settings["hidden_dims"],
+        dropout=settings["dropout"],
+    ).to(device)
+    optimizer = torch.optim.AdamW(
+        model.parameters(),
+        lr=settings["learning_rate"],
+        weight_decay=settings["weight_decay"],
+    )
+    loss_fn = nn.MSELoss()
+
+    model.train()
+    for _ in range(settings["epochs"]):
+        for batch_x, batch_y in train_loader:
+            batch_x = batch_x.to(device)
+            batch_y = batch_y.to(device)
+            optimizer.zero_grad()
+            loss = loss_fn(model(batch_x), batch_y)
+            loss.backward()
+            optimizer.step()
+
+    model.eval()
+    with torch.no_grad():
+        preds_scaled = model(torch.from_numpy(X_valid_scaled).to(device)).squeeze(1).cpu().numpy()
+    return preds_scaled.astype(float) * y_std + y_mean
+
+
+class _FlatMLP(nn.Module):
+    def __init__(self, *, input_dim: int, hidden_dims: list[int], dropout: float) -> None:
+        super().__init__()
+        layers: list[nn.Module] = []
+        prev_dim = input_dim
+        for hidden_dim in hidden_dims:
+            layers.extend(
+                [
+                    nn.Linear(prev_dim, hidden_dim),
+                    nn.ReLU(),
+                    nn.Dropout(dropout),
+                ]
+            )
+            prev_dim = hidden_dim
+        layers.append(nn.Linear(prev_dim, 1))
+        self.network = nn.Sequential(*layers)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.network(x)
+
+
+def _resolve_torch_device(device_name: str) -> torch.device:
+    if device_name == "cpu":
+        return torch.device("cpu")
+    if device_name == "mps":
+        return torch.device("mps")
+    if device_name == "cuda":
+        return torch.device("cuda")
+    if torch.backends.mps.is_available():
+        return torch.device("mps")
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    return torch.device("cpu")
+
+
+def _best_model_condition(groupcv_results: dict[str, Any]) -> dict[str, Any]:
+    best: dict[str, Any] | None = None
+    for model_name, model_payload in groupcv_results["models"].items():
+        for condition, metrics in model_payload["conditions"].items():
+            candidate = {
+                "model": model_name,
+                "condition": condition,
+                "spearman": metrics["spearman"],
+                "rmse": metrics["rmse"],
+            }
+            if best is None or candidate["spearman"] > best["spearman"]:
+                best = candidate
+    if best is None:
+        raise ValueError("No GroupCV results were produced.")
+    return best
 
 
 def _numeric_feature_columns(train_table: pd.DataFrame, *, exclude: set[str]) -> list[str]:

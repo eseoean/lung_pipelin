@@ -66,6 +66,9 @@ train_baseline:
   target_column: label_regression
   group_column: canonical_drug_id
   n_splits: 3
+  models:
+    - random_forest
+    - flat_mlp
   conditions:
     - no_gtex
     - sample_only
@@ -78,6 +81,17 @@ train_baseline:
     max_features: sqrt
     n_jobs: -1
     random_state: 42
+  flat_mlp:
+    hidden_dims:
+      - 128
+      - 64
+    dropout: 0.1
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    batch_size: 512
+    epochs: 18
+    random_state: 42
+    device: auto
 
 deliverables:
   masters:

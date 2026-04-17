@@ -60,12 +60,23 @@ def test_train_baseline_runs_quick_gtex_groupcv_ablation(tmp_path: Path) -> None
         "train_baseline": {
             "mode": "quick_gtex_groupcv_ablation",
             "n_splits": 3,
+            "models": ["random_forest", "flat_mlp"],
             "conditions": ["no_gtex", "sample_only", "pair_only", "full_gtex"],
             "random_forest": {
                 "n_estimators": 20,
                 "min_samples_leaf": 1,
                 "random_state": 42,
                 "n_jobs": 1,
+            },
+            "flat_mlp": {
+                "hidden_dims": [16, 8],
+                "dropout": 0.0,
+                "learning_rate": 0.005,
+                "weight_decay": 0.0,
+                "batch_size": 4,
+                "epochs": 2,
+                "random_state": 42,
+                "device": "cpu",
             },
         },
     }
@@ -81,4 +92,6 @@ def test_train_baseline_runs_quick_gtex_groupcv_ablation(tmp_path: Path) -> None
     assert (output_dir / "oof_manifest.json").exists()
 
     metrics = json.loads((output_dir / "groupcv_metrics.json").read_text())
-    assert set(metrics["conditions"]) == {"no_gtex", "sample_only", "pair_only", "full_gtex"}
+    assert set(metrics["models"]) == {"random_forest", "flat_mlp"}
+    assert set(metrics["models"]["random_forest"]["conditions"]) == {"no_gtex", "sample_only", "pair_only", "full_gtex"}
+    assert set(metrics["models"]["flat_mlp"]["conditions"]) == {"no_gtex", "sample_only", "pair_only", "full_gtex"}
