@@ -6,6 +6,7 @@ from typing import Any
 import pandas as pd
 
 from ..config import resolve_repo_path, stage_output_dir
+from ..datasets.gtex import load_gtex_lung_reference
 from ..datasets.msigdb import load_gmt_sets, safe_feature_name
 from ..datasets.tcga import load_count_entries, read_expression_profile
 from ..io import ensure_dir, write_json
@@ -19,6 +20,7 @@ DEFAULT_DISEASE_CONTEXT_SOURCES = {
     "tcga_lusc_manifest": "s3://say2-4team/Lung_raw/manifests/lusc_manifest_rna_only.tsv",
     "msigdb_hallmark": "s3://say2-4team/Lung_raw/msigdb/h.all.v2026.1.Hs.symbols.gmt",
     "msigdb_oncogenic": "s3://say2-4team/Lung_raw/msigdb/c6.all.v2026.1.Hs.symbols.gmt",
+    "gtex_lung_tpm": "s3://say2-4team/Lung_raw/gtex/v8/rna-seq/tpms-by-tissue/gene_tpm_2017-06-05_v8_lung.gct.gz",
     "gtex_sample_attributes": "s3://say2-4team/Lung_raw/gtex/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
     "gtex_subject_phenotypes": "s3://say2-4team/Lung_raw/gtex/GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt",
 }
@@ -81,6 +83,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     msigdb_dir = ensure_dir(cache_dir / "msigdb")
 
     pathway_sets = _load_pathway_sets(settings["sources"], msigdb_dir)
+    gtex_reference, gtex_stats = _load_gtex_reference(settings["sources"], cache_dir)
     signatures: dict[str, pd.DataFrame] = {}
     signature_counts: dict[str, int] = {}
     patient_feature_frames: list[pd.DataFrame] = []
@@ -115,7 +118,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
             pathway_score_frames.append(pathway_scores_df)
         cohort_stats[cohort_name] = stats
 
-    signatures = _attach_signature_deltas(signatures, signature_counts)
+    signatures = _attach_signature_deltas(signatures, signature_counts, gtex_reference)
     pathway_scores = (
         pd.concat(pathway_score_frames, ignore_index=True)
         if pathway_score_frames
@@ -152,6 +155,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         output_dir / "disease_context_summary.json",
         {
             "cohort_stats": cohort_stats,
+            "gtex_lung_reference_stats": gtex_stats,
             "pathway_collections": {
                 name: {"n_pathways": len(sets)}
                 for name, sets in pathway_sets.items()
@@ -176,6 +180,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         extra={
             "implementation_state": "TCGA + MSigDB disease-context outputs built",
             "cohort_stats": cohort_stats,
+            "gtex_lung_reference_stats": gtex_stats,
             "pathway_collections": {
                 name: len(sets) for name, sets in pathway_sets.items()
             },
@@ -196,6 +201,17 @@ def _load_pathway_sets(
     if oncogenic_source:
         collections["oncogenic"] = load_gmt_sets(oncogenic_source, cache_dir)
     return collections
+
+
+def _load_gtex_reference(
+    sources: dict[str, Any],
+    cache_dir: Path,
+) -> tuple[pd.DataFrame | None, dict[str, Any]]:
+    gtex_source = sources.get("gtex_lung_tpm")
+    if not gtex_source:
+        return None, {"status": "missing_source"}
+    reference, stats = load_gtex_lung_reference(gtex_source, cache_dir / "gtex")
+    return reference, {"status": "loaded", **stats}
 
 
 def _build_cohort_context(
@@ -292,6 +308,7 @@ def _build_cohort_context(
 def _attach_signature_deltas(
     signatures: dict[str, pd.DataFrame],
     sample_counts: dict[str, int],
+    gtex_reference: pd.DataFrame | None = None,
 ) -> dict[str, pd.DataFrame]:
     merged = None
     for cohort_name, df in signatures.items():
@@ -307,6 +324,12 @@ def _attach_signature_deltas(
     for cohort_name, n_samples in sample_counts.items():
         weighted_total += merged[f"{cohort_name.lower()}_mean_log2_tpm"].fillna(0.0) * float(n_samples)
     merged["pooled_lung_mean_log2_tpm"] = weighted_total / total_samples
+    if gtex_reference is not None and not gtex_reference.empty:
+        normal_lookup = gtex_reference[["gene_symbol", "normal_lung_mean_log2_tpm"]].drop_duplicates("gene_symbol")
+        merged = merged.merge(normal_lookup, on="gene_symbol", how="left")
+    else:
+        merged["normal_lung_mean_log2_tpm"] = 0.0
+    merged["normal_lung_mean_log2_tpm"] = merged["normal_lung_mean_log2_tpm"].fillna(0.0)
 
     cohorts = list(signatures)
     for cohort_name, df in signatures.items():
@@ -314,14 +337,19 @@ def _attach_signature_deltas(
         lookup = merged.set_index("gene_symbol")
         df["other_cohort_mean_log2_tpm"] = lookup.loc[df["gene_symbol"], f"{other.lower()}_mean_log2_tpm"].to_numpy()
         df["pooled_lung_mean_log2_tpm"] = lookup.loc[df["gene_symbol"], "pooled_lung_mean_log2_tpm"].to_numpy()
+        df["normal_lung_mean_log2_tpm"] = lookup.loc[df["gene_symbol"], "normal_lung_mean_log2_tpm"].to_numpy()
         df["delta_vs_other_cohort"] = df["mean_log2_tpm"] - df["other_cohort_mean_log2_tpm"]
         df["delta_vs_pooled_lung"] = df["mean_log2_tpm"] - df["pooled_lung_mean_log2_tpm"]
+        df["delta_vs_normal_lung"] = df["mean_log2_tpm"] - df["normal_lung_mean_log2_tpm"]
         df["abs_delta_rank"] = (
             df["delta_vs_other_cohort"].abs().rank(method="dense", ascending=False).astype(int)
         )
+        df["normal_abs_delta_rank"] = (
+            df["delta_vs_normal_lung"].abs().rank(method="dense", ascending=False).astype(int)
+        )
         signatures[cohort_name] = df.sort_values(
-            ["abs_delta_rank", "mean_log2_tpm"],
-            ascending=[True, False],
+            ["abs_delta_rank", "normal_abs_delta_rank", "mean_log2_tpm"],
+            ascending=[True, True, False],
         ).reset_index(drop=True)
     return signatures
 

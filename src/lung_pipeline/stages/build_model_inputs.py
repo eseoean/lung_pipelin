@@ -288,6 +288,14 @@ def _build_signature_context_features(
             gene = str(row["gene_symbol"]).strip().lower()
             features[f"ctx__sigdelta__{gene}"] = float(row["delta_vs_other_cohort"])
             features[f"ctx__sigexpr__{gene}"] = float(row["mean_log2_tpm"])
+        if {"normal_abs_delta_rank", "delta_vs_normal_lung"} <= set(signature_df.columns):
+            top_normal_df = signature_df.nsmallest(top_signature_genes_per_cohort, "normal_abs_delta_rank")
+            features["ctx__signature__mean_abs_delta_vs_normal_top"] = float(
+                top_normal_df["delta_vs_normal_lung"].abs().mean()
+            )
+            for _, row in top_normal_df.iterrows():
+                gene = str(row["gene_symbol"]).strip().lower()
+                features[f"ctx__signormal__{gene}"] = float(row["delta_vs_normal_lung"])
         result[cohort_name] = features
     return result
 
@@ -409,6 +417,8 @@ def _make_signature_lookup(signature_df: pd.DataFrame) -> dict[str, dict[str, fl
             "mean_log2_tpm": float(row["mean_log2_tpm"]),
             "delta_vs_other_cohort": float(row["delta_vs_other_cohort"]),
             "abs_delta_rank": float(row["abs_delta_rank"]),
+            "delta_vs_normal_lung": float(row.get("delta_vs_normal_lung", 0.0)),
+            "normal_abs_delta_rank": float(row.get("normal_abs_delta_rank", 0.0)),
         }
     return lookup
 
@@ -425,10 +435,15 @@ def _summarize_targets_against_signature(
             "pair__target_match_fraction": 0.0,
             "pair__mean_target_expression": 0.0,
             "pair__mean_target_delta": 0.0,
+            "pair__mean_target_delta_vs_normal": 0.0,
             "pair__max_target_delta": 0.0,
             "pair__min_target_delta": 0.0,
+            "pair__max_target_delta_vs_normal": 0.0,
+            "pair__min_target_delta_vs_normal": 0.0,
             "pair__top50_target_hits": 0.0,
             "pair__top200_target_hits": 0.0,
+            "pair__top50_target_hits_vs_normal": 0.0,
+            "pair__top200_target_hits_vs_normal": 0.0,
         }
     if not matched:
         return {
@@ -437,25 +452,37 @@ def _summarize_targets_against_signature(
             "pair__target_match_fraction": 0.0,
             "pair__mean_target_expression": 0.0,
             "pair__mean_target_delta": 0.0,
+            "pair__mean_target_delta_vs_normal": 0.0,
             "pair__max_target_delta": 0.0,
             "pair__min_target_delta": 0.0,
+            "pair__max_target_delta_vs_normal": 0.0,
+            "pair__min_target_delta_vs_normal": 0.0,
             "pair__top50_target_hits": 0.0,
             "pair__top200_target_hits": 0.0,
+            "pair__top50_target_hits_vs_normal": 0.0,
+            "pair__top200_target_hits_vs_normal": 0.0,
         }
 
     deltas = [item["delta_vs_other_cohort"] for item in matched]
+    normal_deltas = [item["delta_vs_normal_lung"] for item in matched]
     expressions = [item["mean_log2_tpm"] for item in matched]
     ranks = [item["abs_delta_rank"] for item in matched]
+    normal_ranks = [item["normal_abs_delta_rank"] for item in matched if item["normal_abs_delta_rank"] > 0]
     return {
         "pair__target_count": float(len(targets)),
         "pair__matched_target_count": float(len(matched)),
         "pair__target_match_fraction": float(len(matched)) / float(len(targets)),
         "pair__mean_target_expression": float(sum(expressions) / len(expressions)),
         "pair__mean_target_delta": float(sum(deltas) / len(deltas)),
+        "pair__mean_target_delta_vs_normal": float(sum(normal_deltas) / len(normal_deltas)),
         "pair__max_target_delta": float(max(deltas)),
         "pair__min_target_delta": float(min(deltas)),
+        "pair__max_target_delta_vs_normal": float(max(normal_deltas)),
+        "pair__min_target_delta_vs_normal": float(min(normal_deltas)),
         "pair__top50_target_hits": float(sum(rank <= 50 for rank in ranks)),
         "pair__top200_target_hits": float(sum(rank <= 200 for rank in ranks)),
+        "pair__top50_target_hits_vs_normal": float(sum(rank <= 50 for rank in normal_ranks)),
+        "pair__top200_target_hits_vs_normal": float(sum(rank <= 200 for rank in normal_ranks)),
     }
 
 

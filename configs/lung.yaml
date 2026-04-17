@@ -51,6 +51,7 @@ disease_context:
     tcga_lusc_manifest: s3://say2-4team/Lung_raw/manifests/lusc_manifest_rna_only.tsv
     msigdb_hallmark: s3://say2-4team/Lung_raw/msigdb/h.all.v2026.1.Hs.symbols.gmt
     msigdb_oncogenic: s3://say2-4team/Lung_raw/msigdb/c6.all.v2026.1.Hs.symbols.gmt
+    gtex_lung_tpm: s3://say2-4team/Lung_raw/gtex/v8/rna-seq/tpms-by-tissue/gene_tpm_2017-06-05_v8_lung.gct.gz
     gtex_sample_attributes: s3://say2-4team/Lung_raw/gtex/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt
     gtex_subject_phenotypes: s3://say2-4team/Lung_raw/gtex/GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt
 

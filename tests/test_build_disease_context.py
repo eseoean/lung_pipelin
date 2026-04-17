@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import gzip
 import pandas as pd
 import yaml
 from pathlib import Path
@@ -11,6 +12,17 @@ from lung_pipeline.stages.build_disease_context import run
 def _write_count_file(path: Path, rows: list[dict[str, object]]) -> None:
     path.write_text("# gene-model: GENCODE v36\n", encoding="utf-8")
     pd.DataFrame(rows).to_csv(path, sep="\t", index=False, mode="a")
+
+
+def _write_gtex_gct(path: Path, rows: list[dict[str, object]]) -> None:
+    with gzip.open(path, "wt", encoding="utf-8") as handle:
+        handle.write("#1.3\n")
+        handle.write(f"{len(rows)}\t2\t0\t0\n")
+        handle.write("id\tName\tDescription\tGTEX-LUNG-1\tGTEX-LUNG-2\n")
+        for row in rows:
+            handle.write(
+                f"{row['id']}\t{row['name']}\t{row['description']}\t{row['sample_1']}\t{row['sample_2']}\n"
+            )
 
 
 def test_build_disease_context_builds_expected_outputs(tmp_path: Path) -> None:
@@ -93,6 +105,17 @@ def test_build_disease_context_builds_expected_outputs(tmp_path: Path) -> None:
         "KRAS_SIGNALING_UP\tna\tEGFR\tACTB\n",
         encoding="utf-8",
     )
+    gtex_lung_tpm = sources_dir / "gene_tpm_2017-06-05_v8_lung.gct.gz"
+    _write_gtex_gct(
+        gtex_lung_tpm,
+        [
+            {"id": "ENSG1", "name": "ENSG1", "description": "EGFR", "sample_1": 12.0, "sample_2": 10.0},
+            {"id": "ENSG2", "name": "ENSG2", "description": "MUC1", "sample_1": 6.0, "sample_2": 5.0},
+            {"id": "ENSG3", "name": "ENSG3", "description": "SOX2", "sample_1": 1.0, "sample_2": 1.5},
+            {"id": "ENSG4", "name": "ENSG4", "description": "TP63", "sample_1": 0.5, "sample_2": 0.4},
+            {"id": "ENSG5", "name": "ENSG5", "description": "ACTB", "sample_1": 20.0, "sample_2": 18.0},
+        ],
+    )
 
     config_path = tmp_path / "lung_test.yaml"
     config = {
@@ -125,6 +148,7 @@ def test_build_disease_context_builds_expected_outputs(tmp_path: Path) -> None:
                 "tcga_lusc_manifest": str(lusc_manifest),
                 "msigdb_hallmark": str(hallmark_gmt),
                 "msigdb_oncogenic": str(oncogenic_gmt),
+                "gtex_lung_tpm": str(gtex_lung_tpm),
             },
         },
     }
@@ -147,8 +171,14 @@ def test_build_disease_context_builds_expected_outputs(tmp_path: Path) -> None:
 
     egfr_luad = float(luad_signature.loc[luad_signature["gene_symbol"] == "EGFR", "delta_vs_other_cohort"].iloc[0])
     egfr_lusc = float(lusc_signature.loc[lusc_signature["gene_symbol"] == "EGFR", "delta_vs_other_cohort"].iloc[0])
+    egfr_vs_normal = float(
+        luad_signature.loc[luad_signature["gene_symbol"] == "EGFR", "delta_vs_normal_lung"].iloc[0]
+    )
     assert egfr_luad > 0
     assert egfr_lusc < 0
+    assert egfr_vs_normal > 0
+    assert "normal_lung_mean_log2_tpm" in luad_signature.columns
+    assert "normal_abs_delta_rank" in luad_signature.columns
 
     assert {"HALLMARK_LUAD_SIGNAL", "HALLMARK_LUSC_SIGNAL"} <= set(pathway_activity["pathway_name"])
     assert patient_features.shape[0] == 4
