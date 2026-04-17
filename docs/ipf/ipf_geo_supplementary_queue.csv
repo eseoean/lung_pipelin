@@ -1,15 +1,6 @@
 accession,category,asset_type,url,relative_path,status,detail
-GSE32537,geo_ipf_bulk,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE32nnn/GSE32537/suppl/GSE32537_RAW.tar,GSE32537/supplementary/GSE32537_RAW.tar,planned_supplementary,
-GSE32537,geo_ipf_bulk,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE32nnn/GSE32537/suppl/filelist.txt,GSE32537/supplementary/filelist.txt,planned_supplementary,
-GSE47460,geo_ipf_bulk,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE47nnn/GSE47460/suppl/GSE47460_RAW.tar,GSE47460/supplementary/GSE47460_RAW.tar,planned_supplementary,
-GSE47460,geo_ipf_bulk,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE47nnn/GSE47460/suppl/filelist.txt,GSE47460/supplementary/filelist.txt,planned_supplementary,
-GSE122960,geo_ipf_scrna,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/suppl/GSE122960_RAW.tar,GSE122960/supplementary/GSE122960_RAW.tar,planned_supplementary,
-GSE122960,geo_ipf_scrna,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/suppl/filelist.txt,GSE122960/supplementary/filelist.txt,planned_supplementary,
-GSE136831,geo_ipf_scrna,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_AllCells.GeneIDs.txt.gz,GSE136831/supplementary/GSE136831_AllCells.GeneIDs.txt.gz,planned_supplementary,
-GSE136831,geo_ipf_scrna,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_AllCells.Samples.CellType.MetadataTable.txt.gz,GSE136831/supplementary/GSE136831_AllCells.Samples.CellType.MetadataTable.txt.gz,planned_supplementary,
-GSE136831,geo_ipf_scrna,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_AllCells.cellBarcodes.txt.gz,GSE136831/supplementary/GSE136831_AllCells.cellBarcodes.txt.gz,planned_supplementary,
-GSE136831,geo_ipf_scrna,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_RAW.tar,GSE136831/supplementary/GSE136831_RAW.tar,planned_supplementary,
-GSE136831,geo_ipf_scrna,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_RawCounts_Sparse.mtx.gz,GSE136831/supplementary/GSE136831_RawCounts_Sparse.mtx.gz,planned_supplementary,
-GSE136831,geo_ipf_scrna,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/filelist.txt,GSE136831/supplementary/filelist.txt,planned_supplementary,
-GSE233844,geo_ipf_external_validation,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE233nnn/GSE233844/suppl/GSE233844_RAW.tar,GSE233844/supplementary/GSE233844_RAW.tar,planned_supplementary,
-GSE233844,geo_ipf_external_validation,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE233nnn/GSE233844/suppl/filelist.txt,GSE233844/supplementary/filelist.txt,planned_supplementary,
+GSE47460,geo_ipf_bulk,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE47nnn/GSE47460/suppl/GSE47460_RAW.tar,GSE47460/supplementary/GSE47460_RAW.tar,planned_supplementary,1760778240 bytes exceeds threshold 50000000
+GSE122960,geo_ipf_scrna,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/suppl/GSE122960_RAW.tar,GSE122960/supplementary/GSE122960_RAW.tar,planned_supplementary,755537920 bytes exceeds threshold 50000000
+GSE136831,geo_ipf_scrna,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_RAW.tar,GSE136831/supplementary/GSE136831_RAW.tar,planned_supplementary,17651281920 bytes exceeds threshold 50000000
+GSE136831,geo_ipf_scrna,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_RawCounts_Sparse.mtx.gz,GSE136831/supplementary/GSE136831_RawCounts_Sparse.mtx.gz,planned_supplementary,2150633813 bytes exceeds threshold 50000000
+GSE233844,geo_ipf_external_validation,supplementary_file,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE233nnn/GSE233844/suppl/GSE233844_RAW.tar,GSE233844/supplementary/GSE233844_RAW.tar,planned_supplementary,1108838400 bytes exceeds threshold 50000000

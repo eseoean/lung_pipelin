@@ -34,6 +34,12 @@ Attempt to download GEO landing pages, family soft files, series matrices, and s
 make ipf-download-geo
 ```
 
+Download only the small supplementary files first:
+
+```bash
+make ipf-download-geo-small
+```
+
 If you also want supplementary payload files linked from the GEO `suppl/` directory:
 
 ```bash
@@ -55,4 +61,5 @@ The script writes planning and reporting files to `docs/ipf/`:
 
 - Bulk GEO accessions are expected to expose `series_matrix` and `family.soft` assets more reliably.
 - scRNA GEO accessions often store count matrices or object bundles in the supplementary directory; the helper therefore downloads the supplementary index page by default even when the full payload download is skipped.
+- The `ipf-download-geo-small` target keeps only files up to `50MB`, which is useful for pulling metadata and lightweight scRNA support files before attempting the large raw archives.
 - The repository keeps download logic and manifests in git, but not the raw downloaded cohort files themselves.

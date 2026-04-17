@@ -70,6 +70,18 @@ def _fetch(url: str, timeout: int = 60, verify_ssl: bool = True) -> bytes:
         return resp.read()
 
 
+def _head_content_length(url: str, timeout: int = 60, verify_ssl: bool = True) -> int | None:
+    req = Request(
+        url,
+        headers={"User-Agent": "lung-pipelin-ipf/0.1"},
+        method="HEAD",
+    )
+    context = None if verify_ssl else ssl._create_unverified_context()
+    with urlopen(req, timeout=timeout, context=context) as resp:
+        header = resp.headers.get("Content-Length")
+        return int(header) if header and header.isdigit() else None
+
+
 def _safe_fetch(url: str) -> tuple[str, bytes | None, str]:
     try:
         return "available", _fetch(url), ""
@@ -78,6 +90,27 @@ def _safe_fetch(url: str) -> tuple[str, bytes | None, str]:
         if "CERTIFICATE_VERIFY_FAILED" in detail:
             try:
                 return "available", _fetch(url, verify_ssl=False), "downloaded with unverified SSL context"
+            except HTTPError as retry_exc:
+                return "http_error", None, f"HTTP {retry_exc.code}"
+            except URLError as retry_exc:
+                return "network_error", None, str(retry_exc.reason)
+            except Exception as retry_exc:  # pragma: no cover - defensive
+                return "error", None, str(retry_exc)
+        return "network_error", None, detail
+    except HTTPError as exc:
+        return "http_error", None, f"HTTP {exc.code}"
+    except Exception as exc:  # pragma: no cover - defensive
+        return "error", None, str(exc)
+
+
+def _safe_head_content_length(url: str) -> tuple[str, int | None, str]:
+    try:
+        return "available", _head_content_length(url), ""
+    except URLError as exc:
+        detail = str(exc.reason)
+        if "CERTIFICATE_VERIFY_FAILED" in detail:
+            try:
+                return "available", _head_content_length(url, verify_ssl=False), "head with unverified SSL context"
             except HTTPError as retry_exc:
                 return "http_error", None, f"HTTP {retry_exc.code}"
             except URLError as retry_exc:
@@ -259,9 +292,7 @@ def download_rows(rows: list[DownloadRow], data_root: Path) -> list[DownloadRow]
     return result
 
 
-def enrich_with_supplementary_links(
-    rows: list[DownloadRow], data_root: Path, download_supplementary: bool
-) -> list[DownloadRow]:
+def enrich_with_supplementary_links(rows: list[DownloadRow], data_root: Path) -> list[DownloadRow]:
     enriched = list(rows)
     for row in rows:
         if row.asset_type != "supplementary_index":
@@ -290,12 +321,80 @@ def enrich_with_supplementary_links(
                 relative_path=relative_path,
                 status="planned_supplementary",
             )
-            if download_supplementary:
-                downloaded = download_rows([supp_row], data_root)
-                enriched.extend(downloaded)
-            else:
-                enriched.append(supp_row)
+            enriched.append(supp_row)
     return enriched
+
+
+def materialize_supplementary_rows(
+    rows: list[DownloadRow],
+    data_root: Path,
+    supplementary_max_bytes: int | None,
+) -> list[DownloadRow]:
+    materialized: list[DownloadRow] = []
+    for row in rows:
+        if row.status != "planned_supplementary":
+            materialized.append(row)
+            continue
+
+        dest = data_root / row.relative_path
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if dest.exists():
+            materialized.append(
+                DownloadRow(**{**asdict(row), "status": "exists", "detail": "already present"})
+            )
+            continue
+
+        if supplementary_max_bytes is None:
+            payload_status, payload, payload_detail = _safe_fetch(row.url)
+            if payload is None:
+                materialized.append(
+                    DownloadRow(
+                        **{
+                            **asdict(row),
+                            "status": payload_status,
+                            "detail": payload_detail,
+                        }
+                    )
+                )
+                continue
+            dest.write_bytes(payload)
+            materialized.append(
+                DownloadRow(**{**asdict(row), "status": "downloaded", "detail": f"{len(payload)} bytes"})
+            )
+            continue
+
+        status, size, detail = _safe_head_content_length(row.url)
+        if size is None:
+            materialized.append(DownloadRow(**{**asdict(row), "status": status, "detail": detail}))
+            continue
+        if size <= supplementary_max_bytes:
+            payload_status, payload, payload_detail = _safe_fetch(row.url)
+            if payload is None:
+                materialized.append(
+                    DownloadRow(
+                        **{
+                            **asdict(row),
+                            "status": payload_status,
+                            "detail": payload_detail,
+                        }
+                    )
+                )
+                continue
+            dest.write_bytes(payload)
+            materialized.append(
+                DownloadRow(**{**asdict(row), "status": "downloaded", "detail": f"{size} bytes"})
+            )
+        else:
+            materialized.append(
+                DownloadRow(
+                    **{
+                        **asdict(row),
+                        "status": "planned_supplementary",
+                        "detail": f"{size} bytes exceeds threshold {supplementary_max_bytes}",
+                    }
+                )
+            )
+    return materialized
 
 
 def parse_args() -> argparse.Namespace:
@@ -320,6 +419,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="After saving supplementary index pages, also fetch linked supplementary files.",
     )
+    parser.add_argument(
+        "--supplementary-max-bytes",
+        type=int,
+        default=None,
+        help="Only download supplementary files up to this byte threshold.",
+    )
     return parser.parse_args()
 
 
@@ -337,11 +442,13 @@ def main() -> None:
         return
 
     downloaded = download_rows(planned_rows, data_root)
-    enriched = enrich_with_supplementary_links(
-        downloaded,
-        data_root,
-        download_supplementary=args.download_supplementary,
-    )
+    enriched = enrich_with_supplementary_links(downloaded, data_root)
+    if args.download_supplementary:
+        enriched = materialize_supplementary_rows(
+            enriched,
+            data_root,
+            supplementary_max_bytes=args.supplementary_max_bytes,
+        )
     write_report(enriched, docs_dir)
 
 

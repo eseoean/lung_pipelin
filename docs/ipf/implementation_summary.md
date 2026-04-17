@@ -73,7 +73,9 @@ Current local download status:
 - `family.soft.gz` downloaded for all `5` GEO accessions
 - `series_matrix.txt.gz` downloaded for `4/5` accessions
 - `GSE47460_series_matrix.txt.gz` returned `HTTP 404`
-- Supplementary payload queue identified for `14` candidate GEO files
+- Small supplementary files downloaded for `7` assets
+- Large supplementary payload queue reduced to `5` files
+- One large payload `GSE32537_RAW.tar` is already present in the local raw-data folder from the first supplementary run
 
 The downloaded files currently live in the local ignored raw-data path:
 
@@ -106,14 +108,16 @@ These dry-run outputs confirm the intended IPF stage sequence:
 - `scripts/audit_ipf_sources.py --config configs/ipf.yaml`: passed
 - `make ipf-download-plan`: passed
 - `make ipf-download-geo`: passed
+- `make ipf-download-geo-small`: passed
 
 ## Next recommended steps
 
-1. Download the remaining supplementary payloads from `docs/ipf/ipf_geo_supplementary_queue.csv`
+1. Download the remaining large supplementary payloads from `docs/ipf/ipf_geo_supplementary_queue.csv`
 2. Promote the local GEO downloads into a stable shared raw-data location and update `configs/datasets_ipf.yaml` if the final landing path changes
-3. Replace dry-run placeholders with real builders for:
+3. Add dataset-specific unpack/parsing helpers for the downloaded GEO artifacts, especially the IPF scRNA cohorts
+4. Replace dry-run placeholders with real builders for:
    - bulk IPF signatures
    - scRNA cell-state references
    - pseudo-label generation
    - reversal and network scoring
-4. Add accession-aware validation once multiple IPF cohorts are ingested
+5. Add accession-aware validation once multiple IPF cohorts are ingested

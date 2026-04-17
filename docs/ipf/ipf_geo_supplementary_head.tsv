@@ -1,0 +1,15 @@
+accession	url	http_status	content_length	content_type
+GSE32537	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE32nnn/GSE32537/suppl/GSE32537_RAW.tar	HTTP/1.1 200 OK	844840960	application/x-tar
+GSE32537	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE32nnn/GSE32537/suppl/filelist.txt	HTTP/1.1 200 OK	13764	text/plain; charset=utf-8
+GSE47460	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE47nnn/GSE47460/suppl/GSE47460_RAW.tar	HTTP/1.1 200 OK	1760778240	application/x-tar
+GSE47460	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE47nnn/GSE47460/suppl/filelist.txt	HTTP/1.1 200 OK	41161	text/plain; charset=utf-8
+GSE122960	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/suppl/GSE122960_RAW.tar	HTTP/1.1 200 OK	755537920	application/x-tar
+GSE122960	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/suppl/filelist.txt	HTTP/1.1 200 OK	3041	text/plain; charset=utf-8
+GSE136831	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_AllCells.GeneIDs.txt.gz	HTTP/1.1 200 OK	323848	application/x-gzip
+GSE136831	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_AllCells.Samples.CellType.MetadataTable.txt.gz	HTTP/1.1 200 OK	4308752	application/x-gzip
+GSE136831	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_AllCells.cellBarcodes.txt.gz	HTTP/1.1 200 OK	1392307	application/x-gzip
+GSE136831	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_RAW.tar	HTTP/1.1 200 OK	17651281920	application/x-tar
+GSE136831	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_RawCounts_Sparse.mtx.gz	HTTP/1.1 200 OK	2150633813	application/x-gzip
+GSE136831	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/filelist.txt	HTTP/1.1 200 OK	7898	text/plain; charset=utf-8
+GSE233844	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE233nnn/GSE233844/suppl/GSE233844_RAW.tar	HTTP/1.1 200 OK	1108838400	application/x-tar
+GSE233844	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE233nnn/GSE233844/suppl/filelist.txt	HTTP/1.1 200 OK	7695	text/plain; charset=utf-8
