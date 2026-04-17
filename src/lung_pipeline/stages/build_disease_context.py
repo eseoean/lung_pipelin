@@ -19,6 +19,12 @@ from ..ipf_pbmc_validation import (
     build_gse233844_pbmc_sample_reference,
     default_gse233844_paths,
 )
+from ..ipf_bulk_geo import (
+    build_gse32537_bulk_reference,
+    build_gse47460_bulk_sample_reference,
+    default_gse32537_paths,
+    default_gse47460_paths,
+)
 from ..io import write_json
 from ..registry import dataset_buckets
 from ._common import build_stage_manifest, resolve_stage_inputs, resolve_stage_notes
@@ -58,6 +64,11 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     gse233844_series_matrix_path = gse233844_paths["series_matrix"]
     gse233844_filelist_path = gse233844_paths["filelist"]
     gse233844_raw_tar_path = gse233844_paths["raw_tar"]
+    gse32537_paths = default_gse32537_paths(root)
+    gse32537_series_matrix_path = gse32537_paths["series_matrix"]
+    gse32537_family_soft_path = gse32537_paths["family_soft"]
+    gse47460_paths = default_gse47460_paths(root)
+    gse47460_family_soft_path = gse47460_paths["family_soft"]
     stage_outputs = [
         resolve_repo_path(cfg, item)
         for item in cfg["stage_contracts"]["build_disease_context"]["outputs"]
@@ -287,6 +298,71 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         artifacts["gse233844_pbmc_expression_reference"] = {
             "source_accession": "GSE233844",
             "missing_inputs": missing_inputs,
+        }
+
+    if gse32537_series_matrix_path.exists() and gse32537_family_soft_path.exists():
+        gse32537_summary = build_gse32537_bulk_reference(
+            series_matrix_path=gse32537_series_matrix_path,
+            family_soft_path=gse32537_family_soft_path,
+            sample_reference_parquet=root / "data/processed/disease_context/ipf_gse32537_bulk_sample_reference.parquet",
+            sample_reference_csv=root / "docs/ipf/gse32537_bulk_sample_reference.csv",
+            expression_summary_parquet=root / "data/processed/disease_context/ipf_gse32537_bulk_expression_reference.parquet",
+            expression_summary_csv=root / "docs/ipf/gse32537_bulk_expression_reference.csv",
+            top_genes_csv=root / "docs/ipf/gse32537_bulk_ipf_vs_control_top_genes.csv",
+            summary_json=root / "docs/ipf/gse32537_bulk_reference_summary.json",
+        )
+        artifacts["gse32537_bulk_reference"] = {
+            "source_accession": "GSE32537",
+            "source_mode": "bulk_series_matrix_reference",
+            "sample_reference_parquet": str(
+                root / "data/processed/disease_context/ipf_gse32537_bulk_sample_reference.parquet"
+            ),
+            "sample_reference_csv": str(root / "docs/ipf/gse32537_bulk_sample_reference.csv"),
+            "expression_reference_parquet": str(
+                root / "data/processed/disease_context/ipf_gse32537_bulk_expression_reference.parquet"
+            ),
+            "expression_reference_csv": str(root / "docs/ipf/gse32537_bulk_expression_reference.csv"),
+            "top_genes_csv": str(root / "docs/ipf/gse32537_bulk_ipf_vs_control_top_genes.csv"),
+            "reference_summary": str(root / "docs/ipf/gse32537_bulk_reference_summary.json"),
+            "sample_count": gse32537_summary["sample_count"],
+            "ipf_sample_count": gse32537_summary["ipf_sample_count"],
+            "control_sample_count": gse32537_summary["control_sample_count"],
+        }
+    else:
+        missing_inputs = []
+        if not gse32537_series_matrix_path.exists():
+            missing_inputs.append(str(gse32537_series_matrix_path))
+        if not gse32537_family_soft_path.exists():
+            missing_inputs.append(str(gse32537_family_soft_path))
+        artifacts["gse32537_bulk_reference"] = {
+            "source_accession": "GSE32537",
+            "missing_inputs": missing_inputs,
+        }
+
+    if gse47460_family_soft_path.exists():
+        gse47460_summary = build_gse47460_bulk_sample_reference(
+            family_soft_path=gse47460_family_soft_path,
+            output_parquet=root / "data/processed/disease_context/ipf_gse47460_bulk_sample_reference.parquet",
+            output_csv=root / "docs/ipf/gse47460_bulk_sample_reference.csv",
+            summary_json=root / "docs/ipf/gse47460_bulk_sample_reference_summary.json",
+        )
+        artifacts["gse47460_bulk_sample_reference"] = {
+            "source_accession": "GSE47460",
+            "source_mode": "bulk_family_soft_metadata_reference",
+            "sample_reference_parquet": str(
+                root / "data/processed/disease_context/ipf_gse47460_bulk_sample_reference.parquet"
+            ),
+            "sample_reference_csv": str(root / "docs/ipf/gse47460_bulk_sample_reference.csv"),
+            "sample_reference_summary": str(
+                root / "docs/ipf/gse47460_bulk_sample_reference_summary.json"
+            ),
+            "sample_count": gse47460_summary["sample_count"],
+            "disease_bucket_distribution": gse47460_summary["disease_bucket_distribution"],
+        }
+    else:
+        artifacts["gse47460_bulk_sample_reference"] = {
+            "source_accession": "GSE47460",
+            "missing_inputs": [str(gse47460_family_soft_path)],
         }
 
     has_real_artifacts = any(

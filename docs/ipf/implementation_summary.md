@@ -259,6 +259,54 @@ Current `GSE233844` parser result:
 
 This gives the branch its first real external-validation scRNA signature set, extending disease-context artifacts beyond discovery cohorts into a progression-aware validation cohort.
 
+Using the downloaded `GSE32537` series matrix and platform table, the branch now also builds a bulk-lung discovery reference with a true `IPF vs Control` expression comparison.
+
+- Reviewable sample reference:
+  - [docs/ipf/gse32537_bulk_sample_reference.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse32537_bulk_sample_reference.csv)
+- Reviewable expression reference:
+  - [docs/ipf/gse32537_bulk_expression_reference.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse32537_bulk_expression_reference.csv)
+- Reviewable top genes:
+  - [docs/ipf/gse32537_bulk_ipf_vs_control_top_genes.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse32537_bulk_ipf_vs_control_top_genes.csv)
+- Summary:
+  - [docs/ipf/gse32537_bulk_reference_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse32537_bulk_reference_summary.json)
+
+Current `GSE32537` parser result:
+
+- accession: `GSE32537`
+- sample count: `217`
+- disease bucket distribution:
+  - `IPF 119`
+  - `Control 50`
+  - `Other-IIP 48`
+- matrix feature rows: `11,950`
+- gene-level rows: `10,992`
+- top gene rows exported: `200`
+
+This gives the branch its first real bulk-lung discovery signature and anchors the discovery axis to an interpretable `IPF vs Control` cohort instead of scRNA-only context.
+
+Using the downloaded `GSE47460` family soft, the branch now also builds a bulk-cohort metadata reference spanning control, COPD, IPF, and other ILD subjects.
+
+- Reviewable sample reference:
+  - [docs/ipf/gse47460_bulk_sample_reference.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse47460_bulk_sample_reference.csv)
+- Summary:
+  - [docs/ipf/gse47460_bulk_sample_reference_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse47460_bulk_sample_reference_summary.json)
+
+Current `GSE47460` parser result:
+
+- accession: `GSE47460`
+- sample count: `582`
+- disease state distribution:
+  - `Interstitial lung disease 254`
+  - `Chronic Obstructive Lung Disease 220`
+  - `Control 108`
+- disease bucket distribution:
+  - `COPD 220`
+  - `IPF 160`
+  - `Control 108`
+  - `Other-ILD 94`
+
+This gives the branch a second real bulk cohort reference and makes the disease-context stage span both discovery bulk cohorts and the scRNA/PBMC validation cohorts described in the planning page.
+
 ## Validation status
 
 - `make test`: passed

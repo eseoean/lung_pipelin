@@ -1,0 +1,17 @@
+{
+  "accession": "GSE47460",
+  "sample_count": 582,
+  "disease_state_distribution": {
+    "Interstitial lung disease": 254,
+    "Chronic Obstructive Lung Disease": 220,
+    "Control": 108
+  },
+  "disease_bucket_distribution": {
+    "COPD": 220,
+    "IPF": 160,
+    "Control": 108,
+    "Other-ILD": 94
+  },
+  "output_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_gse47460_bulk_sample_reference.parquet",
+  "output_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse47460_bulk_sample_reference.csv"
+}

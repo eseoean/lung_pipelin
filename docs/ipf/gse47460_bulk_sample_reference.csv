@@ -1,0 +1,583 @@
+accession,gsm_accession,sample_title,source_name,disease_state,ild_subtype,sex,age_years,smoker_status,fev1_pct_predicted_pre_bd,fvc_pct_predicted_pre_bd,dlco_pct_predicted,disease_bucket
+GSE47460,GSM1149948,LT000842RU_CTRL,Flash frozen whole lung,Control,,1-Male,75.0,2-Ever (>100),96.0,97.0,78.0,Control
+GSE47460,GSM1149949,LT001098RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,46.0,2-Ever (>100),24.0,73.0,34.0,COPD
+GSE47460,GSM1149950,LT001600RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,54.0,2-Ever (>100),40.0,39.0,16.0,IPF
+GSE47460,GSM1149951,LT001796RU_CTRL,Flash frozen whole lung,Control,,1-Male,48.0,2-Ever (>100),107.0,113.0,107.0,Control
+GSE47460,GSM1149952,LT004173LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,67.0,2-Ever (>100),26.0,21.0,17.0,IPF
+GSE47460,GSM1149953,LT007392RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,46.0,2-Ever (>100),46.0,76.0,45.0,COPD
+GSE47460,GSM1149954,LT009099RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,56.0,3-Never,88.0,79.0,102.0,COPD
+GSE47460,GSM1149955,LT009615LU_CTRL,Flash frozen whole lung,Control,,2-Female,49.0,2-Ever (>100),105.0,119.0,102.0,Control
+GSE47460,GSM1149956,LT010491LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,78.0,2-Ever (>100),73.0,82.0,66.0,COPD
+GSE47460,GSM1149957,LT013743LL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,65.0,2-Ever (>100),80.0,86.0,73.0,Other-ILD
+GSE47460,GSM1149958,LT022835RL_CTRL,Flash frozen whole lung,Control,,1-Male,62.0,,94.0,95.0,80.0,Control
+GSE47460,GSM1149959,LT024857LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,55.0,2-Ever (>100),94.0,94.0,58.0,IPF
+GSE47460,GSM1149960,LT024952RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,61.0,2-Ever (>100),16.0,47.0,,COPD
+GSE47460,GSM1149961,LT026458RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,73.0,,54.0,63.0,69.0,COPD
+GSE47460,GSM1149962,LT026501RL_CTRL,Flash frozen whole lung,Control,,2-Female,65.0,,109.0,108.0,,Control
+GSE47460,GSM1149963,LT028264RL_CTRL,Flash frozen whole lung,Control,,2-Female,63.0,1-Current,85.0,86.0,45.0,Control
+GSE47460,GSM1149964,LT032411RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,91.0,2-Ever (>100),102.0,111.0,76.0,COPD
+GSE47460,GSM1149965,LT032775RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,54.0,2-Ever (>100),33.0,62.0,46.0,COPD
+GSE47460,GSM1149966,LT037781RU_CTRL,Flash frozen whole lung,Control,,2-Female,73.0,3-Never,136.0,146.0,115.0,Control
+GSE47460,GSM1149967,LT038075LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,53.0,2-Ever (>100),108.0,108.0,103.0,COPD
+GSE47460,GSM1149968,LT038591LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,49.0,2-Ever (>100),22.0,62.0,,COPD
+GSE47460,GSM1149969,LT042988LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,56.0,2-Ever (>100),16.0,23.0,,COPD
+GSE47460,GSM1149970,LT045399RL_CTRL,Flash frozen whole lung,Control,,1-Male,69.0,3-Never,98.0,92.0,88.0,Control
+GSE47460,GSM1149971,LT045714LU_CTRL,Flash frozen whole lung,Control,,1-Male,82.0,2-Ever (>100),103.0,88.0,,Control
+GSE47460,GSM1149972,LT046103LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,61.0,2-Ever (>100),73.0,85.0,74.0,COPD
+GSE47460,GSM1149973,LT046180RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,56.0,2-Ever (>100),25.0,59.0,14.0,COPD
+GSE47460,GSM1149974,LT047521RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,68.0,3-Never,42.0,39.0,67.0,IPF
+GSE47460,GSM1149975,LT047679RL_CTRL,Flash frozen whole lung,Control,,2-Female,72.0,2-Ever (>100),106.0,103.0,,Control
+GSE47460,GSM1149976,LT048637LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,64.0,3-Never,47.0,39.0,35.0,IPF
+GSE47460,GSM1149977,LT049193LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,74.0,3-Never,104.0,89.0,57.0,IPF
+GSE47460,GSM1149978,LT050246RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,59.0,2-Ever (>100),18.0,49.0,27.0,COPD
+GSE47460,GSM1149979,LT051568RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,70.0,2-Ever (>100),44.0,55.0,103.0,COPD
+GSE47460,GSM1149980,LT051993RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,58.0,2-Ever (>100),28.0,79.0,41.0,COPD
+GSE47460,GSM1149981,LT052751LL_CTRL,Flash frozen whole lung,Control,,2-Female,82.0,2-Ever (>100),96.0,97.0,,Control
+GSE47460,GSM1149982,LT055841LL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),1-Male,61.0,2-Ever (>100),67.0,67.0,60.0,Other-ILD
+GSE47460,GSM1149983,LT056024RL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,66.0,2-Ever (>100),86.0,81.0,52.0,Other-ILD
+GSE47460,GSM1149984,LT056301LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,73.0,2-Ever (>100),83.0,72.0,56.0,IPF
+GSE47460,GSM1149985,LT056464LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,54.0,3-Never,40.0,39.0,25.0,IPF
+GSE47460,GSM1149986,LT056627RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,69.0,2-Ever (>100),25.0,51.0,56.0,COPD
+GSE47460,GSM1149987,LT058471RU_CTRL,Flash frozen whole lung,Control,,1-Male,68.0,2-Ever (>100),81.0,87.0,69.0,Control
+GSE47460,GSM1149988,LT058983RL_CTRL,Flash frozen whole lung,Control,,2-Female,56.0,3-Never,86.0,79.0,60.0,Control
+GSE47460,GSM1149989,LT059224RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,77.0,2-Ever (>100),113.0,98.0,73.0,COPD
+GSE47460,GSM1149990,LT059865RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,67.0,2-Ever (>100),35.0,77.0,30.0,COPD
+GSE47460,GSM1149991,LT060406RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,76.0,2-Ever (>100),60.0,81.0,62.0,COPD
+GSE47460,GSM1149992,LT061842RL_CTRL,Flash frozen whole lung,Control,,2-Female,73.0,2-Ever (>100),96.0,96.0,94.0,Control
+GSE47460,GSM1149993,LT063974LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,58.0,2-Ever (>100),42.0,38.0,26.0,IPF
+GSE47460,GSM1149994,LT066309LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,48.0,1-Current,79.0,75.0,62.0,IPF
+GSE47460,GSM1149995,LT070021RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,75.0,2-Ever (>100),49.0,69.0,68.0,COPD
+GSE47460,GSM1149996,LT071706RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,62.0,2-Ever (>100),46.0,40.0,11.0,IPF
+GSE47460,GSM1149997,LT072789RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,77.0,3-Never,91.0,69.0,40.0,IPF
+GSE47460,GSM1149998,LT073345RU_CTRL,Flash frozen whole lung,Control,,1-Male,74.0,3-Never,87.0,89.0,90.0,Control
+GSE47460,GSM1149999,LT073436LU_CTRL,Flash frozen whole lung,Control,,1-Male,59.0,2-Ever (>100),81.0,79.0,108.0,Control
+GSE47460,GSM1150000,LT075917RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,42.0,2-Ever (>100),24.0,37.0,31.0,COPD
+GSE47460,GSM1150001,LT077355RU_CTRL,Flash frozen whole lung,Control,,1-Male,60.0,3-Never,98.0,90.0,83.0,Control
+GSE47460,GSM1150002,LT079013RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,46.0,2-Ever (>100),23.0,43.0,34.0,COPD
+GSE47460,GSM1150003,LT081077RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,69.0,2-Ever (>100),67.0,93.0,96.0,COPD
+GSE47460,GSM1150004,LT083491LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,56.0,3-Never,85.0,81.0,55.0,IPF
+GSE47460,GSM1150005,LT084831RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,48.0,2-Ever (>100),57.0,69.0,49.0,COPD
+GSE47460,GSM1150006,LT085240RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,55.0,2-Ever (>100),22.0,48.0,26.0,COPD
+GSE47460,GSM1150007,LT086542RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,81.0,2-Ever (>100),70.0,82.0,88.0,COPD
+GSE47460,GSM1150008,LT089958RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,69.0,2-Ever (>100),81.0,78.0,,IPF
+GSE47460,GSM1150009,LT090283LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,62.0,2-Ever (>100),88.0,76.0,59.0,IPF
+GSE47460,GSM1150010,LT092669LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,70.0,2-Ever (>100),93.0,75.0,38.0,IPF
+GSE47460,GSM1150011,LT093665LI_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,64.0,3-Never,105.0,96.0,62.0,IPF
+GSE47460,GSM1150012,LT095376RL_CTRL,Flash frozen whole lung,Control,,2-Female,49.0,2-Ever (>100),86.0,83.0,100.0,Control
+GSE47460,GSM1150013,LT096554LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,57.0,,76.0,91.0,,COPD
+GSE47460,GSM1150014,LT097622RU_CTRL,Flash frozen whole lung,Control,,1-Male,65.0,2-Ever (>100),93.0,94.0,78.0,Control
+GSE47460,GSM1150015,LT100654RL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),1-Male,52.0,2-Ever (>100),60.0,56.0,55.0,Other-ILD
+GSE47460,GSM1150016,LT100984RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,72.0,2-Ever (>100),34.0,43.0,86.0,COPD
+GSE47460,GSM1150017,LT104535RL_CTRL,Flash frozen whole lung,Control,,1-Male,72.0,3-Never,132.0,142.0,103.0,Control
+GSE47460,GSM1150018,LT104717LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,37.0,2-Ever (>100),39.0,37.0,16.0,IPF
+GSE47460,GSM1150019,LT105618RL_ILD,Flash frozen whole lung,Interstitial lung disease,4-Desquamative interstitial pneumonia (DIP),2-Female,46.0,1-Current,57.0,57.0,46.0,Other-ILD
+GSE47460,GSM1150020,LT106557LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,56.0,2-Ever (>100),26.0,68.0,32.0,COPD
+GSE47460,GSM1150021,LT106561LL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,1-Male,57.0,2-Ever (>100),70.0,70.0,30.0,Other-ILD
+GSE47460,GSM1150022,LT106997RU_CTRL,Flash frozen whole lung,Control,,2-Female,71.0,3-Never,104.0,97.0,108.0,Control
+GSE47460,GSM1150023,LT107185RU_ILD,Flash frozen whole lung,Interstitial lung disease,7-Cryptogenic Organizing Pneumonia (COP),2-Female,50.0,,103.0,105.0,108.0,Other-ILD
+GSE47460,GSM1150024,LT109321RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,65.0,2-Ever (>100),81.0,72.0,66.0,IPF
+GSE47460,GSM1150025,LT110408RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,68.0,2-Ever (>100),21.0,70.0,31.0,COPD
+GSE47460,GSM1150026,LT111701RL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,28.0,3-Never,26.0,24.0,,Other-ILD
+GSE47460,GSM1150027,LT112339LI_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,65.0,1-Current,74.0,90.0,79.0,COPD
+GSE47460,GSM1150028,LT112491RM_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,60.0,2-Ever (>100),80.0,79.0,26.0,IPF
+GSE47460,GSM1150029,LT113077LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,66.0,2-Ever (>100),64.0,74.0,68.0,COPD
+GSE47460,GSM1150030,LT113211RL_CTRL,Flash frozen whole lung,Control,,2-Female,46.0,2-Ever (>100),82.0,85.0,81.0,Control
+GSE47460,GSM1150031,LT115873LU_CTRL,Flash frozen whole lung,Control,,1-Male,58.0,2-Ever (>100),99.0,89.0,78.0,Control
+GSE47460,GSM1150032,LT117785RL_CTRL,Flash frozen whole lung,Control,,2-Female,62.0,2-Ever (>100),109.0,109.0,85.0,Control
+GSE47460,GSM1150033,LT118098LU_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),2-Female,32.0,1-Current,81.0,93.0,60.0,Other-ILD
+GSE47460,GSM1150034,LT118519RL_ILD,Flash frozen whole lung,Interstitial lung disease,4-Desquamative interstitial pneumonia (DIP),1-Male,55.0,2-Ever (>100),76.0,67.0,,Other-ILD
+GSE47460,GSM1150035,LT119300LU_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",2-Female,54.0,2-Ever (>100),95.0,100.0,41.0,Other-ILD
+GSE47460,GSM1150036,LT121014LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,60.0,3-Never,78.0,66.0,34.0,IPF
+GSE47460,GSM1150037,LT121655RL_CTRL,Flash frozen whole lung,Control,,2-Female,82.0,2-Ever (>100),97.0,82.0,79.0,Control
+GSE47460,GSM1150038,LT121841RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,63.0,2-Ever (>100),76.0,119.0,98.0,COPD
+GSE47460,GSM1150039,LT121928RL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,53.0,3-Never,29.0,27.0,,Other-ILD
+GSE47460,GSM1150040,LT122283RM_CTRL,Flash frozen whole lung,Control,,2-Female,52.0,3-Never,104.0,103.0,100.0,Control
+GSE47460,GSM1150041,LT122757RU_CTRL,Flash frozen whole lung,Control,,2-Female,52.0,,83.0,91.0,,Control
+GSE47460,GSM1150042,LT123313RM_CTRL,Flash frozen whole lung,Control,,2-Female,56.0,3-Never,106.0,98.0,88.0,Control
+GSE47460,GSM1150043,LT123457RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,65.0,2-Ever (>100),93.0,104.0,74.0,COPD
+GSE47460,GSM1150044,LT125775RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,58.0,2-Ever (>100),73.0,85.0,57.0,COPD
+GSE47460,GSM1150045,LT126293RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,57.0,2-Ever (>100),84.0,100.0,72.0,COPD
+GSE47460,GSM1150046,LT126571RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,44.0,2-Ever (>100),40.0,13.0,52.0,COPD
+GSE47460,GSM1150047,LT127070RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,69.0,2-Ever (>100),52.0,64.0,67.0,COPD
+GSE47460,GSM1150048,LT128262RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,68.0,2-Ever (>100),75.0,67.0,56.0,IPF
+GSE47460,GSM1150049,LT130350RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,51.0,3-Never,20.0,44.0,43.0,COPD
+GSE47460,GSM1150050,LT131432RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,68.0,2-Ever (>100),70.0,81.0,61.0,COPD
+GSE47460,GSM1150051,LT131887LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,55.0,2-Ever (>100),51.0,44.0,29.0,IPF
+GSE47460,GSM1150052,LT132625RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,63.0,2-Ever (>100),24.0,64.0,17.0,COPD
+GSE47460,GSM1150053,LT132955RU_CTRL,Flash frozen whole lung,Control,,1-Male,63.0,2-Ever (>100),102.0,93.0,144.0,Control
+GSE47460,GSM1150054,LT133029RM_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,71.0,2-Ever (>100),86.0,76.0,51.0,IPF
+GSE47460,GSM1150055,LT136731LU_CTRL,Flash frozen whole lung,Control,,1-Male,58.0,2-Ever (>100),100.0,100.0,78.0,Control
+GSE47460,GSM1150056,LT137431RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,53.0,2-Ever (>100),57.0,53.0,22.0,IPF
+GSE47460,GSM1150057,LT139008LU_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",2-Female,41.0,3-Never,82.0,80.0,66.0,Other-ILD
+GSE47460,GSM1150058,LT142933RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,71.0,2-Ever (>100),71.0,62.0,39.0,IPF
+GSE47460,GSM1150059,LT144462RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,73.0,2-Ever (>100),69.0,87.0,64.0,COPD
+GSE47460,GSM1150060,LT145086RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,56.0,2-Ever (>100),21.0,52.0,,COPD
+GSE47460,GSM1150061,LT145162RM_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,74.0,2-Ever (>100),55.0,77.0,52.0,COPD
+GSE47460,GSM1150062,LT147658RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,57.0,2-Ever (>100),24.0,61.0,36.0,COPD
+GSE47460,GSM1150063,LT150340LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,54.0,1-Current,51.0,76.0,35.0,COPD
+GSE47460,GSM1150064,LT150981RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,57.0,2-Ever (>100),62.0,70.0,69.0,COPD
+GSE47460,GSM1150065,LT152979LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,61.0,2-Ever (>100),51.0,98.0,47.0,COPD
+GSE47460,GSM1150066,LT154455RU_ILD,Flash frozen whole lung,Interstitial lung disease,10-Fibrosis-Uncharacterized,2-Female,58.0,2-Ever (>100),88.0,82.0,34.0,Other-ILD
+GSE47460,GSM1150067,LT157253RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,70.0,2-Ever (>100),63.0,54.0,41.0,IPF
+GSE47460,GSM1150068,LT159457LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,72.0,2-Ever (>100),77.0,62.0,36.0,IPF
+GSE47460,GSM1150069,LT160089RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,72.0,3-Never,85.0,102.0,71.0,COPD
+GSE47460,GSM1150070,LT160423LL_CTRL,Flash frozen whole lung,Control,,2-Female,32.0,3-Never,84.0,98.0,63.0,Control
+GSE47460,GSM1150071,LT161707RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,70.0,2-Ever (>100),26.0,64.0,34.0,COPD
+GSE47460,GSM1150072,LT163657RL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,2-Female,49.0,2-Ever (>100),52.0,51.0,43.0,Other-ILD
+GSE47460,GSM1150073,LT166493RM_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,74.0,2-Ever (>100),87.0,73.0,68.0,IPF
+GSE47460,GSM1150074,LT166565RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,66.0,2-Ever (>100),19.0,45.0,22.0,COPD
+GSE47460,GSM1150075,LT167208LL_CTRL,Flash frozen whole lung,Control,,2-Female,80.0,3-Never,117.0,116.0,93.0,Control
+GSE47460,GSM1150076,LT168219RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,76.0,2-Ever (>100),65.0,53.0,47.0,IPF
+GSE47460,GSM1150077,LT169564RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,59.0,2-Ever (>100),92.0,101.0,112.0,COPD
+GSE47460,GSM1150078,LT171169LU_CTRL,Flash frozen whole lung,Control,,2-Female,64.0,,87.0,86.0,,Control
+GSE47460,GSM1150079,LT171905RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,59.0,3-Never,105.0,93.0,64.0,IPF
+GSE47460,GSM1150080,LT172184LU_CTRL,Flash frozen whole lung,Control,,1-Male,73.0,2-Ever (>100),91.0,90.0,85.0,Control
+GSE47460,GSM1150081,LT174005RL_CTRL,Flash frozen whole lung,Control,,2-Female,44.0,,83.0,88.0,88.0,Control
+GSE47460,GSM1150082,LT174536LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,48.0,2-Ever (>100),53.0,75.0,64.0,COPD
+GSE47460,GSM1150083,LT178986RU_CTRL,Flash frozen whole lung,Control,,2-Female,71.0,2-Ever (>100),83.0,84.0,,Control
+GSE47460,GSM1150084,LT180758RM_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,58.0,2-Ever (>100),82.0,86.0,58.0,IPF
+GSE47460,GSM1150085,LT181242RM_CTRL,Flash frozen whole lung,Control,,1-Male,53.0,,73.0,94.0,62.0,Control
+GSE47460,GSM1150086,LT184347RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,82.0,2-Ever (>100),57.0,90.0,61.0,COPD
+GSE47460,GSM1150087,LT185066RL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,1-Male,40.0,,32.0,28.0,,Other-ILD
+GSE47460,GSM1150088,LT185119LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,61.0,2-Ever (>100),71.0,70.0,36.0,IPF
+GSE47460,GSM1150089,LT187987LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,72.0,3-Never,58.0,52.0,43.0,IPF
+GSE47460,GSM1150090,LT188012RL_CTRL,Flash frozen whole lung,Control,,2-Female,57.0,3-Never,85.0,92.0,91.0,Control
+GSE47460,GSM1150091,LT188510RM_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,32.0,3-Never,65.0,66.0,65.0,Other-ILD
+GSE47460,GSM1150092,LT191020LI_CTRL,Flash frozen whole lung,Control,,2-Female,56.0,2-Ever (>100),101.0,60.0,,Control
+GSE47460,GSM1150093,LT193936RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,67.0,,40.0,78.0,86.0,COPD
+GSE47460,GSM1150094,LT195192RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,57.0,2-Ever (>100),42.0,40.0,20.0,IPF
+GSE47460,GSM1150095,LT200251RU_CTRL,Flash frozen whole lung,Control,,1-Male,78.0,2-Ever (>100),95.0,95.0,,Control
+GSE47460,GSM1150096,LT203006LL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,73.0,3-Never,67.0,56.0,39.0,Other-ILD
+GSE47460,GSM1150097,LT203431RL_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",2-Female,49.0,2-Ever (>100),72.0,73.0,76.0,Other-ILD
+GSE47460,GSM1150098,LT203446LL_ILD,Flash frozen whole lung,Interstitial lung disease,10-Fibrosis-Uncharacterized,2-Female,35.0,3-Never,68.0,64.0,62.0,Other-ILD
+GSE47460,GSM1150099,LT204017RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,62.0,1-Current,36.0,48.0,45.0,COPD
+GSE47460,GSM1150100,LT205601LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,56.0,2-Ever (>100),58.0,51.0,39.0,IPF
+GSE47460,GSM1150101,LT205707LL_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),2-Female,44.0,2-Ever (>100),73.0,76.0,52.0,Other-ILD
+GSE47460,GSM1150102,LT206010LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,74.0,2-Ever (>100),63.0,65.0,67.0,COPD
+GSE47460,GSM1150103,LT211015LL_ILD,Flash frozen whole lung,Interstitial lung disease,10-Fibrosis-Uncharacterized,2-Female,26.0,3-Never,30.0,25.0,,Other-ILD
+GSE47460,GSM1150104,LT211455LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,64.0,3-Never,82.0,72.0,67.0,IPF
+GSE47460,GSM1150105,LT211728RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,79.0,2-Ever (>100),69.0,83.0,,COPD
+GSE47460,GSM1150106,LT217339RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,73.0,3-Never,74.0,60.0,34.0,IPF
+GSE47460,GSM1150107,LT218627LL_CTRL,Flash frozen whole lung,Control,,1-Male,80.0,2-Ever (>100),94.0,94.0,70.0,Control
+GSE47460,GSM1150108,LT219681RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,62.0,3-Never,36.0,43.0,30.0,IPF
+GSE47460,GSM1150109,LT220547RL_CTRL,Flash frozen whole lung,Control,,2-Female,45.0,3-Never,88.0,93.0,88.0,Control
+GSE47460,GSM1150110,LT222702LL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,59.0,2-Ever (>100),73.0,68.0,42.0,Other-ILD
+GSE47460,GSM1150111,LT230142RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,72.0,2-Ever (>100),78.0,72.0,41.0,IPF
+GSE47460,GSM1150112,LT230267RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,55.0,2-Ever (>100),13.0,53.0,25.0,COPD
+GSE47460,GSM1150113,LT230291LL_CTRL,Flash frozen whole lung,Control,,2-Female,65.0,3-Never,100.0,103.0,81.0,Control
+GSE47460,GSM1150114,LT230453LU_CTRL,Flash frozen whole lung,Control,,1-Male,64.0,2-Ever (>100),91.0,88.0,,Control
+GSE47460,GSM1150115,LT230745RM_CTRL,Flash frozen whole lung,Control,,2-Female,53.0,3-Never,78.0,79.0,84.0,Control
+GSE47460,GSM1150116,LT235584RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,60.0,2-Ever (>100),19.0,63.0,35.0,COPD
+GSE47460,GSM1150117,LT242420LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,63.0,2-Ever (>100),14.0,59.0,24.0,COPD
+GSE47460,GSM1150118,LT250549RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,61.0,3-Never,54.0,43.0,23.0,IPF
+GSE47460,GSM1150119,LT258372RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,64.0,2-Ever (>100),55.0,48.0,,IPF
+GSE47460,GSM1150120,LT262496LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,59.0,2-Ever (>100),16.0,35.0,,COPD
+GSE47460,GSM1150121,LT263234RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,58.0,3-Never,43.0,40.0,22.0,IPF
+GSE47460,GSM1150122,LT264690LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,65.0,2-Ever (>100),81.0,82.0,27.0,IPF
+GSE47460,GSM1150123,LT265199LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,75.0,2-Ever (>100),44.0,71.0,75.0,COPD
+GSE47460,GSM1150124,LT265662LU_CTRL,Flash frozen whole lung,Control,,1-Male,68.0,3-Never,115.0,112.0,128.0,Control
+GSE47460,GSM1150125,LT269381RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,50.0,3-Never,54.0,56.0,46.0,IPF
+GSE47460,GSM1150126,LT271679LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,70.0,2-Ever (>100),35.0,39.0,44.0,COPD
+GSE47460,GSM1150127,LT271851LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,77.0,2-Ever (>100),68.0,106.0,58.0,COPD
+GSE47460,GSM1150128,LT272570RL_CTRL,Flash frozen whole lung,Control,,1-Male,44.0,3-Never,104.0,96.0,87.0,Control
+GSE47460,GSM1150129,LT274443LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,58.0,2-Ever (>100),36.0,71.0,27.0,COPD
+GSE47460,GSM1150130,LT275526RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,49.0,2-Ever (>100),49.0,48.0,,IPF
+GSE47460,GSM1150131,LT277036RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,50.0,2-Ever (>100),17.0,51.0,57.0,COPD
+GSE47460,GSM1150132,LT277772LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,61.0,3-Never,41.0,32.0,,IPF
+GSE47460,GSM1150133,LT282031RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,72.0,2-Ever (>100),32.0,80.0,42.0,COPD
+GSE47460,GSM1150134,LT282467LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,59.0,2-Ever (>100),36.0,71.0,78.0,COPD
+GSE47460,GSM1150135,LT282562RM_CTRL,Flash frozen whole lung,Control,,1-Male,71.0,2-Ever (>100),99.0,102.0,65.0,Control
+GSE47460,GSM1150136,LT284144LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,60.0,2-Ever (>100),58.0,114.0,13.0,COPD
+GSE47460,GSM1150137,LT290165RU_CTRL,Flash frozen whole lung,Control,,1-Male,67.0,2-Ever (>100),113.0,104.0,96.0,Control
+GSE47460,GSM1150138,LT291578RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,53.0,2-Ever (>100),19.0,78.0,16.0,COPD
+GSE47460,GSM1150139,LT291673RM_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,79.0,2-Ever (>100),42.0,49.0,95.0,COPD
+GSE47460,GSM1150140,LT294945LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,52.0,2-Ever (>100),15.0,21.0,,COPD
+GSE47460,GSM1150141,LT295167LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,49.0,2-Ever (>100),27.0,77.0,,COPD
+GSE47460,GSM1150142,LT296771LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,62.0,2-Ever (>100),50.0,49.0,15.0,IPF
+GSE47460,GSM1150143,LT003990RU_CTRL,Flash frozen whole lung,Control,,1-Male,59.0,2-Ever (>100),77.0,76.0,78.0,Control
+GSE47460,GSM1150144,LT010012LU_CTRL,Flash frozen whole lung,Control,,2-Female,61.0,,82.0,84.0,66.0,Control
+GSE47460,GSM1150145,LT012861RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,51.0,2-Ever (>100),22.0,52.0,33.0,COPD
+GSE47460,GSM1150146,LT023631RU_CTRL,Flash frozen whole lung,Control,,2-Female,49.0,2-Ever (>100),97.0,93.0,63.0,Control
+GSE47460,GSM1150147,LT030041RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,64.0,2-Ever (>100),77.0,105.0,77.0,COPD
+GSE47460,GSM1150148,LT044225RL_CTRL,Flash frozen whole lung,Control,,1-Male,60.0,2-Ever (>100),96.0,98.0,102.0,Control
+GSE47460,GSM1150149,LT046027RL_CTRL,Flash frozen whole lung,Control,,1-Male,77.0,,80.0,77.0,84.0,Control
+GSE47460,GSM1150150,LT055745RU_CTRL,Flash frozen whole lung,Control,,1-Male,65.0,2-Ever (>100),85.0,93.0,81.0,Control
+GSE47460,GSM1150151,LT058156LU_CTRL,Flash frozen whole lung,Control,,2-Female,65.0,2-Ever (>100),97.0,109.0,80.0,Control
+GSE47460,GSM1150152,LT075094LU_CTRL,Flash frozen whole lung,Control,,2-Female,67.0,2-Ever (>100),97.0,96.0,66.0,Control
+GSE47460,GSM1150153,LT077800RU_CTRL,Flash frozen whole lung,Control,,2-Female,77.0,3-Never,84.0,88.0,74.0,Control
+GSE47460,GSM1150154,LT089451RU_CTRL,Flash frozen whole lung,Control,,1-Male,46.0,,101.0,96.0,117.0,Control
+GSE47460,GSM1150155,LT109097LL_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",1-Male,49.0,3-Never,43.0,44.0,34.0,Other-ILD
+GSE47460,GSM1150156,LT115840LL_CTRL,Flash frozen whole lung,Control,,2-Female,63.0,2-Ever (>100),108.0,104.0,86.0,Control
+GSE47460,GSM1150157,LT120371LL_CTRL,Flash frozen whole lung,Control,,1-Male,60.0,2-Ever (>100),86.0,79.0,70.0,Control
+GSE47460,GSM1150158,LT132314LI_CTRL,Flash frozen whole lung,Control,,1-Male,60.0,2-Ever (>100),94.0,94.0,104.0,Control
+GSE47460,GSM1150159,LT141224LL_CTRL,Flash frozen whole lung,Control,,2-Female,79.0,3-Never,106.0,93.0,75.0,Control
+GSE47460,GSM1150160,LT141870LU_CTRL,Flash frozen whole lung,Control,,1-Male,64.0,2-Ever (>100),75.0,83.0,65.0,Control
+GSE47460,GSM1150161,LT148286LL_CTRL,Flash frozen whole lung,Control,,1-Male,74.0,2-Ever (>100),83.0,80.0,58.0,Control
+GSE47460,GSM1150162,LT155982RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,48.0,2-Ever (>100),20.0,32.0,31.0,COPD
+GSE47460,GSM1150163,LT158011LL_ILD,Flash frozen whole lung,Interstitial lung disease,4-Desquamative interstitial pneumonia (DIP),1-Male,47.0,3-Never,78.0,72.0,58.0,Other-ILD
+GSE47460,GSM1150164,LT159988RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,60.0,2-Ever (>100),16.0,58.0,26.0,COPD
+GSE47460,GSM1150165,LT163513RL_CTRL,Flash frozen whole lung,Control,,2-Female,47.0,3-Never,98.0,85.0,104.0,Control
+GSE47460,GSM1150166,LT168204LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,73.0,3-Never,118.0,92.0,54.0,COPD
+GSE47460,GSM1150167,LT177521RU_CTRL,Flash frozen whole lung,Control,,1-Male,60.0,2-Ever (>100),88.0,85.0,79.0,Control
+GSE47460,GSM1150168,LT178307RU_CTRL,Flash frozen whole lung,Control,,1-Male,57.0,3-Never,84.0,73.0,88.0,Control
+GSE47460,GSM1150169,LT188161LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,62.0,2-Ever (>100),,,,IPF
+GSE47460,GSM1150170,LT194990RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,63.0,2-Ever (>100),16.0,50.0,,COPD
+GSE47460,GSM1150171,LT198741LU_CTRL,Flash frozen whole lung,Control,,2-Female,55.0,2-Ever (>100),89.0,103.0,92.0,Control
+GSE47460,GSM1150172,LT231101RL_ILD,Flash frozen whole lung,Interstitial lung disease,4-Desquamative interstitial pneumonia (DIP),2-Female,41.0,1-Current,72.0,78.0,,Other-ILD
+GSE47460,GSM1150173,LT231373LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,67.0,3-Never,75.0,60.0,41.0,IPF
+GSE47460,GSM1150174,LT280560LU_CTRL,Flash frozen whole lung,Control,,1-Male,86.0,2-Ever (>100),87.0,79.0,81.0,Control
+GSE47460,GSM1150175,LT280646RU_CTRL,Flash frozen whole lung,Control,,1-Male,87.0,2-Ever (>100),129.0,122.0,,Control
+GSE47460,GSM1150176,LT286300LU_CTRL,Flash frozen whole lung,Control,,1-Male,45.0,2-Ever (>100),89.0,86.0,71.0,Control
+GSE47460,GSM1150177,LT295133LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,57.0,3-Never,63.0,58.0,60.0,IPF
+GSE47460,GSM1150178,LT002501RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,65.0,2-Ever (>100),46.0,74.0,36.0,COPD
+GSE47460,GSM1150179,LT002902RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,63.0,3-Never,70.0,69.0,61.0,IPF
+GSE47460,GSM1150180,LT007259RU_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),1-Male,52.0,3-Never,66.0,91.0,,Other-ILD
+GSE47460,GSM1150181,LT008331RL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,1-Male,65.0,2-Ever (>100),95.0,92.0,75.0,Other-ILD
+GSE47460,GSM1150182,LT017275LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,71.0,2-Ever (>100),31.0,67.0,50.0,COPD
+GSE47460,GSM1150183,LT020259LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,43.0,2-Ever (>100),65.0,69.0,92.0,IPF
+GSE47460,GSM1150184,LT020426LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,62.0,2-Ever (>100),46.0,56.0,82.0,COPD
+GSE47460,GSM1150185,LT024106RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,61.0,2-Ever (>100),67.0,68.0,,COPD
+GSE47460,GSM1150186,LT024460RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,63.0,2-Ever (>100),73.0,88.0,77.0,COPD
+GSE47460,GSM1150187,LT025997RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,67.0,2-Ever (>100),76.0,88.0,20.0,COPD
+GSE47460,GSM1150188,LT028044RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,77.0,2-Ever (>100),35.0,73.0,,COPD
+GSE47460,GSM1150189,LT028427LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,64.0,2-Ever (>100),27.0,73.0,31.0,COPD
+GSE47460,GSM1150190,LT030151RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,71.0,1-Current,60.0,98.0,48.0,COPD
+GSE47460,GSM1150191,LT033422RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,64.0,2-Ever (>100),93.0,84.0,71.0,IPF
+GSE47460,GSM1150192,LT034070LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,73.0,2-Ever (>100),53.0,86.0,48.0,COPD
+GSE47460,GSM1150193,LT034821RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,77.0,2-Ever (>100),33.0,72.0,35.0,COPD
+GSE47460,GSM1150194,LT035239LU_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),1-Male,58.0,2-Ever (>100),73.0,67.0,58.0,Other-ILD
+GSE47460,GSM1150195,LT035774RL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,38.0,3-Never,71.0,68.0,47.0,Other-ILD
+GSE47460,GSM1150196,LT039091RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,62.0,2-Ever (>100),85.0,74.0,33.0,IPF
+GSE47460,GSM1150197,LT041723RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,54.0,2-Ever (>100),101.0,82.0,65.0,IPF
+GSE47460,GSM1150198,LT042151RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,69.0,3-Never,94.0,91.0,72.0,IPF
+GSE47460,GSM1150199,LT042552RL_ILD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,68.0,2-Ever (>100),60.0,70.0,43.0,COPD
+GSE47460,GSM1150200,LT043343LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,75.0,2-Ever (>100),75.0,83.0,82.0,COPD
+GSE47460,GSM1150201,LT043798LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,59.0,2-Ever (>100),61.0,76.0,61.0,COPD
+GSE47460,GSM1150202,LT057312LU_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,2-Female,53.0,2-Ever (>100),70.0,65.0,,Other-ILD
+GSE47460,GSM1150203,LT057972LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,66.0,2-Ever (>100),59.0,86.0,38.0,COPD
+GSE47460,GSM1150204,LT058691LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,69.0,2-Ever (>100),22.0,50.0,22.0,COPD
+GSE47460,GSM1150205,LT059736LU_ILD,Flash frozen whole lung,Interstitial lung disease,10-Fibrosis-Uncharacterized,1-Male,74.0,2-Ever (>100),77.0,83.0,57.0,Other-ILD
+GSE47460,GSM1150206,LT059975LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,60.0,2-Ever (>100),43.0,78.0,,COPD
+GSE47460,GSM1150207,LT061106RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,62.0,3-Never,75.0,67.0,92.0,IPF
+GSE47460,GSM1150208,LT062141RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,72.0,2-Ever (>100),83.0,87.0,59.0,IPF
+GSE47460,GSM1150209,LT067836RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,69.0,3-Never,42.0,37.0,26.0,IPF
+GSE47460,GSM1150210,LT070403LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,69.0,2-Ever (>100),48.0,79.0,66.0,COPD
+GSE47460,GSM1150211,LT072387LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,54.0,2-Ever (>100),25.0,50.0,39.0,COPD
+GSE47460,GSM1150212,LT072808RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,78.0,1-Current,52.0,65.0,48.0,COPD
+GSE47460,GSM1150213,LT075462RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,71.0,2-Ever (>100),37.0,59.0,57.0,COPD
+GSE47460,GSM1150214,LT076181LI_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,48.0,2-Ever (>100),,,86.0,COPD
+GSE47460,GSM1150215,LT076617LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,60.0,3-Never,78.0,91.0,108.0,COPD
+GSE47460,GSM1150216,LT077082RU_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),1-Male,39.0,2-Ever (>100),92.0,94.0,77.0,Other-ILD
+GSE47460,GSM1150217,LT077317LI_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,1-Male,53.0,2-Ever (>100),85.0,103.0,,Other-ILD
+GSE47460,GSM1150218,LT078404RM_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),1-Male,46.0,2-Ever (>100),64.0,62.0,45.0,Other-ILD
+GSE47460,GSM1150219,LT078696LU_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),1-Male,56.0,,,,,Other-ILD
+GSE47460,GSM1150220,LT080176RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,74.0,3-Never,55.0,76.0,58.0,COPD
+GSE47460,GSM1150221,LT080836RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,65.0,2-Ever (>100),69.0,54.0,56.0,IPF
+GSE47460,GSM1150222,LT082092RU_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,2-Female,47.0,2-Ever (>100),65.0,64.0,57.0,Other-ILD
+GSE47460,GSM1150223,LT083706RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,62.0,2-Ever (>100),92.0,90.0,77.0,COPD
+GSE47460,GSM1150224,LT083759RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,73.0,2-Ever (>100),69.0,100.0,53.0,COPD
+GSE47460,GSM1150225,LT084406RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,68.0,2-Ever (>100),49.0,61.0,71.0,COPD
+GSE47460,GSM1150226,LT084808LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,67.0,1-Current,63.0,94.0,54.0,COPD
+GSE47460,GSM1150227,LT087663RL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),1-Male,60.0,2-Ever (>100),73.0,63.0,45.0,Other-ILD
+GSE47460,GSM1150228,LT089723LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,74.0,2-Ever (>100),51.0,64.0,55.0,COPD
+GSE47460,GSM1150229,LT094217RM_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,69.0,2-Ever (>100),44.0,44.0,72.0,IPF
+GSE47460,GSM1150230,LT094532RL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,52.0,3-Never,73.0,73.0,68.0,Other-ILD
+GSE47460,GSM1150231,LT098394RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,62.0,,33.0,27.0,,IPF
+GSE47460,GSM1150232,LT100707RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,68.0,3-Never,89.0,87.0,60.0,IPF
+GSE47460,GSM1150233,LT103266RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,68.0,2-Ever (>100),66.0,63.0,67.0,IPF
+GSE47460,GSM1150234,LT109231RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,78.0,3-Never,66.0,81.0,77.0,COPD
+GSE47460,GSM1150235,LT111643RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,75.0,2-Ever (>100),34.0,80.0,,COPD
+GSE47460,GSM1150236,LT112563LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,73.0,2-Ever (>100),82.0,95.0,91.0,COPD
+GSE47460,GSM1150237,LT112597RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,69.0,2-Ever (>100),62.0,72.0,70.0,COPD
+GSE47460,GSM1150238,LT113005RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,71.0,2-Ever (>100),66.0,81.0,30.0,COPD
+GSE47460,GSM1150239,LT115251RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,61.0,2-Ever (>100),60.0,70.0,80.0,COPD
+GSE47460,GSM1150240,LT118064RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,64.0,1-Current,59.0,78.0,55.0,COPD
+GSE47460,GSM1150241,LT118801RL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,66.0,2-Ever (>100),39.0,38.0,38.0,Other-ILD
+GSE47460,GSM1150242,LT122336LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,66.0,2-Ever (>100),50.0,69.0,77.0,COPD
+GSE47460,GSM1150243,LT126327LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,81.0,2-Ever (>100),73.0,121.0,91.0,COPD
+GSE47460,GSM1150244,LT130861RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,68.0,2-Ever (>100),68.0,58.0,68.0,IPF
+GSE47460,GSM1150245,LT134279LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,59.0,3-Never,75.0,69.0,95.0,IPF
+GSE47460,GSM1150246,LT134719RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,72.0,2-Ever (>100),75.0,89.0,45.0,COPD
+GSE47460,GSM1150247,LT134829RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,71.0,3-Never,83.0,71.0,,IPF
+GSE47460,GSM1150248,LT136415RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,53.0,2-Ever (>100),16.0,50.0,30.0,COPD
+GSE47460,GSM1150249,LT137832LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,63.0,2-Ever (>100),51.0,79.0,64.0,COPD
+GSE47460,GSM1150250,LT138418LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,67.0,3-Never,70.0,83.0,104.0,COPD
+GSE47460,GSM1150251,LT139051LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,77.0,2-Ever (>100),99.0,111.0,34.0,COPD
+GSE47460,GSM1150252,LT139601RU_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),1-Male,58.0,2-Ever (>100),89.0,92.0,76.0,Other-ILD
+GSE47460,GSM1150253,LT140046RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,66.0,2-Ever (>100),34.0,60.0,47.0,COPD
+GSE47460,GSM1150254,LT140471RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,54.0,2-Ever (>100),83.0,96.0,81.0,COPD
+GSE47460,GSM1150255,LT148377LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,52.0,2-Ever (>100),41.0,67.0,49.0,COPD
+GSE47460,GSM1150256,LT148511LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,45.0,,69.0,64.0,43.0,IPF
+GSE47460,GSM1150257,LT151255LL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),1-Male,69.0,3-Never,82.0,79.0,53.0,Other-ILD
+GSE47460,GSM1150258,LT151920RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,72.0,2-Ever (>100),69.0,89.0,62.0,COPD
+GSE47460,GSM1150259,LT151949RL_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),2-Female,62.0,2-Ever (>100),103.0,97.0,105.0,Other-ILD
+GSE47460,GSM1150260,LT152615RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,72.0,2-Ever (>100),96.0,92.0,81.0,IPF
+GSE47460,GSM1150261,LT152653LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,72.0,2-Ever (>100),47.0,66.0,70.0,COPD
+GSE47460,GSM1150262,LT154785RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,68.0,2-Ever (>100),,,34.0,COPD
+GSE47460,GSM1150263,LT156041LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,70.0,2-Ever (>100),67.0,89.0,67.0,COPD
+GSE47460,GSM1150264,LT156276RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,74.0,3-Never,94.0,75.0,,IPF
+GSE47460,GSM1150265,LT157177RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,59.0,2-Ever (>100),60.0,69.0,,COPD
+GSE47460,GSM1150266,LT158647RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,58.0,2-Ever (>100),23.0,41.0,,COPD
+GSE47460,GSM1150267,LT161434RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,57.0,2-Ever (>100),76.0,79.0,68.0,IPF
+GSE47460,GSM1150268,LT162479RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,70.0,2-Ever (>100),33.0,51.0,22.0,COPD
+GSE47460,GSM1150269,LT163771RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,65.0,1-Current,29.0,52.0,38.0,COPD
+GSE47460,GSM1150270,LT165736LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,69.0,3-Never,58.0,53.0,50.0,IPF
+GSE47460,GSM1150271,LT167064RL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,67.0,2-Ever (>100),85.0,72.0,65.0,Other-ILD
+GSE47460,GSM1150272,LT168128RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,64.0,1-Current,61.0,72.0,87.0,COPD
+GSE47460,GSM1150273,LT170158LL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,1-Male,73.0,3-Never,44.0,42.0,31.0,Other-ILD
+GSE47460,GSM1150274,LT175949LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,74.0,2-Ever (>100),79.0,104.0,91.0,COPD
+GSE47460,GSM1150275,LT176562LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,73.0,2-Ever (>100),105.0,112.0,76.0,COPD
+GSE47460,GSM1150276,LT177956LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,74.0,2-Ever (>100),62.0,69.0,68.0,COPD
+GSE47460,GSM1150277,LT178790LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,40.0,2-Ever (>100),85.0,79.0,75.0,IPF
+GSE47460,GSM1150278,LT178929RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,77.0,2-Ever (>100),93.0,95.0,72.0,COPD
+GSE47460,GSM1150279,LT178967RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,72.0,2-Ever (>100),72.0,87.0,52.0,COPD
+GSE47460,GSM1150280,LT180781RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,49.0,2-Ever (>100),79.0,63.0,46.0,IPF
+GSE47460,GSM1150281,LT182636RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,66.0,2-Ever (>100),63.0,59.0,46.0,IPF
+GSE47460,GSM1150282,LT184241RL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,2-Female,54.0,3-Never,87.0,80.0,97.0,Other-ILD
+GSE47460,GSM1150283,LT184772RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,71.0,1-Current,78.0,82.0,60.0,COPD
+GSE47460,GSM1150284,LT185970RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,78.0,2-Ever (>100),63.0,92.0,96.0,COPD
+GSE47460,GSM1150285,LT186521RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,80.0,2-Ever (>100),58.0,68.0,39.0,COPD
+GSE47460,GSM1150286,LT188524RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,45.0,3-Never,31.0,28.0,,IPF
+GSE47460,GSM1150287,LT189721RL_ILD,Flash frozen whole lung,Interstitial lung disease,10-Fibrosis-Uncharacterized,1-Male,47.0,2-Ever (>100),23.0,46.0,49.0,Other-ILD
+GSE47460,GSM1150288,LT190004RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,57.0,2-Ever (>100),61.0,85.0,43.0,COPD
+GSE47460,GSM1150289,LT191087RM_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,68.0,2-Ever (>100),90.0,82.0,81.0,Other-ILD
+GSE47460,GSM1150290,LT192758RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,76.0,2-Ever (>100),87.0,100.0,92.0,COPD
+GSE47460,GSM1150291,LT194473RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,61.0,3-Never,37.0,47.0,72.0,COPD
+GSE47460,GSM1150292,LT195188RL_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),2-Female,59.0,2-Ever (>100),67.0,67.0,92.0,Other-ILD
+GSE47460,GSM1150293,LT195871RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,73.0,2-Ever (>100),66.0,90.0,42.0,COPD
+GSE47460,GSM1150294,LT197511LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,82.0,2-Ever (>100),58.0,100.0,28.0,COPD
+GSE47460,GSM1150295,LT198062LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,59.0,2-Ever (>100),51.0,79.0,55.0,COPD
+GSE47460,GSM1150296,LT198134LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,48.0,2-Ever (>100),22.0,67.0,47.0,COPD
+GSE47460,GSM1150297,LT198612RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,59.0,1-Current,55.0,77.0,66.0,COPD
+GSE47460,GSM1150298,LT199384RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,76.0,2-Ever (>100),54.0,64.0,59.0,COPD
+GSE47460,GSM1150299,LT199987LU_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,69.0,3-Never,94.0,86.0,60.0,Other-ILD
+GSE47460,GSM1150300,LT203231RM_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,58.0,2-Ever (>100),66.0,88.0,48.0,COPD
+GSE47460,GSM1150301,LT203541RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,68.0,2-Ever (>100),59.0,91.0,70.0,COPD
+GSE47460,GSM1150302,LT206005RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,68.0,2-Ever (>100),79.0,72.0,,IPF
+GSE47460,GSM1150303,LT208505LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,78.0,2-Ever (>100),84.0,84.0,74.0,COPD
+GSE47460,GSM1150304,LT208778RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,73.0,2-Ever (>100),24.0,78.0,,COPD
+GSE47460,GSM1150305,LT210463LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,84.0,2-Ever (>100),65.0,79.0,34.0,COPD
+GSE47460,GSM1150306,LT211379RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,53.0,2-Ever (>100),68.0,61.0,60.0,IPF
+GSE47460,GSM1150307,LT212777RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,62.0,2-Ever (>100),18.0,58.0,30.0,COPD
+GSE47460,GSM1150308,LT213352LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,72.0,2-Ever (>100),70.0,75.0,101.0,COPD
+GSE47460,GSM1150309,LT213735RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,76.0,2-Ever (>100),63.0,92.0,51.0,COPD
+GSE47460,GSM1150310,LT214473RL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,1-Male,80.0,2-Ever (>100),88.0,79.0,52.0,Other-ILD
+GSE47460,GSM1150311,LT216419RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,78.0,2-Ever (>100),59.0,63.0,48.0,COPD
+GSE47460,GSM1150312,LT220968RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,67.0,2-Ever (>100),65.0,84.0,94.0,COPD
+GSE47460,GSM1150313,LT223474RM_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,65.0,2-Ever (>100),74.0,70.0,49.0,IPF
+GSE47460,GSM1150314,LT228241RL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,52.0,3-Never,39.0,69.0,99.0,Other-ILD
+GSE47460,GSM1150315,LT230415RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,73.0,2-Ever (>100),81.0,100.0,42.0,COPD
+GSE47460,GSM1150316,LT233620RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,64.0,2-Ever (>100),45.0,91.0,39.0,COPD
+GSE47460,GSM1150317,LT236710RL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,1-Male,72.0,2-Ever (>100),55.0,51.0,,Other-ILD
+GSE47460,GSM1150318,LT238531RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,55.0,1-Current,79.0,96.0,66.0,COPD
+GSE47460,GSM1150319,LT239116RL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,2-Female,55.0,2-Ever (>100),50.0,43.0,58.0,Other-ILD
+GSE47460,GSM1150321,LT242119LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,58.0,3-Never,87.0,89.0,92.0,COPD
+GSE47460,GSM1150331,LT242530RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,78.0,2-Ever (>100),59.0,76.0,,COPD
+GSE47460,GSM1150332,LT243058RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,54.0,2-Ever (>100),24.0,42.0,33.0,COPD
+GSE47460,GSM1150334,LT244480LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,63.0,2-Ever (>100),28.0,69.0,50.0,COPD
+GSE47460,GSM1150336,LT245031LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,60.0,2-Ever (>100),61.0,85.0,56.0,COPD
+GSE47460,GSM1150338,LT245084RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,46.0,1-Current,48.0,79.0,45.0,COPD
+GSE47460,GSM1150339,LT245840RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,63.0,2-Ever (>100),74.0,103.0,105.0,COPD
+GSE47460,GSM1150341,LT246702RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,68.0,2-Ever (>100),89.0,100.0,66.0,COPD
+GSE47460,GSM1150343,LT249917LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,67.0,2-Ever (>100),77.0,85.0,83.0,COPD
+GSE47460,GSM1150344,LT255244RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,68.0,2-Ever (>100),62.0,73.0,48.0,COPD
+GSE47460,GSM1150346,LT255718RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,57.0,2-Ever (>100),23.0,49.0,27.0,COPD
+GSE47460,GSM1150347,LT256532LL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,77.0,2-Ever (>100),80.0,72.0,58.0,Other-ILD
+GSE47460,GSM1150349,LT257433RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,64.0,3-Never,101.0,96.0,85.0,COPD
+GSE47460,GSM1150351,LT261141RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,65.0,2-Ever (>100),46.0,75.0,69.0,COPD
+GSE47460,GSM1150352,LT262371RM_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,68.0,2-Ever (>100),48.0,84.0,58.0,COPD
+GSE47460,GSM1150353,LT263636RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,68.0,2-Ever (>100),26.0,71.0,48.0,COPD
+GSE47460,GSM1150354,LT266802RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,58.0,3-Never,69.0,61.0,60.0,IPF
+GSE47460,GSM1150355,LT268509LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,69.0,2-Ever (>100),82.0,70.0,51.0,IPF
+GSE47460,GSM1150356,LT269763RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,56.0,2-Ever (>100),82.0,80.0,18.0,IPF
+GSE47460,GSM1150357,LT270247RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,64.0,2-Ever (>100),25.0,63.0,44.0,COPD
+GSE47460,GSM1150358,LT271100LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,78.0,2-Ever (>100),86.0,104.0,47.0,COPD
+GSE47460,GSM1150359,LT273284LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,68.0,2-Ever (>100),60.0,90.0,71.0,COPD
+GSE47460,GSM1150360,LT275856LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,63.0,2-Ever (>100),66.0,62.0,26.0,IPF
+GSE47460,GSM1150361,LT277002LL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),1-Male,43.0,3-Never,62.0,61.0,51.0,Other-ILD
+GSE47460,GSM1150362,LT286056RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,58.0,2-Ever (>100),19.0,44.0,41.0,COPD
+GSE47460,GSM1150363,LT287158LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,73.0,3-Never,78.0,64.0,39.0,IPF
+GSE47460,GSM1150364,LT298520RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,69.0,3-Never,93.0,106.0,99.0,COPD
+GSE47460,GSM1150365,LT000216LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,70.0,3-Never,56.0,47.0,36.0,IPF
+GSE47460,GSM1150366,LT000379LU_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),1-Male,63.0,2-Ever (>100),67.0,61.0,42.0,Other-ILD
+GSE47460,GSM1150367,LT002410RM_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,52.0,2-Ever (>100),56.0,51.0,63.0,IPF
+GSE47460,GSM1150368,LT005256RL_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",2-Female,51.0,2-Ever (>100),71.0,63.0,38.0,Other-ILD
+GSE47460,GSM1150369,LT005419RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,70.0,2-Ever (>100),78.0,101.0,,COPD
+GSE47460,GSM1150370,LT006946RM_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,68.0,3-Never,66.0,56.0,69.0,IPF
+GSE47460,GSM1150371,LT011501RL_ILD,Flash frozen whole lung,Interstitial lung disease,4-Desquamative interstitial pneumonia (DIP),1-Male,48.0,2-Ever (>100),71.0,68.0,,Other-ILD
+GSE47460,GSM1150372,LT012933RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,68.0,2-Ever (>100),90.0,83.0,95.0,IPF
+GSE47460,GSM1150373,LT013011LU_CTRL,Flash frozen whole lung,Control,,2-Female,51.0,3-Never,83.0,79.0,95.0,Control
+GSE47460,GSM1150374,LT017495RL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,1-Male,55.0,1-Current,69.0,66.0,51.0,Other-ILD
+GSE47460,GSM1150375,LT017533RM_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,64.0,3-Never,42.0,42.0,31.0,IPF
+GSE47460,GSM1150376,LT017811RM_CTRL,Flash frozen whole lung,Control,,1-Male,73.0,2-Ever (>100),85.0,92.0,78.0,Control
+GSE47460,GSM1150377,LT019699RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,64.0,2-Ever (>100),101.0,99.0,71.0,IPF
+GSE47460,GSM1150378,LT021461RM_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,76.0,3-Never,64.0,55.0,31.0,IPF
+GSE47460,GSM1150379,LT021748RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,61.0,2-Ever (>100),89.0,90.0,51.0,IPF
+GSE47460,GSM1150380,LT022251RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,55.0,2-Ever (>100),55.0,44.0,16.0,IPF
+GSE47460,GSM1150381,LT022271LU_CTRL,Flash frozen whole lung,Control,,2-Female,75.0,2-Ever (>100),87.0,89.0,78.0,Control
+GSE47460,GSM1150382,LT022562LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,60.0,2-Ever (>100),66.0,56.0,32.0,IPF
+GSE47460,GSM1150383,LT024967LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,54.0,2-Ever (>100),64.0,83.0,82.0,COPD
+GSE47460,GSM1150384,LT026534RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,73.0,3-Never,90.0,80.0,50.0,IPF
+GSE47460,GSM1150385,LT030347RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,79.0,2-Ever (>100),95.0,96.0,68.0,IPF
+GSE47460,GSM1150386,LT030662LL_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",2-Female,50.0,2-Ever (>100),80.0,69.0,69.0,Other-ILD
+GSE47460,GSM1150387,LT036383LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,57.0,3-Never,69.0,59.0,43.0,IPF
+GSE47460,GSM1150388,LT037710RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,49.0,2-Ever (>100),28.0,80.0,35.0,COPD
+GSE47460,GSM1150389,LT041389RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,45.0,1-Current,35.0,42.0,43.0,COPD
+GSE47460,GSM1150390,LT046539RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,45.0,3-Never,70.0,65.0,51.0,IPF
+GSE47460,GSM1150391,LT047152LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,62.0,2-Ever (>100),42.0,36.0,32.0,IPF
+GSE47460,GSM1150392,LT050079RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,68.0,3-Never,75.0,82.0,57.0,IPF
+GSE47460,GSM1150393,LT053283RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,71.0,2-Ever (>100),28.0,73.0,41.0,COPD
+GSE47460,GSM1150394,LT058319LU_CTRL,Flash frozen whole lung,Control,,1-Male,71.0,2-Ever (>100),114.0,106.0,82.0,Control
+GSE47460,GSM1150395,LT059721LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,71.0,2-Ever (>100),65.0,67.0,39.0,IPF
+GSE47460,GSM1150396,LT060717LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,67.0,2-Ever (>100),22.0,62.0,26.0,COPD
+GSE47460,GSM1150397,LT062121LL_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",2-Female,40.0,2-Ever (>100),87.0,87.0,,Other-ILD
+GSE47460,GSM1150398,LT067200LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,66.0,3-Never,63.0,58.0,46.0,IPF
+GSE47460,GSM1150399,LT069585RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,77.0,3-Never,72.0,61.0,47.0,IPF
+GSE47460,GSM1150400,LT076421LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,70.0,3-Never,76.0,69.0,52.0,IPF
+GSE47460,GSM1150401,LT077264RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,73.0,3-Never,110.0,93.0,71.0,IPF
+GSE47460,GSM1150402,LT078347LL_CTRL,Flash frozen whole lung,Control,,2-Female,45.0,2-Ever (>100),74.0,76.0,99.0,Control
+GSE47460,GSM1150403,LT079487LL_CTRL,Flash frozen whole lung,Control,,2-Female,60.0,3-Never,92.0,100.0,81.0,Control
+GSE47460,GSM1150404,LT080750LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,70.0,3-Never,115.0,106.0,51.0,IPF
+GSE47460,GSM1150405,LT081282RM_CTRL,Flash frozen whole lung,Control,,2-Female,71.0,2-Ever (>100),84.0,92.0,61.0,Control
+GSE47460,GSM1150406,LT081498RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,70.0,2-Ever (>100),43.0,75.0,25.0,COPD
+GSE47460,GSM1150407,LT082461RL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,2-Female,66.0,3-Never,57.0,52.0,41.0,Other-ILD
+GSE47460,GSM1150408,LT083950RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,67.0,2-Ever (>100),22.0,51.0,18.0,COPD
+GSE47460,GSM1150409,LT084038RM_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,67.0,2-Ever (>100),59.0,81.0,67.0,COPD
+GSE47460,GSM1150410,LT087826LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,66.0,3-Never,51.0,47.0,41.0,IPF
+GSE47460,GSM1150411,LT090666LI_ILD,Flash frozen whole lung,Interstitial lung disease,10-Fibrosis-Uncharacterized,1-Male,68.0,3-Never,72.0,74.0,73.0,Other-ILD
+GSE47460,GSM1150412,LT091552LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,72.0,2-Ever (>100),60.0,51.0,52.0,IPF
+GSE47460,GSM1150413,LT093297LU_CTRL,Flash frozen whole lung,Control,,2-Female,62.0,2-Ever (>100),83.0,91.0,76.0,Control
+GSE47460,GSM1150414,LT095342LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,60.0,2-Ever (>100),42.0,62.0,,COPD
+GSE47460,GSM1150415,LT099879RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,74.0,2-Ever (>100),99.0,85.0,39.0,IPF
+GSE47460,GSM1150416,LT100821RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,79.0,2-Ever (>100),74.0,68.0,53.0,IPF
+GSE47460,GSM1150417,LT102131RL_CTRL,Flash frozen whole lung,Control,,2-Female,66.0,3-Never,105.0,103.0,71.0,Control
+GSE47460,GSM1150418,LT102695LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,59.0,2-Ever (>100),73.0,78.0,44.0,IPF
+GSE47460,GSM1150419,LT108067RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,64.0,2-Ever (>100),17.0,58.0,31.0,COPD
+GSE47460,GSM1150420,LT111916LL_ILD,Flash frozen whole lung,Interstitial lung disease,7-Cryptogenic Organizing Pneumonia (COP),2-Female,56.0,2-Ever (>100),41.0,54.0,56.0,Other-ILD
+GSE47460,GSM1150421,LT116004RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,50.0,3-Never,38.0,40.0,9.0,IPF
+GSE47460,GSM1150422,LT118629RL_ILD,Flash frozen whole lung,Interstitial lung disease,4-Desquamative interstitial pneumonia (DIP),1-Male,56.0,3-Never,64.0,57.0,54.0,Other-ILD
+GSE47460,GSM1150423,LT119682RL_CTRL,Flash frozen whole lung,Control,,1-Male,70.0,3-Never,109.0,97.0,122.0,Control
+GSE47460,GSM1150424,LT123131RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,67.0,2-Ever (>100),56.0,47.0,34.0,IPF
+GSE47460,GSM1150425,LT123552RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,74.0,,,,,IPF
+GSE47460,GSM1150426,LT124161RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,65.0,3-Never,70.0,62.0,63.0,IPF
+GSE47460,GSM1150427,LT126767LL_ILD,Flash frozen whole lung,Interstitial lung disease,8-Acute interstitial pneumonia (AIP),2-Female,53.0,2-Ever (>100),64.0,59.0,34.0,Other-ILD
+GSE47460,GSM1150428,LT128191LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,62.0,2-Ever (>100),72.0,65.0,49.0,IPF
+GSE47460,GSM1150429,LT130603LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,63.0,2-Ever (>100),56.0,54.0,61.0,IPF
+GSE47460,GSM1150430,LT134121RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,71.0,2-Ever (>100),28.0,73.0,36.0,COPD
+GSE47460,GSM1150431,LT134776LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,62.0,2-Ever (>100),71.0,64.0,61.0,IPF
+GSE47460,GSM1150432,LT135390LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,60.0,2-Ever (>100),77.0,72.0,,IPF
+GSE47460,GSM1150433,LT139649RU_CTRL,Flash frozen whole lung,Control,,2-Female,72.0,3-Never,93.0,86.0,70.0,Control
+GSE47460,GSM1150434,LT139691RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,62.0,2-Ever (>100),17.0,58.0,,COPD
+GSE47460,GSM1150435,LT142159RU_CTRL,Flash frozen whole lung,Control,,2-Female,44.0,2-Ever (>100),95.0,116.0,77.0,Control
+GSE47460,GSM1150436,LT143944LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,74.0,3-Never,88.0,78.0,54.0,IPF
+GSE47460,GSM1150437,LT144769RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,60.0,2-Ever (>100),72.0,85.0,115.0,COPD
+GSE47460,GSM1150438,LT145196LU_CTRL,Flash frozen whole lung,Control,,2-Female,59.0,3-Never,89.0,86.0,89.0,Control
+GSE47460,GSM1150439,LT147610LL_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",2-Female,51.0,3-Never,63.0,60.0,48.0,Other-ILD
+GSE47460,GSM1150440,LT151370RL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,2-Female,46.0,3-Never,42.0,34.0,27.0,Other-ILD
+GSE47460,GSM1150441,LT151513LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,63.0,2-Ever (>100),70.0,72.0,47.0,IPF
+GSE47460,GSM1150442,LT155318RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,69.0,2-Ever (>100),80.0,73.0,65.0,IPF
+GSE47460,GSM1150443,LT156171LL_CTRL,Flash frozen whole lung,Control,,1-Male,75.0,2-Ever (>100),97.0,86.0,93.0,Control
+GSE47460,GSM1150444,LT156481LL_CTRL,Flash frozen whole lung,Control,,2-Female,60.0,,102.0,103.0,84.0,Control
+GSE47460,GSM1150445,LT157856LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,42.0,2-Ever (>100),75.0,81.0,108.0,IPF
+GSE47460,GSM1150446,LT158795LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,62.0,3-Never,49.0,43.0,38.0,IPF
+GSE47460,GSM1150447,LT159753LL_CTRL,Flash frozen whole lung,Control,,2-Female,42.0,3-Never,80.0,77.0,88.0,Control
+GSE47460,GSM1150448,LT162096RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,69.0,2-Ever (>100),57.0,55.0,49.0,IPF
+GSE47460,GSM1150449,LT163384LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,60.0,2-Ever (>100),92.0,85.0,33.0,IPF
+GSE47460,GSM1150450,LT165114RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,72.0,2-Ever (>100),24.0,46.0,48.0,COPD
+GSE47460,GSM1150451,LT166111RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,77.0,,95.0,80.0,51.0,IPF
+GSE47460,GSM1150452,LT166240RM_CTRL,Flash frozen whole lung,Control,,1-Male,74.0,2-Ever (>100),84.0,83.0,68.0,Control
+GSE47460,GSM1150453,LT167891LU_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,45.0,3-Never,74.0,64.0,55.0,Other-ILD
+GSE47460,GSM1150454,LT167906LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,58.0,2-Ever (>100),69.0,60.0,59.0,IPF
+GSE47460,GSM1150455,LT168094RL_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",2-Female,63.0,2-Ever (>100),,,,Other-ILD
+GSE47460,GSM1150456,LT168902RM_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),1-Male,45.0,3-Never,76.0,71.0,43.0,Other-ILD
+GSE47460,GSM1150457,LT171097RL_CTRL,Flash frozen whole lung,Control,,1-Male,34.0,3-Never,110.0,113.0,87.0,Control
+GSE47460,GSM1150458,LT172093RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,52.0,2-Ever (>100),50.0,77.0,49.0,COPD
+GSE47460,GSM1150459,LT173597LL_CTRL,Flash frozen whole lung,Control,,1-Male,75.0,2-Ever (>100),90.0,91.0,72.0,Control
+GSE47460,GSM1150460,LT173946RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,70.0,3-Never,94.0,82.0,,IPF
+GSE47460,GSM1150461,LT175399RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,64.0,2-Ever (>100),82.0,69.0,35.0,IPF
+GSE47460,GSM1150462,LT176510LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,80.0,2-Ever (>100),74.0,90.0,64.0,COPD
+GSE47460,GSM1150463,LT180102RL_CTRL,Flash frozen whole lung,Control,,1-Male,72.0,2-Ever (>100),106.0,105.0,60.0,Control
+GSE47460,GSM1150464,LT184423LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,76.0,2-Ever (>100),59.0,76.0,87.0,COPD
+GSE47460,GSM1150465,LT184901RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,28.0,2-Ever (>100),22.0,59.0,70.0,COPD
+GSE47460,GSM1150466,LT185396RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,57.0,2-Ever (>100),78.0,71.0,68.0,IPF
+GSE47460,GSM1150467,LT186388LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,74.0,2-Ever (>100),93.0,76.0,45.0,IPF
+GSE47460,GSM1150468,LT190870RU_CTRL,Flash frozen whole lung,Control,,2-Female,74.0,3-Never,85.0,90.0,103.0,Control
+GSE47460,GSM1150469,LT191618LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,61.0,2-Ever (>100),64.0,60.0,47.0,IPF
+GSE47460,GSM1150470,LT191675RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,69.0,2-Ever (>100),78.0,77.0,53.0,IPF
+GSE47460,GSM1150471,LT195011RL_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",1-Male,46.0,2-Ever (>100),43.0,42.0,21.0,Other-ILD
+GSE47460,GSM1150472,LT195207LL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,69.0,3-Never,59.0,63.0,,Other-ILD
+GSE47460,GSM1150473,LT195484RU_CTRL,Flash frozen whole lung,Control,,2-Female,72.0,,137.0,117.0,95.0,Control
+GSE47460,GSM1150474,LT195522RU_ILD,Flash frozen whole lung,Interstitial lung disease,7-Cryptogenic Organizing Pneumonia (COP),1-Male,23.0,2-Ever (>100),37.0,34.0,43.0,Other-ILD
+GSE47460,GSM1150475,LT196309RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,63.0,2-Ever (>100),71.0,62.0,32.0,IPF
+GSE47460,GSM1150476,LT196677RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,66.0,2-Ever (>100),16.0,38.0,32.0,COPD
+GSE47460,GSM1150477,LT197381LI_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),2-Female,67.0,3-Never,89.0,86.0,86.0,Other-ILD
+GSE47460,GSM1150478,LT197821RL_CTRL,Flash frozen whole lung,Control,,1-Male,67.0,2-Ever (>100),88.0,81.0,61.0,Control
+GSE47460,GSM1150479,LT200930RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,78.0,2-Ever (>100),52.0,75.0,,COPD
+GSE47460,GSM1150480,LT201348LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,65.0,2-Ever (>100),55.0,47.0,36.0,IPF
+GSE47460,GSM1150481,LT201831RU_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),2-Female,63.0,3-Never,105.0,100.0,101.0,Other-ILD
+GSE47460,GSM1150482,LT204935LL_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),2-Female,41.0,1-Current,63.0,65.0,81.0,Other-ILD
+GSE47460,GSM1150483,LT206871LU_ILD,Flash frozen whole lung,Interstitial lung disease,10-Fibrosis-Uncharacterized,1-Male,67.0,2-Ever (>100),76.0,83.0,104.0,Other-ILD
+GSE47460,GSM1150484,LT207073RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,66.0,2-Ever (>100),60.0,54.0,36.0,IPF
+GSE47460,GSM1150485,LT213606RL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,1-Male,63.0,2-Ever (>100),87.0,85.0,86.0,Other-ILD
+GSE47460,GSM1150486,LT215341RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,52.0,2-Ever (>100),11.0,33.0,,COPD
+GSE47460,GSM1150487,LT220661RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,52.0,2-Ever (>100),57.0,52.0,29.0,IPF
+GSE47460,GSM1150488,LT221381RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,65.0,2-Ever (>100),,,,IPF
+GSE47460,GSM1150489,LT221687RM_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,69.0,3-Never,77.0,64.0,49.0,IPF
+GSE47460,GSM1150490,LT221782LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,64.0,2-Ever (>100),43.0,41.0,33.0,IPF
+GSE47460,GSM1150491,LT221983RM_CTRL,Flash frozen whole lung,Control,,2-Female,47.0,1-Current,99.0,107.0,74.0,Control
+GSE47460,GSM1150492,LT223106RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,48.0,2-Ever (>100),14.0,49.0,37.0,COPD
+GSE47460,GSM1150493,LT227135RL_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",1-Male,65.0,2-Ever (>100),89.0,80.0,72.0,Other-ILD
+GSE47460,GSM1150494,LT228772LL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,50.0,2-Ever (>100),90.0,84.0,91.0,Other-ILD
+GSE47460,GSM1150495,LT228897LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,63.0,3-Never,70.0,62.0,50.0,IPF
+GSE47460,GSM1150496,LT229669RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,61.0,2-Ever (>100),22.0,62.0,21.0,COPD
+GSE47460,GSM1150497,LT232073LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,69.0,2-Ever (>100),69.0,58.0,43.0,IPF
+GSE47460,GSM1150498,LT232107RU_CTRL,Flash frozen whole lung,Control,,1-Male,66.0,2-Ever (>100),88.0,91.0,78.0,Control
+GSE47460,GSM1150499,LT233821RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,68.0,2-Ever (>100),40.0,70.0,41.0,COPD
+GSE47460,GSM1150500,LT234205RL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),1-Male,59.0,3-Never,66.0,66.0,,Other-ILD
+GSE47460,GSM1150501,LT234755LL_CTRL,Flash frozen whole lung,Control,,2-Female,71.0,3-Never,86.0,95.0,74.0,Control
+GSE47460,GSM1150502,LT234774LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,46.0,2-Ever (>100),46.0,76.0,42.0,COPD
+GSE47460,GSM1150503,LT235441RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,69.0,2-Ever (>100),85.0,82.0,50.0,IPF
+GSE47460,GSM1150504,LT236045LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,78.0,2-Ever (>100),67.0,60.0,48.0,IPF
+GSE47460,GSM1150505,LT236519LL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,51.0,2-Ever (>100),80.0,79.0,87.0,Other-ILD
+GSE47460,GSM1150506,LT236557RL_CTRL,Flash frozen whole lung,Control,,2-Female,72.0,2-Ever (>100),110.0,109.0,68.0,Control
+GSE47460,GSM1150507,LT237439RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,60.0,2-Ever (>100),54.0,70.0,87.0,COPD
+GSE47460,GSM1150508,LT238765RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,61.0,2-Ever (>100),50.0,85.0,48.0,COPD
+GSE47460,GSM1150509,LT241811LL_CTRL,Flash frozen whole lung,Control,,2-Female,73.0,2-Ever (>100),88.0,80.0,70.0,Control
+GSE47460,GSM1150510,LT242161RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,60.0,3-Never,77.0,68.0,,IPF
+GSE47460,GSM1150511,LT243794RL_ILD,Flash frozen whole lung,Interstitial lung disease,10-Fibrosis-Uncharacterized,2-Female,52.0,3-Never,77.0,78.0,64.0,Other-ILD
+GSE47460,GSM1150512,LT244399LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,67.0,2-Ever (>100),63.0,88.0,59.0,COPD
+GSE47460,GSM1150513,LT244824RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,72.0,2-Ever (>100),80.0,77.0,41.0,IPF
+GSE47460,GSM1150514,LT245983LU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,63.0,2-Ever (>100),23.0,72.0,30.0,COPD
+GSE47460,GSM1150515,LT246349LU_CTRL,Flash frozen whole lung,Control,,2-Female,77.0,2-Ever (>100),91.0,96.0,78.0,Control
+GSE47460,GSM1150516,LT246774RM_CTRL,Flash frozen whole lung,Control,,2-Female,70.0,2-Ever (>100),113.0,112.0,84.0,Control
+GSE47460,GSM1150517,LT247728RL_CTRL,Flash frozen whole lung,Control,,2-Female,65.0,2-Ever (>100),86.0,95.0,113.0,Control
+GSE47460,GSM1150518,LT248906LL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,61.0,2-Ever (>100),54.0,52.0,35.0,Other-ILD
+GSE47460,GSM1150519,LT249481LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,65.0,1-Current,74.0,65.0,51.0,IPF
+GSE47460,GSM1150520,LT249811RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,73.0,2-Ever (>100),53.0,69.0,54.0,COPD
+GSE47460,GSM1150521,LT251693LL_ILD,Flash frozen whole lung,Interstitial lung disease,9-Hypersensitive Pneumonitis (HP),2-Female,59.0,3-Never,62.0,63.0,80.0,Other-ILD
+GSE47460,GSM1150522,LT251947LL_ILD,Flash frozen whole lung,Interstitial lung disease,5-Respiratory bronchiolitis-interstitial lung disease (RB-ILD),2-Female,24.0,,82.0,73.0,,Other-ILD
+GSE47460,GSM1150523,LT253131RU_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,79.0,2-Ever (>100),44.0,62.0,46.0,COPD
+GSE47460,GSM1150524,LT253371RL_ILD,Flash frozen whole lung,Interstitial lung disease,3-NSIP,2-Female,51.0,3-Never,43.0,35.0,,Other-ILD
+GSE47460,GSM1150525,LT253677RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,54.0,2-Ever (>100),77.0,77.0,64.0,IPF
+GSE47460,GSM1150526,LT256221LL_CTRL,Flash frozen whole lung,Control,,1-Male,67.0,2-Ever (>100),103.0,110.0,60.0,Control
+GSE47460,GSM1150527,LT256920RU_CTRL,Flash frozen whole lung,Control,,2-Female,68.0,2-Ever (>100),100.0,91.0,100.0,Control
+GSE47460,GSM1150528,LT259072LU_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",2-Female,66.0,2-Ever (>100),75.0,73.0,93.0,Other-ILD
+GSE47460,GSM1150529,LT264283RL_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",1-Male,72.0,,78.0,78.0,53.0,Other-ILD
+GSE47460,GSM1150530,LT266817LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,65.0,2-Ever (>100),59.0,50.0,44.0,IPF
+GSE47460,GSM1150531,LT270821RU_CTRL,Flash frozen whole lung,Control,,2-Female,60.0,2-Ever (>100),91.0,95.0,102.0,Control
+GSE47460,GSM1150532,LT277811RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,82.0,2-Ever (>100),104.0,89.0,50.0,IPF
+GSE47460,GSM1150533,LT279828RU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,72.0,2-Ever (>100),68.0,58.0,36.0,IPF
+GSE47460,GSM1150534,LT280282RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,80.0,2-Ever (>100),68.0,52.0,32.0,IPF
+GSE47460,GSM1150535,LT280851LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,65.0,3-Never,66.0,54.0,33.0,IPF
+GSE47460,GSM1150536,LT282601LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,60.0,3-Never,51.0,45.0,31.0,IPF
+GSE47460,GSM1150537,LT285031LU_CTRL,Flash frozen whole lung,Control,,2-Female,63.0,3-Never,100.0,92.0,79.0,Control
+GSE47460,GSM1150538,LT285671LU_ILD,Flash frozen whole lung,Interstitial lung disease,"1-ILD of known cause, hypersensitivity or associated w/ CVD",2-Female,57.0,3-Never,39.0,64.0,83.0,Other-ILD
+GSE47460,GSM1150539,LT285906LL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,2-Female,61.0,2-Ever (>100),45.0,76.0,54.0,COPD
+GSE47460,GSM1150540,LT286644RL_ILD,Flash frozen whole lung,Interstitial lung disease,10-Fibrosis-Uncharacterized,2-Female,77.0,3-Never,109.0,99.0,64.0,Other-ILD
+GSE47460,GSM1150541,LT287196LL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,57.0,2-Ever (>100),73.0,70.0,16.0,IPF
+GSE47460,GSM1150542,LT288719RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,1-Male,80.0,3-Never,91.0,75.0,67.0,IPF
+GSE47460,GSM1150543,LT290677RU_CTRL,Flash frozen whole lung,Control,,1-Male,64.0,2-Ever (>100),81.0,79.0,77.0,Control
+GSE47460,GSM1150544,LT291449RL_COPD,Flash frozen whole lung,Chronic Obstructive Lung Disease,,1-Male,60.0,2-Ever (>100),15.0,33.0,28.0,COPD
+GSE47460,GSM1150545,LT295717RL_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,71.0,3-Never,90.0,75.0,65.0,IPF
+GSE47460,GSM1150546,LT297451LU_ILD,Flash frozen whole lung,Interstitial lung disease,2-UIP/IPF,2-Female,71.0,3-Never,99.0,90.0,87.0,IPF
+GSE47460,GSM1150547,LT299181LU_ILD,Flash frozen whole lung,Interstitial lung disease,10-Fibrosis-Uncharacterized,1-Male,63.0,2-Ever (>100),45.0,44.0,55.0,Other-ILD
