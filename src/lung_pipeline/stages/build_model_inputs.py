@@ -13,6 +13,7 @@ DEFAULT_MODEL_INPUT_SETTINGS = {
     "top_signature_genes_per_cohort": 12,
     "top_pathways_per_collection": 8,
     "filter_to_depmap_mapped": False,
+    "include_label_aggregate_features": False,
 }
 
 
@@ -43,6 +44,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
                 "top_signature_genes_per_cohort": settings["top_signature_genes_per_cohort"],
                 "top_pathways_per_collection": settings["top_pathways_per_collection"],
                 "filter_to_depmap_mapped": settings["filter_to_depmap_mapped"],
+                "include_label_aggregate_features": settings["include_label_aggregate_features"],
             },
         )
 
@@ -69,6 +71,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         pathway_activity=pathway_activity,
         top_signature_genes_per_cohort=settings["top_signature_genes_per_cohort"],
         top_pathways_per_collection=settings["top_pathways_per_collection"],
+        include_label_aggregate_features=settings["include_label_aggregate_features"],
     )
     drug_features = _build_drug_features(drug_master, target_mapping)
     pair_features = _build_pair_features(
@@ -142,6 +145,7 @@ def _stage_settings(cfg: dict[str, Any]) -> dict[str, Any]:
     settings["top_signature_genes_per_cohort"] = int(settings["top_signature_genes_per_cohort"])
     settings["top_pathways_per_collection"] = int(settings["top_pathways_per_collection"])
     settings["filter_to_depmap_mapped"] = bool(settings["filter_to_depmap_mapped"])
+    settings["include_label_aggregate_features"] = bool(settings["include_label_aggregate_features"])
     return settings
 
 
@@ -195,23 +199,26 @@ def _build_sample_features(
     pathway_activity: pd.DataFrame,
     top_signature_genes_per_cohort: int,
     top_pathways_per_collection: int,
+    include_label_aggregate_features: bool,
 ) -> pd.DataFrame:
-    label_summary = (
-        labels_y.groupby("sample_id")
-        .agg(
-            sample__n_pairs=("pair_id", "size"),
-            sample__n_unique_drugs=("canonical_drug_id", "nunique"),
-            sample__mean_label_regression=("label_regression", "mean"),
-            sample__std_label_regression=("label_regression", "std"),
-            sample__sensitive_fraction=("label_binary", "mean"),
+    if include_label_aggregate_features:
+        label_summary = (
+            labels_y.groupby("sample_id")
+            .agg(
+                sample__n_pairs=("pair_id", "size"),
+                sample__n_unique_drugs=("canonical_drug_id", "nunique"),
+                sample__mean_label_regression=("label_regression", "mean"),
+                sample__std_label_regression=("label_regression", "std"),
+                sample__sensitive_fraction=("label_binary", "mean"),
+            )
+            .reset_index()
         )
-        .reset_index()
-    )
-    label_summary["sample__std_label_regression"] = (
-        label_summary["sample__std_label_regression"].fillna(0.0)
-    )
-
-    base = sample_cohorts.merge(label_summary, on="sample_id", how="left")
+        label_summary["sample__std_label_regression"] = (
+            label_summary["sample__std_label_regression"].fillna(0.0)
+        )
+        base = sample_cohorts.merge(label_summary, on="sample_id", how="left")
+    else:
+        base = sample_cohorts.copy()
     base["sample__is_depmap_mapped"] = pd.to_numeric(base["is_depmap_mapped"], errors="coerce").fillna(0).astype(int)
     base["sample__is_luad"] = (base["cohort"] == "LUAD").astype(int)
     base["sample__is_lusc"] = (base["cohort"] == "LUSC").astype(int)
@@ -245,16 +252,21 @@ def _build_sample_features(
         "sample__is_depmap_mapped",
         "sample__is_luad",
         "sample__is_lusc",
-        "sample__n_pairs",
-        "sample__n_unique_drugs",
-        "sample__mean_label_regression",
-        "sample__std_label_regression",
-        "sample__sensitive_fraction",
     ] + [
         column
         for column in sample_features.columns
         if column.startswith("ctx__")
     ]
+    if include_label_aggregate_features:
+        keep_columns.extend(
+            [
+                "sample__n_pairs",
+                "sample__n_unique_drugs",
+                "sample__mean_label_regression",
+                "sample__std_label_regression",
+                "sample__sensitive_fraction",
+            ]
+        )
     return sample_features[keep_columns].sort_values("sample_id").reset_index(drop=True)
 
 

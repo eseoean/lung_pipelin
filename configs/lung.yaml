@@ -58,6 +58,7 @@ model_inputs:
   top_signature_genes_per_cohort: 12
   top_pathways_per_collection: 8
   filter_to_depmap_mapped: false
+  include_label_aggregate_features: false
 
 deliverables:
   masters:

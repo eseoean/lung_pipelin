@@ -259,6 +259,7 @@ def test_build_model_inputs_builds_expected_outputs(tmp_path: Path) -> None:
             "top_signature_genes_per_cohort": 2,
             "top_pathways_per_collection": 2,
             "filter_to_depmap_mapped": False,
+            "include_label_aggregate_features": False,
         },
     }
     config_path.write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")
@@ -289,6 +290,7 @@ def test_build_model_inputs_builds_expected_outputs(tmp_path: Path) -> None:
     assert "ctx__sigdelta__egfr" in sample_features.columns
     assert "ctx__hallmark__hallmark_egfr_signaling" in sample_features.columns
     assert "drug__target_count" in drug_features.columns
+    assert "sample__mean_label_regression" not in sample_features.columns
 
     gefitinib_pair = pair_features.loc[pair_features["canonical_drug_id"] == "1"].iloc[0]
     sox2_pair = pair_features.loc[pair_features["canonical_drug_id"] == "2"].iloc[0]
