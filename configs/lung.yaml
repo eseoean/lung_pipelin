@@ -61,6 +61,24 @@ model_inputs:
   filter_to_depmap_mapped: false
   include_label_aggregate_features: false
 
+train_baseline:
+  mode: quick_gtex_groupcv_ablation
+  target_column: label_regression
+  group_column: canonical_drug_id
+  n_splits: 3
+  conditions:
+    - no_gtex
+    - sample_only
+    - pair_only
+    - full_gtex
+  random_forest:
+    n_estimators: 240
+    max_depth:
+    min_samples_leaf: 2
+    max_features: sqrt
+    n_jobs: -1
+    random_state: 42
+
 deliverables:
   masters:
     - drug_master
