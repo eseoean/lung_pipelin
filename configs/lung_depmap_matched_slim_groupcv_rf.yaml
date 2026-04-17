@@ -1,0 +1,22 @@
+inherits:
+  - lung_depmap_matched_slim.yaml
+
+stages:
+  train_baseline:
+    output_dir: outputs/model_runs/lung_depmap_matched_slim_groupcv_rf
+
+train_baseline:
+  input_dir: data/processed/model_inputs_depmap_matched_slim
+  split_types:
+    - groupcv
+  conditions:
+    - no_gtex
+  models:
+    - random_forest
+  random_forest:
+    n_estimators: 320
+    max_depth:
+    min_samples_leaf: 2
+    max_features: sqrt
+    n_jobs: -1
+    random_state: 42

@@ -20,8 +20,8 @@ PIPELINE_STEPS: list[str] = [
     "standardize_tables",
     "build_disease_context",
     "build_model_inputs",
+    "build_slim_inputs",
     "train_baseline",
     "patient_inference",
     "rerank_outputs",
 ]
-

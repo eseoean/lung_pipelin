@@ -14,6 +14,7 @@ DEFAULT_MODEL_INPUT_SETTINGS = {
     "top_signature_genes_per_cohort": 12,
     "top_pathways_per_collection": 8,
     "filter_to_depmap_mapped": False,
+    "filter_to_sample_crispr_profiled": False,
     "include_label_aggregate_features": False,
     "include_sample_crispr_features": True,
     "include_drug_structure_features": True,
@@ -70,6 +71,9 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     sample_crispr_wide = pd.read_parquet(sample_crispr_path) if sample_crispr_path.exists() else None
 
     labels_y = _prepare_labels_y(response_labels, settings["filter_to_depmap_mapped"])
+    if settings["filter_to_sample_crispr_profiled"] and sample_crispr_wide is not None and not sample_crispr_wide.empty:
+        profiled_samples = set(sample_crispr_wide["sample_id"].astype(str).str.strip())
+        labels_y = labels_y[labels_y["sample_id"].isin(profiled_samples)].reset_index(drop=True)
     sample_cohorts = _build_sample_cohort_map(labels_y, cell_line_master)
     sample_features = _build_sample_features(
         labels_y=labels_y,
@@ -162,6 +166,7 @@ def _stage_settings(cfg: dict[str, Any]) -> dict[str, Any]:
     settings["top_signature_genes_per_cohort"] = int(settings["top_signature_genes_per_cohort"])
     settings["top_pathways_per_collection"] = int(settings["top_pathways_per_collection"])
     settings["filter_to_depmap_mapped"] = bool(settings["filter_to_depmap_mapped"])
+    settings["filter_to_sample_crispr_profiled"] = bool(settings["filter_to_sample_crispr_profiled"])
     settings["include_label_aggregate_features"] = bool(settings["include_label_aggregate_features"])
     settings["include_sample_crispr_features"] = bool(settings["include_sample_crispr_features"])
     settings["include_drug_structure_features"] = bool(settings["include_drug_structure_features"])

@@ -9,6 +9,7 @@ from .registry import PIPELINE_STEPS
 from .stages import (
     build_disease_context,
     build_model_inputs,
+    build_slim_inputs,
     patient_inference,
     rerank_outputs,
     standardize_tables,
@@ -19,6 +20,7 @@ RUNNERS: dict[str, Callable] = {
     "standardize_tables": standardize_tables.run,
     "build_disease_context": build_disease_context.run,
     "build_model_inputs": build_model_inputs.run,
+    "build_slim_inputs": build_slim_inputs.run,
     "train_baseline": train_baseline.run,
     "patient_inference": patient_inference.run,
     "rerank_outputs": rerank_outputs.run,
@@ -52,4 +54,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

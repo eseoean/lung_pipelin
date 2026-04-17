@@ -1,0 +1,13 @@
+inherits:
+  - lung_depmap_matched_rich.yaml
+
+stages:
+  build_slim_inputs:
+    output_dir: data/processed/model_inputs_depmap_matched_slim
+
+slim_inputs:
+  input_dir: data/processed/model_inputs_depmap_matched
+  filter_invalid_smiles_rows: true
+  gene_low_variance_remove_count: 13719
+  morgan_var_threshold: 0.01
+  correlation_threshold: 0.95

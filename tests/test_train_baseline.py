@@ -61,7 +61,7 @@ def test_train_baseline_runs_quick_gtex_groupcv_ablation(tmp_path: Path) -> None
             "mode": "quick_gtex_groupcv_ablation",
             "n_splits": 3,
             "random_state": 42,
-            "models": ["random_forest", "flat_mlp"],
+            "models": ["random_forest", "flat_mlp", "extra_trees"],
             "conditions": [
                 "no_gtex",
                 "sample_summary_only",
@@ -74,6 +74,12 @@ def test_train_baseline_runs_quick_gtex_groupcv_ablation(tmp_path: Path) -> None
                 "full_gtex",
             ],
             "random_forest": {
+                "n_estimators": 20,
+                "min_samples_leaf": 1,
+                "random_state": 42,
+                "n_jobs": 1,
+            },
+            "extra_trees": {
                 "n_estimators": 20,
                 "min_samples_leaf": 1,
                 "random_state": 42,
@@ -115,9 +121,11 @@ def test_train_baseline_runs_quick_gtex_groupcv_ablation(tmp_path: Path) -> None
         "pair_plus_nonconstant",
         "full_gtex",
     }
-    assert set(metrics["models"]) == {"random_forest", "flat_mlp"}
+    assert set(metrics["models"]) == {"random_forest", "flat_mlp", "extra_trees"}
     assert set(metrics["models"]["random_forest"]["conditions"]) == expected_conditions
     assert set(metrics["models"]["flat_mlp"]["conditions"]) == expected_conditions
-    assert set(random_metrics["models"]) == {"random_forest", "flat_mlp"}
+    assert set(metrics["models"]["extra_trees"]["conditions"]) == expected_conditions
+    assert set(random_metrics["models"]) == {"random_forest", "flat_mlp", "extra_trees"}
     assert set(random_metrics["models"]["random_forest"]["conditions"]) == expected_conditions
     assert set(random_metrics["models"]["flat_mlp"]["conditions"]) == expected_conditions
+    assert set(random_metrics["models"]["extra_trees"]["conditions"]) == expected_conditions

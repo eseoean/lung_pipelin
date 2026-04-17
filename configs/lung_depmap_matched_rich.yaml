@@ -1,0 +1,10 @@
+inherits:
+  - lung.yaml
+
+stages:
+  build_model_inputs:
+    output_dir: data/processed/model_inputs_depmap_matched
+
+model_inputs:
+  filter_to_depmap_mapped: true
+  filter_to_sample_crispr_profiled: true

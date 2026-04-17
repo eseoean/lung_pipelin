@@ -1,0 +1,47 @@
+inherits:
+  - lung_depmap_matched_slim.yaml
+
+stages:
+  train_baseline:
+    output_dir: outputs/model_runs/lung_depmap_matched_slim_baseline
+
+train_baseline:
+  input_dir: data/processed/model_inputs_depmap_matched_slim
+  split_types:
+    - randomcv
+  conditions:
+    - no_gtex
+  models:
+    - lightgbm
+    - xgboost
+    - extra_trees
+    - residual_mlp
+    - flat_mlp
+  extra_trees:
+    n_estimators: 400
+    max_depth:
+    min_samples_leaf: 1
+    max_features: sqrt
+    n_jobs: -1
+    random_state: 42
+  residual_mlp:
+    hidden_dim: 128
+    num_blocks: 3
+    dropout: 0.1
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    batch_size: 1024
+    epochs: 10
+    random_state: 42
+    device: cpu
+  flat_mlp:
+    hidden_dims:
+      - 64
+      - 32
+    dropout: 0.1
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    batch_size: 1024
+    epochs: 10
+    random_state: 42
+    device: cpu

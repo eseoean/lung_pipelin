@@ -6,12 +6,12 @@ from typing import Any
 import numpy as np
 import pandas as pd
 import torch
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import ExtraTreesRegressor, RandomForestRegressor
 from sklearn.model_selection import GroupKFold, KFold
 from torch import nn
 from torch.utils.data import DataLoader, TensorDataset
 
-from ..config import stage_output_dir
+from ..config import resolve_repo_path, stage_output_dir
 from ..io import ensure_dir, write_json
 from ._common import build_stage_manifest
 
@@ -59,6 +59,14 @@ DEFAULT_TRAIN_BASELINE_SETTINGS = {
         "num_leaves": 31,
         "subsample": 0.8,
         "colsample_bytree": 0.8,
+        "random_state": 42,
+    },
+    "extra_trees": {
+        "n_estimators": 400,
+        "max_depth": None,
+        "min_samples_leaf": 1,
+        "max_features": "sqrt",
+        "n_jobs": -1,
         "random_state": 42,
     },
     "xgboost": {
@@ -119,7 +127,11 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     if settings["mode"] != "quick_gtex_groupcv_ablation":
         raise ValueError(f"Unsupported train_baseline mode: {settings['mode']}")
 
-    model_input_dir = stage_output_dir(cfg, "build_model_inputs")
+    model_input_dir = (
+        resolve_repo_path(cfg, settings["input_dir"])
+        if settings["input_dir"]
+        else stage_output_dir(cfg, "build_model_inputs")
+    )
     output_dir = ensure_dir(stage_output_dir(cfg, "train_baseline"))
     oof_dir = ensure_dir(output_dir / "oof")
 
@@ -214,6 +226,10 @@ def _stage_settings(cfg: dict[str, Any]) -> dict[str, Any]:
         **DEFAULT_TRAIN_BASELINE_SETTINGS["lightgbm"],
         **section.get("lightgbm", {}),
     }
+    settings["extra_trees"] = {
+        **DEFAULT_TRAIN_BASELINE_SETTINGS["extra_trees"],
+        **section.get("extra_trees", {}),
+    }
     settings["xgboost"] = {
         **DEFAULT_TRAIN_BASELINE_SETTINGS["xgboost"],
         **section.get("xgboost", {}),
@@ -227,6 +243,7 @@ def _stage_settings(cfg: dict[str, Any]) -> dict[str, Any]:
     settings["split_types"] = [str(value) for value in settings["split_types"]]
     settings["conditions"] = [str(value) for value in settings["conditions"]]
     settings["models"] = [str(value) for value in settings["models"]]
+    settings["input_dir"] = str(section.get("input_dir", ""))
     settings["flat_mlp"]["hidden_dims"] = [int(v) for v in settings["flat_mlp"]["hidden_dims"]]
     settings["flat_mlp"]["batch_size"] = int(settings["flat_mlp"]["batch_size"])
     settings["flat_mlp"]["epochs"] = int(settings["flat_mlp"]["epochs"])
@@ -248,6 +265,10 @@ def _stage_settings(cfg: dict[str, Any]) -> dict[str, Any]:
     settings["lightgbm"]["subsample"] = float(settings["lightgbm"]["subsample"])
     settings["lightgbm"]["colsample_bytree"] = float(settings["lightgbm"]["colsample_bytree"])
     settings["lightgbm"]["random_state"] = int(settings["lightgbm"]["random_state"])
+    settings["extra_trees"]["n_estimators"] = int(settings["extra_trees"]["n_estimators"])
+    settings["extra_trees"]["min_samples_leaf"] = int(settings["extra_trees"]["min_samples_leaf"])
+    settings["extra_trees"]["n_jobs"] = int(settings["extra_trees"]["n_jobs"])
+    settings["extra_trees"]["random_state"] = int(settings["extra_trees"]["random_state"])
     settings["xgboost"]["n_estimators"] = int(settings["xgboost"]["n_estimators"])
     settings["xgboost"]["max_depth"] = int(settings["xgboost"]["max_depth"])
     settings["xgboost"]["learning_rate"] = float(settings["xgboost"]["learning_rate"])
@@ -371,6 +392,13 @@ def _run_quick_gtex_ablation(
                     y=y,
                     split_indices=split_indices,
                     settings=settings["lightgbm"],
+                )
+            elif model_name == "extra_trees":
+                metrics, oof = _run_extra_trees_cv(
+                    X=X,
+                    y=y,
+                    split_indices=split_indices,
+                    settings=settings["extra_trees"],
                 )
             elif model_name == "xgboost":
                 metrics, oof = _run_xgboost_cv(
@@ -565,6 +593,36 @@ def _run_lightgbm_cv(
             verbosity=-1,
             **settings,
         )
+        model.fit(X[train_idx], y[train_idx])
+        preds = model.predict(X[valid_idx])
+        oof[valid_idx] = preds
+        fold_metrics.append(
+            {
+                "fold": fold_idx,
+                "n_train": int(len(train_idx)),
+                "n_valid": int(len(valid_idx)),
+                "spearman": _spearman(y[valid_idx], preds),
+                "rmse": _rmse(y[valid_idx], preds),
+            }
+        )
+    return {
+        "spearman": _spearman(y, oof),
+        "rmse": _rmse(y, oof),
+        "fold_metrics": fold_metrics,
+    }, oof
+
+
+def _run_extra_trees_cv(
+    *,
+    X: np.ndarray,
+    y: np.ndarray,
+    split_indices: list[tuple[np.ndarray, np.ndarray]],
+    settings: dict[str, Any],
+) -> tuple[dict[str, Any], np.ndarray]:
+    oof = np.zeros(X.shape[0], dtype=float)
+    fold_metrics: list[dict[str, Any]] = []
+    for fold_idx, (train_idx, valid_idx) in enumerate(split_indices, start=1):
+        model = ExtraTreesRegressor(**settings)
         model.fit(X[train_idx], y[train_idx])
         preds = model.predict(X[valid_idx])
         oof[valid_idx] = preds

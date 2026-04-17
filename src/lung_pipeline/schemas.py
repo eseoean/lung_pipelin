@@ -34,6 +34,14 @@ STAGE_CONTRACTS = {
             "data/processed/model_inputs/labels_y.parquet",
         ],
     },
+    "build_slim_inputs": {
+        "description": "Prune rich model inputs into a slim exact-style training table.",
+        "outputs": [
+            "data/processed/model_inputs_slim/train_table.parquet",
+            "data/processed/model_inputs_slim/labels_y.parquet",
+            "data/processed/model_inputs_slim/slim_input_summary.json",
+        ],
+    },
     "train_baseline": {
         "description": "Run baseline GroupCV and random-split experiments.",
         "outputs": [

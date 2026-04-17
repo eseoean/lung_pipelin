@@ -1,0 +1,37 @@
+inherits:
+  - lung.yaml
+
+stages:
+  train_baseline:
+    output_dir: outputs/model_runs/rich_gtex_ablation_lgbm_flat
+
+train_baseline:
+  split_types:
+    - groupcv
+    - randomcv
+  conditions:
+    - no_gtex
+    - pair_only
+    - pair_plus_top4
+    - full_gtex
+  models:
+    - lightgbm
+    - flat_mlp
+  lightgbm:
+    n_estimators: 300
+    learning_rate: 0.05
+    num_leaves: 31
+    subsample: 0.8
+    colsample_bytree: 0.8
+    random_state: 42
+  flat_mlp:
+    hidden_dims:
+      - 128
+      - 64
+    dropout: 0.1
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    batch_size: 512
+    epochs: 12
+    random_state: 42
+    device: cpu

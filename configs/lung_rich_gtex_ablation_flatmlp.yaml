@@ -1,0 +1,28 @@
+inherits:
+  - lung.yaml
+
+stages:
+  train_baseline:
+    output_dir: outputs/model_runs/rich_gtex_ablation_flatmlp
+
+train_baseline:
+  split_types:
+    - groupcv
+    - randomcv
+  conditions:
+    - no_gtex
+    - pair_only
+    - pair_plus_top4
+    - full_gtex
+  models:
+    - flat_mlp
+  flat_mlp:
+    hidden_dims:
+      - 32
+    dropout: 0.1
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    batch_size: 2048
+    epochs: 4
+    random_state: 42
+    device: cpu
