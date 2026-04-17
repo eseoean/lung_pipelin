@@ -12,6 +12,7 @@ from ..ipf_geo_metadata import (
     build_gse122960_sample_reference,
     default_gse122960_paths,
 )
+from ..ipf_geo_expression import build_gse122960_expression_reference
 from ..io import write_json
 from ..registry import dataset_buckets
 from ._common import build_stage_manifest, resolve_stage_inputs, resolve_stage_notes
@@ -44,6 +45,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     gse122960_paths = default_gse122960_paths(root)
     series_matrix_path = gse122960_paths["series_matrix"]
     filelist_path = gse122960_paths["filelist"]
+    raw_tar_path = gse122960_paths["raw_tar"]
     stage_outputs = [
         resolve_repo_path(cfg, item)
         for item in cfg["stage_contracts"]["build_disease_context"]["outputs"]
@@ -118,6 +120,46 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         if not filelist_path.exists():
             missing_inputs.append(str(filelist_path))
         artifacts["gse122960_sample_reference"] = {
+            "source_accession": "GSE122960",
+            "missing_inputs": missing_inputs,
+        }
+
+    if raw_tar_path.exists() and series_matrix_path.exists() and filelist_path.exists():
+        expression_summary = build_gse122960_expression_reference(
+            sample_reference_path=root / "docs/ipf/gse122960_sample_reference.csv",
+            raw_tar_path=raw_tar_path,
+            output_parquet=root
+            / "data/processed/disease_context/ipf_gse122960_expression_reference.parquet",
+            output_csv=root / "docs/ipf/gse122960_expression_sample_summary.csv",
+            top_genes_csv=root / "docs/ipf/gse122960_expression_ipf_vs_control_top_genes.csv",
+            summary_json=root / "docs/ipf/gse122960_expression_reference_summary.json",
+        )
+        artifacts["gse122960_expression_reference"] = {
+            "source_accession": "GSE122960",
+            "source_mode": "filtered_h5_expression_reference",
+            "expression_reference_parquet": str(
+                root / "data/processed/disease_context/ipf_gse122960_expression_reference.parquet"
+            ),
+            "expression_sample_summary_csv": str(
+                root / "docs/ipf/gse122960_expression_sample_summary.csv"
+            ),
+            "expression_top_genes_csv": str(
+                root / "docs/ipf/gse122960_expression_ipf_vs_control_top_genes.csv"
+            ),
+            "expression_reference_summary": str(
+                root / "docs/ipf/gse122960_expression_reference_summary.json"
+            ),
+            "sample_count": expression_summary["sample_count"],
+            "total_cells": expression_summary["total_cells"],
+            "top_gene_count": expression_summary.get("top_gene_count", 0),
+        }
+    else:
+        missing_inputs = []
+        if not raw_tar_path.exists():
+            missing_inputs.append(str(raw_tar_path))
+        if not (root / "docs/ipf/gse122960_sample_reference.csv").exists():
+            missing_inputs.append(str(root / "docs/ipf/gse122960_sample_reference.csv"))
+        artifacts["gse122960_expression_reference"] = {
             "source_accession": "GSE122960",
             "missing_inputs": missing_inputs,
         }

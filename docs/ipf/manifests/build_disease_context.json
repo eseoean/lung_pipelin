@@ -2,7 +2,7 @@
   "stage": "build_disease_context",
   "description": "Create IPF bulk signatures, scRNA cell-state references, and external validation panels.",
   "status": "partial_built",
-  "generated_at": "2026-04-17T07:29:48.731194+00:00",
+  "generated_at": "2026-04-17T07:42:20.055002+00:00",
   "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context",
   "inputs": [
     "geo_ipf_bulk",
@@ -41,6 +41,17 @@
       "sample_count": 17,
       "filtered_h5_available_count": 17,
       "raw_h5_available_count": 17
+    },
+    "gse122960_expression_reference": {
+      "source_accession": "GSE122960",
+      "source_mode": "filtered_h5_expression_reference",
+      "expression_reference_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_gse122960_expression_reference.parquet",
+      "expression_sample_summary_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse122960_expression_sample_summary.csv",
+      "expression_top_genes_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse122960_expression_ipf_vs_control_top_genes.csv",
+      "expression_reference_summary": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse122960_expression_reference_summary.json",
+      "sample_count": 17,
+      "total_cells": 80919,
+      "top_gene_count": 200
     }
   }
 }

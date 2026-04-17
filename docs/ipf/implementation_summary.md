@@ -21,6 +21,9 @@ This branch adapts the lung pipeline scaffold from a lung-cancer response workfl
 - Added a GEO sample-metadata parser for `GSE122960`:
   - [scripts/build_ipf_sample_reference.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/build_ipf_sample_reference.py)
   - [src/lung_pipeline/ipf_geo_metadata.py](/Users/skku_aws2_18/pre_project/lung_pipelin/src/lung_pipeline/ipf_geo_metadata.py)
+- Added an expression-aware filtered-H5 parser for `GSE122960`:
+  - [scripts/build_ipf_sample_expression_reference.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/build_ipf_sample_expression_reference.py)
+  - [src/lung_pipeline/ipf_geo_expression.py](/Users/skku_aws2_18/pre_project/lung_pipelin/src/lung_pipeline/ipf_geo_expression.py)
 
 ## Working assumptions from the planning page
 
@@ -80,8 +83,14 @@ Current local download status:
 - `series_matrix.txt.gz` downloaded for `4/5` accessions
 - `GSE47460_series_matrix.txt.gz` returned `HTTP 404`
 - Small supplementary files downloaded for `7` assets
-- Large supplementary payload queue reduced to `5` files
-- One large payload `GSE32537_RAW.tar` is already present in the local raw-data folder from the first supplementary run
+- Large supplementary payload queue reduced to `0` files
+- Large supplementary payloads now present locally for:
+  - `GSE32537_RAW.tar`
+  - `GSE47460_RAW.tar`
+  - `GSE122960_RAW.tar`
+  - `GSE136831_RAW.tar`
+  - `GSE136831_RawCounts_Sparse.mtx.gz`
+  - `GSE233844_RAW.tar`
 
 The downloaded files currently live in the local ignored raw-data path:
 
@@ -153,12 +162,41 @@ Current parser result:
 - disease bucket distribution:
   - `Control 8`
   - `IPF 5`
-  - `Other-ILD 3`
-  - `Other 1`
+  - `Other-ILD 4`
 - filtered H5 availability: `17/17`
 - raw H5 availability: `17/17`
 
 This gives the branch a second real disease-context artifact: `GSE136831` provides cell-state-level scRNA metadata, while `GSE122960` provides cohort/sample-level scRNA context and downloadable raw/filtered H5 pointers.
+
+Using the downloaded `GSE122960_RAW.tar` filtered 10x H5 payloads, the branch now also builds an expression-aware sample summary and an `IPF vs Control` top-gene table.
+
+- Reviewable sample summary:
+  - [docs/ipf/gse122960_expression_sample_summary.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse122960_expression_sample_summary.csv)
+- Reviewable top genes:
+  - [docs/ipf/gse122960_expression_ipf_vs_control_top_genes.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse122960_expression_ipf_vs_control_top_genes.csv)
+- Summary:
+  - [docs/ipf/gse122960_expression_reference_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse122960_expression_reference_summary.json)
+- Updated stage manifest:
+  - [docs/ipf/manifests/build_disease_context.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/manifests/build_disease_context.json)
+
+Current expression parser result:
+
+- accession: `GSE122960`
+- matched filtered H5 files: `17`
+- total cells: `80,919`
+- median cells per sample: `5,193`
+- detected genes in union: `33,694`
+- disease bucket distribution:
+  - `Control 8`
+  - `IPF 5`
+  - `Other-ILD 4`
+- bucket total UMIs:
+  - `Control 325,254,287`
+  - `IPF 84,748,890`
+  - `Other-ILD 167,902,570`
+- top differential genes exported: `200`
+
+This gives the branch a third real disease-context artifact: `GSE122960` now contributes not just metadata, but sample-level pseudobulk expression summaries and a first-pass `IPF vs Control` gene ranking.
 
 ## Validation status
 
@@ -170,21 +208,16 @@ This gives the branch a second real disease-context artifact: `GSE136831` provid
 - `make ipf-download-geo-small`: passed
 - `make ipf-build-cell-reference`: passed
 - `make ipf-build-sample-reference`: passed
+- `make ipf-build-sample-expression`: passed
 
 ## Next recommended steps
 
-1. Download the remaining large supplementary payloads from `docs/ipf/ipf_geo_supplementary_queue.csv`
-2. Promote the local GEO downloads into a stable shared raw-data location and update `configs/datasets_ipf.yaml` if the final landing path changes
-3. Download the remaining large scRNA supplementary payloads needed for expression-level signatures, especially:
-   - `GSE136831_RawCounts_Sparse.mtx.gz`
-   - `GSE122960_RAW.tar`
-   - `GSE233844_RAW.tar`
-4. Extend the current metadata-driven parsers into expression-aware builders:
-   - `GSE136831` for cell-state signatures
-   - `GSE122960` for sample-to-cell matrix ingestion from H5 payloads
-5. Replace dry-run placeholders with real builders for:
+1. Promote the local GEO downloads into a stable shared raw-data location and update `configs/datasets_ipf.yaml` if the final landing path changes
+2. Extend `GSE136831` from metadata-only to expression-aware cell-state signatures using the downloaded sparse matrix payload
+3. Parse `GSE233844` and the bulk GEO cohorts into comparable disease and validation signatures
+4. Replace dry-run placeholders with real builders for:
    - bulk IPF signatures
    - scRNA cell-state references
    - pseudo-label generation
    - reversal and network scoring
-6. Add accession-aware validation once multiple IPF cohorts are ingested
+5. Add accession-aware validation once multiple IPF cohorts are ingested

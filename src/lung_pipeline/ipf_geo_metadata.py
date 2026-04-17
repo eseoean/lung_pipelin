@@ -18,6 +18,7 @@ def default_gse122960_paths(repo_root: Path) -> dict[str, Path]:
         "series_matrix": base / f"{DEFAULT_GSE122960}_series_matrix.txt.gz",
         "family_soft": base / f"{DEFAULT_GSE122960}_family.soft.gz",
         "filelist": base / "supplementary" / "filelist.txt",
+        "raw_tar": base / "supplementary" / f"{DEFAULT_GSE122960}_RAW.tar",
     }
 
 

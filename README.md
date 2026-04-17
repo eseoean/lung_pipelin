@@ -45,6 +45,7 @@ make ipf-download-plan
 make ipf-download-geo-small
 make ipf-build-cell-reference
 make ipf-build-sample-reference
+make ipf-build-sample-expression
 ```
 
 If the S3 bucket is missing required IPF GEO cohorts, use the download helper to plan and fetch official GEO assets into the local raw-data area:

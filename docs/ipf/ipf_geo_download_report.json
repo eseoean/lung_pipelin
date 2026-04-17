@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-17T07:07:07.537763+00:00",
+  "generated_at": "2026-04-17T07:34:11.441813+00:00",
   "rows": [
     {
       "accession": "GSE32537",
@@ -187,8 +187,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE32nnn/GSE32537/suppl/GSE32537_RAW.tar",
       "relative_path": "GSE32537/supplementary/GSE32537_RAW.tar",
-      "status": "exists",
-      "detail": "already present"
+      "status": "downloaded",
+      "detail": ""
     },
     {
       "accession": "GSE32537",
@@ -196,8 +196,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE32nnn/GSE32537/suppl/filelist.txt",
       "relative_path": "GSE32537/supplementary/filelist.txt",
-      "status": "exists",
-      "detail": "already present"
+      "status": "downloaded",
+      "detail": ""
     },
     {
       "accession": "GSE47460",
@@ -205,8 +205,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE47nnn/GSE47460/suppl/GSE47460_RAW.tar",
       "relative_path": "GSE47460/supplementary/GSE47460_RAW.tar",
-      "status": "planned_supplementary",
-      "detail": "1760778240 bytes exceeds threshold 50000000"
+      "status": "downloaded",
+      "detail": ""
     },
     {
       "accession": "GSE47460",
@@ -214,8 +214,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE47nnn/GSE47460/suppl/filelist.txt",
       "relative_path": "GSE47460/supplementary/filelist.txt",
-      "status": "downloaded",
-      "detail": "41161 bytes"
+      "status": "exists",
+      "detail": "already present"
     },
     {
       "accession": "GSE122960",
@@ -223,8 +223,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/suppl/GSE122960_RAW.tar",
       "relative_path": "GSE122960/supplementary/GSE122960_RAW.tar",
-      "status": "planned_supplementary",
-      "detail": "755537920 bytes exceeds threshold 50000000"
+      "status": "downloaded",
+      "detail": ""
     },
     {
       "accession": "GSE122960",
@@ -232,8 +232,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/suppl/filelist.txt",
       "relative_path": "GSE122960/supplementary/filelist.txt",
-      "status": "downloaded",
-      "detail": "3041 bytes"
+      "status": "exists",
+      "detail": "already present"
     },
     {
       "accession": "GSE136831",
@@ -241,8 +241,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_AllCells.GeneIDs.txt.gz",
       "relative_path": "GSE136831/supplementary/GSE136831_AllCells.GeneIDs.txt.gz",
-      "status": "downloaded",
-      "detail": "323848 bytes"
+      "status": "exists",
+      "detail": "already present"
     },
     {
       "accession": "GSE136831",
@@ -250,8 +250,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_AllCells.Samples.CellType.MetadataTable.txt.gz",
       "relative_path": "GSE136831/supplementary/GSE136831_AllCells.Samples.CellType.MetadataTable.txt.gz",
-      "status": "downloaded",
-      "detail": "4308752 bytes"
+      "status": "exists",
+      "detail": "already present"
     },
     {
       "accession": "GSE136831",
@@ -259,8 +259,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_AllCells.cellBarcodes.txt.gz",
       "relative_path": "GSE136831/supplementary/GSE136831_AllCells.cellBarcodes.txt.gz",
-      "status": "downloaded",
-      "detail": "1392307 bytes"
+      "status": "exists",
+      "detail": "already present"
     },
     {
       "accession": "GSE136831",
@@ -268,8 +268,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_RAW.tar",
       "relative_path": "GSE136831/supplementary/GSE136831_RAW.tar",
-      "status": "planned_supplementary",
-      "detail": "17651281920 bytes exceeds threshold 50000000"
+      "status": "downloaded",
+      "detail": ""
     },
     {
       "accession": "GSE136831",
@@ -277,8 +277,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_RawCounts_Sparse.mtx.gz",
       "relative_path": "GSE136831/supplementary/GSE136831_RawCounts_Sparse.mtx.gz",
-      "status": "planned_supplementary",
-      "detail": "2150633813 bytes exceeds threshold 50000000"
+      "status": "downloaded",
+      "detail": ""
     },
     {
       "accession": "GSE136831",
@@ -286,8 +286,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/filelist.txt",
       "relative_path": "GSE136831/supplementary/filelist.txt",
-      "status": "downloaded",
-      "detail": "7898 bytes"
+      "status": "exists",
+      "detail": "already present"
     },
     {
       "accession": "GSE233844",
@@ -295,8 +295,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE233nnn/GSE233844/suppl/GSE233844_RAW.tar",
       "relative_path": "GSE233844/supplementary/GSE233844_RAW.tar",
-      "status": "planned_supplementary",
-      "detail": "1108838400 bytes exceeds threshold 50000000"
+      "status": "downloaded",
+      "detail": ""
     },
     {
       "accession": "GSE233844",
@@ -304,8 +304,8 @@
       "asset_type": "supplementary_file",
       "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE233nnn/GSE233844/suppl/filelist.txt",
       "relative_path": "GSE233844/supplementary/filelist.txt",
-      "status": "downloaded",
-      "detail": "7695 bytes"
+      "status": "exists",
+      "detail": "already present"
     }
   ]
 }
