@@ -1,0 +1,311 @@
+{
+  "generated_at": "2026-04-17T06:46:37.649817+00:00",
+  "rows": [
+    {
+      "accession": "GSE32537",
+      "category": "geo_ipf_bulk",
+      "asset_type": "landing_page",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE32537",
+      "relative_path": "GSE32537/GSE32537_landing_page.html",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE32537",
+      "category": "geo_ipf_bulk",
+      "asset_type": "family_soft",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE32nnn/GSE32537/soft/GSE32537_family.soft.gz",
+      "relative_path": "GSE32537/GSE32537_family.soft.gz",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE32537",
+      "category": "geo_ipf_bulk",
+      "asset_type": "series_matrix",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE32nnn/GSE32537/matrix/GSE32537_series_matrix.txt.gz",
+      "relative_path": "GSE32537/GSE32537_series_matrix.txt.gz",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE32537",
+      "category": "geo_ipf_bulk",
+      "asset_type": "supplementary_index",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE32nnn/GSE32537/suppl/",
+      "relative_path": "GSE32537/GSE32537_supplementary_index.html",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE47460",
+      "category": "geo_ipf_bulk",
+      "asset_type": "landing_page",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE47460",
+      "relative_path": "GSE47460/GSE47460_landing_page.html",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE47460",
+      "category": "geo_ipf_bulk",
+      "asset_type": "family_soft",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE47nnn/GSE47460/soft/GSE47460_family.soft.gz",
+      "relative_path": "GSE47460/GSE47460_family.soft.gz",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE47460",
+      "category": "geo_ipf_bulk",
+      "asset_type": "series_matrix",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE47nnn/GSE47460/matrix/GSE47460_series_matrix.txt.gz",
+      "relative_path": "GSE47460/GSE47460_series_matrix.txt.gz",
+      "status": "http_error",
+      "detail": "HTTP 404"
+    },
+    {
+      "accession": "GSE47460",
+      "category": "geo_ipf_bulk",
+      "asset_type": "supplementary_index",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE47nnn/GSE47460/suppl/",
+      "relative_path": "GSE47460/GSE47460_supplementary_index.html",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE122960",
+      "category": "geo_ipf_scrna",
+      "asset_type": "landing_page",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122960",
+      "relative_path": "GSE122960/GSE122960_landing_page.html",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE122960",
+      "category": "geo_ipf_scrna",
+      "asset_type": "family_soft",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/soft/GSE122960_family.soft.gz",
+      "relative_path": "GSE122960/GSE122960_family.soft.gz",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE122960",
+      "category": "geo_ipf_scrna",
+      "asset_type": "series_matrix",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/matrix/GSE122960_series_matrix.txt.gz",
+      "relative_path": "GSE122960/GSE122960_series_matrix.txt.gz",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE122960",
+      "category": "geo_ipf_scrna",
+      "asset_type": "supplementary_index",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/suppl/",
+      "relative_path": "GSE122960/GSE122960_supplementary_index.html",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE136831",
+      "category": "geo_ipf_scrna",
+      "asset_type": "landing_page",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136831",
+      "relative_path": "GSE136831/GSE136831_landing_page.html",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE136831",
+      "category": "geo_ipf_scrna",
+      "asset_type": "family_soft",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/soft/GSE136831_family.soft.gz",
+      "relative_path": "GSE136831/GSE136831_family.soft.gz",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE136831",
+      "category": "geo_ipf_scrna",
+      "asset_type": "series_matrix",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/matrix/GSE136831_series_matrix.txt.gz",
+      "relative_path": "GSE136831/GSE136831_series_matrix.txt.gz",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE136831",
+      "category": "geo_ipf_scrna",
+      "asset_type": "supplementary_index",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/",
+      "relative_path": "GSE136831/GSE136831_supplementary_index.html",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE233844",
+      "category": "geo_ipf_external_validation",
+      "asset_type": "landing_page",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE233844",
+      "relative_path": "GSE233844/GSE233844_landing_page.html",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE233844",
+      "category": "geo_ipf_external_validation",
+      "asset_type": "family_soft",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE233nnn/GSE233844/soft/GSE233844_family.soft.gz",
+      "relative_path": "GSE233844/GSE233844_family.soft.gz",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE233844",
+      "category": "geo_ipf_external_validation",
+      "asset_type": "series_matrix",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE233nnn/GSE233844/matrix/GSE233844_series_matrix.txt.gz",
+      "relative_path": "GSE233844/GSE233844_series_matrix.txt.gz",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE233844",
+      "category": "geo_ipf_external_validation",
+      "asset_type": "supplementary_index",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE233nnn/GSE233844/suppl/",
+      "relative_path": "GSE233844/GSE233844_supplementary_index.html",
+      "status": "exists",
+      "detail": "already present"
+    },
+    {
+      "accession": "GSE32537",
+      "category": "geo_ipf_bulk",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE32nnn/GSE32537/suppl/GSE32537_RAW.tar",
+      "relative_path": "GSE32537/supplementary/GSE32537_RAW.tar",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE32537",
+      "category": "geo_ipf_bulk",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE32nnn/GSE32537/suppl/filelist.txt",
+      "relative_path": "GSE32537/supplementary/filelist.txt",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE47460",
+      "category": "geo_ipf_bulk",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE47nnn/GSE47460/suppl/GSE47460_RAW.tar",
+      "relative_path": "GSE47460/supplementary/GSE47460_RAW.tar",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE47460",
+      "category": "geo_ipf_bulk",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE47nnn/GSE47460/suppl/filelist.txt",
+      "relative_path": "GSE47460/supplementary/filelist.txt",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE122960",
+      "category": "geo_ipf_scrna",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/suppl/GSE122960_RAW.tar",
+      "relative_path": "GSE122960/supplementary/GSE122960_RAW.tar",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE122960",
+      "category": "geo_ipf_scrna",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/suppl/filelist.txt",
+      "relative_path": "GSE122960/supplementary/filelist.txt",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE136831",
+      "category": "geo_ipf_scrna",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_AllCells.GeneIDs.txt.gz",
+      "relative_path": "GSE136831/supplementary/GSE136831_AllCells.GeneIDs.txt.gz",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE136831",
+      "category": "geo_ipf_scrna",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_AllCells.Samples.CellType.MetadataTable.txt.gz",
+      "relative_path": "GSE136831/supplementary/GSE136831_AllCells.Samples.CellType.MetadataTable.txt.gz",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE136831",
+      "category": "geo_ipf_scrna",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_AllCells.cellBarcodes.txt.gz",
+      "relative_path": "GSE136831/supplementary/GSE136831_AllCells.cellBarcodes.txt.gz",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE136831",
+      "category": "geo_ipf_scrna",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_RAW.tar",
+      "relative_path": "GSE136831/supplementary/GSE136831_RAW.tar",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE136831",
+      "category": "geo_ipf_scrna",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/GSE136831_RawCounts_Sparse.mtx.gz",
+      "relative_path": "GSE136831/supplementary/GSE136831_RawCounts_Sparse.mtx.gz",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE136831",
+      "category": "geo_ipf_scrna",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE136nnn/GSE136831/suppl/filelist.txt",
+      "relative_path": "GSE136831/supplementary/filelist.txt",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE233844",
+      "category": "geo_ipf_external_validation",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE233nnn/GSE233844/suppl/GSE233844_RAW.tar",
+      "relative_path": "GSE233844/supplementary/GSE233844_RAW.tar",
+      "status": "planned_supplementary",
+      "detail": ""
+    },
+    {
+      "accession": "GSE233844",
+      "category": "geo_ipf_external_validation",
+      "asset_type": "supplementary_file",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE233nnn/GSE233844/suppl/filelist.txt",
+      "relative_path": "GSE233844/supplementary/filelist.txt",
+      "status": "planned_supplementary",
+      "detail": ""
+    }
+  ]
+}

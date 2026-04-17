@@ -41,6 +41,13 @@ Useful commands on the `ipf` branch:
 ```bash
 make dry-run CONFIG=configs/ipf.yaml
 PYTHONPATH=src python scripts/audit_ipf_sources.py
+make ipf-download-plan
+```
+
+If the S3 bucket is missing required IPF GEO cohorts, use the download helper to plan and fetch official GEO assets into the local raw-data area:
+
+```bash
+make ipf-download-geo
 ```
 
 ## Repository Layout

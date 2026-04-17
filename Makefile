@@ -2,7 +2,7 @@ CONFIG ?= configs/lung.yaml
 PYTHON ?= python3
 PYTHONPATH := src
 
-.PHONY: dry-run stage-standardize stage-disease stage-model-inputs stage-train stage-patient stage-rerank ipf-audit ipf-dry-run test
+.PHONY: dry-run stage-standardize stage-disease stage-model-inputs stage-train stage-patient stage-rerank ipf-audit ipf-dry-run ipf-download-plan ipf-download-geo test
 
 dry-run:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m lung_pipeline.cli --config $(CONFIG) --stage all --dry-run
@@ -30,6 +30,12 @@ ipf-audit:
 
 ipf-dry-run:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m lung_pipeline.cli --config configs/ipf.yaml --stage all --dry-run
+
+ipf-download-plan:
+	PYTHONPATH=$(PYTHONPATH) $(PYTHON) scripts/download_ipf_geo_sources.py --config configs/ipf.yaml --plan-only
+
+ipf-download-geo:
+	PYTHONPATH=$(PYTHONPATH) $(PYTHON) scripts/download_ipf_geo_sources.py --config configs/ipf.yaml
 
 test:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m pytest
