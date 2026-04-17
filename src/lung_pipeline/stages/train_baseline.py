@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import torch
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import GroupKFold
+from sklearn.model_selection import GroupKFold, KFold
 from torch import nn
 from torch.utils.data import DataLoader, TensorDataset
 
@@ -20,6 +20,7 @@ DEFAULT_TRAIN_BASELINE_SETTINGS = {
     "target_column": "label_regression",
     "group_column": "canonical_drug_id",
     "n_splits": 3,
+    "random_state": 42,
     "conditions": ["no_gtex", "sample_only", "pair_only", "full_gtex"],
     "models": ["random_forest", "flat_mlp"],
     "random_forest": {
@@ -83,18 +84,19 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         settings=settings,
         oof_dir=oof_dir,
     )
+    randomcv_results, random_oof_manifest = _run_quick_gtex_randomcv_ablation(
+        train_table=train_table,
+        settings=settings,
+        oof_dir=oof_dir,
+    )
 
     write_json(output_dir / "groupcv_metrics.json", groupcv_results)
-    write_json(
-        output_dir / "randomcv_metrics.json",
-        {
-            "status": "skipped",
-            "reason": "quick_gtex_groupcv_ablation_mode_runs_groupcv_only",
-        },
-    )
+    write_json(output_dir / "randomcv_metrics.json", randomcv_results)
+    oof_manifest["files"].extend(random_oof_manifest["files"])
     write_json(output_dir / "oof_manifest.json", oof_manifest)
 
-    best = _best_model_condition(groupcv_results)
+    groupcv_best = _best_model_condition(groupcv_results)
+    randomcv_best = _best_model_condition(randomcv_results)
 
     return build_stage_manifest(
         cfg,
@@ -103,7 +105,8 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         notes + [
             f"Executed quick GTEx ablation with models: {', '.join(settings['models'])}.",
             f"Conditions: {', '.join(settings['conditions'])}",
-            f"Best GroupCV result: {best['model']} / {best['condition']} ({best['spearman']:.4f})",
+            f"Best GroupCV result: {groupcv_best['model']} / {groupcv_best['condition']} ({groupcv_best['spearman']:.4f})",
+            f"Best random-split result: {randomcv_best['model']} / {randomcv_best['condition']} ({randomcv_best['spearman']:.4f})",
         ],
         dry_run=False,
         status="implemented",
@@ -111,7 +114,8 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
             "mode": settings["mode"],
             "models": settings["models"],
             "conditions": settings["conditions"],
-            "best_result": best,
+            "best_groupcv_result": groupcv_best,
+            "best_randomcv_result": randomcv_best,
         },
     )
 
@@ -128,6 +132,7 @@ def _stage_settings(cfg: dict[str, Any]) -> dict[str, Any]:
         **section.get("flat_mlp", {}),
     }
     settings["n_splits"] = int(settings["n_splits"])
+    settings["random_state"] = int(settings["random_state"])
     settings["conditions"] = [str(value) for value in settings["conditions"]]
     settings["models"] = [str(value) for value in settings["models"]]
     settings["flat_mlp"]["hidden_dims"] = [int(v) for v in settings["flat_mlp"]["hidden_dims"]]
@@ -146,6 +151,35 @@ def _run_quick_gtex_groupcv_ablation(
     settings: dict[str, Any],
     oof_dir: Path,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
+    return _run_quick_gtex_ablation(
+        train_table=train_table,
+        settings=settings,
+        oof_dir=oof_dir,
+        split_kind="groupcv",
+    )
+
+
+def _run_quick_gtex_randomcv_ablation(
+    *,
+    train_table: pd.DataFrame,
+    settings: dict[str, Any],
+    oof_dir: Path,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    return _run_quick_gtex_ablation(
+        train_table=train_table,
+        settings=settings,
+        oof_dir=oof_dir,
+        split_kind="randomcv",
+    )
+
+
+def _run_quick_gtex_ablation(
+    *,
+    train_table: pd.DataFrame,
+    settings: dict[str, Any],
+    oof_dir: Path,
+    split_kind: str,
+) -> tuple[dict[str, Any], dict[str, Any]]:
     target_column = settings["target_column"]
     group_column = settings["group_column"]
 
@@ -154,8 +188,14 @@ def _run_quick_gtex_groupcv_ablation(
     pair_ids = train_table["pair_id"].astype(str).to_numpy()
 
     numeric_columns = _numeric_feature_columns(train_table, exclude={target_column, "label_binary"})
-    splitter = GroupKFold(n_splits=settings["n_splits"])
-    split_indices = list(splitter.split(train_table, y, groups))
+    split_indices = _split_indices(
+        train_table=train_table,
+        y=y,
+        groups=groups,
+        n_splits=settings["n_splits"],
+        random_state=settings["random_state"],
+        split_kind=split_kind,
+    )
 
     model_results: dict[str, Any] = {}
     oof_manifest: dict[str, Any] = {"files": []}
@@ -190,19 +230,21 @@ def _run_quick_gtex_groupcv_ablation(
             metrics["feature_columns"] = feature_columns
             model_results[model_name]["conditions"][condition] = metrics
 
-            oof_path = oof_dir / f"gtex_ablation_groupcv_{model_name}_{condition}.parquet"
+            oof_path = oof_dir / f"gtex_ablation_{split_kind}_{model_name}_{condition}.parquet"
             pd.DataFrame(
                 {
                     "pair_id": pair_ids,
-                    "group": groups,
+                    "group": groups if split_kind == "groupcv" else None,
                     "y_true": y,
                     "y_pred": oof,
                     "condition": condition,
                     "model": model_name,
+                    "split_type": split_kind,
                 }
             ).to_parquet(oof_path, index=False)
             oof_manifest["files"].append(
                 {
+                    "split_type": split_kind,
                     "model": model_name,
                     "condition": condition,
                     "path": str(oof_path),
@@ -212,8 +254,27 @@ def _run_quick_gtex_groupcv_ablation(
 
     return {
         "mode": settings["mode"],
+        "split_type": split_kind,
         "models": model_results,
     }, oof_manifest
+
+
+def _split_indices(
+    *,
+    train_table: pd.DataFrame,
+    y: np.ndarray,
+    groups: np.ndarray,
+    n_splits: int,
+    random_state: int,
+    split_kind: str,
+) -> list[tuple[np.ndarray, np.ndarray]]:
+    if split_kind == "groupcv":
+        splitter = GroupKFold(n_splits=n_splits)
+        return list(splitter.split(train_table, y, groups))
+    if split_kind == "randomcv":
+        splitter = KFold(n_splits=n_splits, shuffle=True, random_state=random_state)
+        return list(splitter.split(train_table, y))
+    raise ValueError(f"Unsupported split kind: {split_kind}")
 
 
 def _run_random_forest_groupcv(

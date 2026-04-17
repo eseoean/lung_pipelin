@@ -66,6 +66,7 @@ train_baseline:
   target_column: label_regression
   group_column: canonical_drug_id
   n_splits: 3
+  random_state: 42
   models:
     - random_forest
     - flat_mlp
