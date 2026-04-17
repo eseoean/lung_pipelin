@@ -18,6 +18,9 @@ This branch adapts the lung pipeline scaffold from a lung-cancer response workfl
 - Added a first real scRNA parser for `GSE136831`:
   - [scripts/build_ipf_cell_state_reference.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/build_ipf_cell_state_reference.py)
   - [src/lung_pipeline/ipf_cell_state.py](/Users/skku_aws2_18/pre_project/lung_pipelin/src/lung_pipeline/ipf_cell_state.py)
+- Added an expression-aware sparse-matrix parser for `GSE136831`:
+  - [scripts/build_ipf_cell_state_expression_reference.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/build_ipf_cell_state_expression_reference.py)
+  - [src/lung_pipeline/ipf_cell_state_expression.py](/Users/skku_aws2_18/pre_project/lung_pipelin/src/lung_pipeline/ipf_cell_state_expression.py)
 - Added a GEO sample-metadata parser for `GSE122960`:
   - [scripts/build_ipf_sample_reference.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/build_ipf_sample_reference.py)
   - [src/lung_pipeline/ipf_geo_metadata.py](/Users/skku_aws2_18/pre_project/lung_pipelin/src/lung_pipeline/ipf_geo_metadata.py)
@@ -140,6 +143,28 @@ Current parser result:
 
 This is intentionally a metadata-driven first pass. Expression-level cell-state signatures still require the remaining large sparse-matrix supplementary payloads.
 
+Using the downloaded `GSE136831_RawCounts_Sparse.mtx.gz`, the branch now also builds an expression-aware cell-state reference and manuscript-level `IPF vs Control` top-gene tables.
+
+- Reviewable group reference:
+  - [docs/ipf/gse136831_expression_group_reference.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_expression_group_reference.csv)
+- Reviewable top genes:
+  - [docs/ipf/gse136831_expression_ipf_vs_control_top_genes.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_expression_ipf_vs_control_top_genes.csv)
+- Summary:
+  - [docs/ipf/gse136831_expression_reference_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_expression_reference_summary.json)
+- Updated stage manifest:
+  - [docs/ipf/manifests/build_disease_context.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/manifests/build_disease_context.json)
+
+Current expression parser result:
+
+- accession: `GSE136831`
+- total cells: `312,928`
+- group rows: `285`
+- matrix gene rows: `45,947`
+- manuscript identities compared in `IPF vs Control`: `38`
+- top gene rows exported: `570`
+
+This upgrades `GSE136831` from metadata-only grouping to true pseudobulk-style disease x cell-state signatures anchored to the original sparse count matrix.
+
 Using the downloaded `GSE122960` series-matrix and supplementary file index, the branch now also builds a sample-level scRNA reference for IPF and related ILD cohorts.
 
 - Reviewable table:
@@ -207,17 +232,17 @@ This gives the branch a third real disease-context artifact: `GSE122960` now con
 - `make ipf-download-geo`: passed
 - `make ipf-download-geo-small`: passed
 - `make ipf-build-cell-reference`: passed
+- `make ipf-build-cell-expression`: passed
 - `make ipf-build-sample-reference`: passed
 - `make ipf-build-sample-expression`: passed
 
 ## Next recommended steps
 
 1. Promote the local GEO downloads into a stable shared raw-data location and update `configs/datasets_ipf.yaml` if the final landing path changes
-2. Extend `GSE136831` from metadata-only to expression-aware cell-state signatures using the downloaded sparse matrix payload
-3. Parse `GSE233844` and the bulk GEO cohorts into comparable disease and validation signatures
-4. Replace dry-run placeholders with real builders for:
+2. Parse `GSE233844` and the bulk GEO cohorts into comparable disease and validation signatures
+3. Replace dry-run placeholders with real builders for:
    - bulk IPF signatures
    - scRNA cell-state references
    - pseudo-label generation
    - reversal and network scoring
-5. Add accession-aware validation once multiple IPF cohorts are ingested
+4. Add accession-aware validation once multiple IPF cohorts are ingested

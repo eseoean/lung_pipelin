@@ -8,6 +8,7 @@ from ..ipf_cell_state import (
     build_gse136831_cell_state_reference,
     default_gse136831_paths,
 )
+from ..ipf_cell_state_expression import build_gse136831_expression_reference
 from ..ipf_geo_metadata import (
     build_gse122960_sample_reference,
     default_gse122960_paths,
@@ -42,6 +43,8 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     paths = default_gse136831_paths(root)
     metadata_path = paths["metadata"]
     gene_ids_path = paths["gene_ids"]
+    barcodes_path = paths["barcodes"]
+    raw_counts_matrix_path = paths["raw_counts_matrix"]
     gse122960_paths = default_gse122960_paths(root)
     series_matrix_path = gse122960_paths["series_matrix"]
     filelist_path = gse122960_paths["filelist"]
@@ -87,6 +90,48 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         if not gene_ids_path.exists():
             missing_inputs.append(str(gene_ids_path))
         artifacts["gse136831_cell_state_reference"] = {
+            "source_accession": "GSE136831",
+            "missing_inputs": missing_inputs,
+        }
+
+    if metadata_path.exists() and gene_ids_path.exists() and barcodes_path.exists() and raw_counts_matrix_path.exists():
+        gse136831_expression_summary = build_gse136831_expression_reference(
+            metadata_path=metadata_path,
+            gene_ids_path=gene_ids_path,
+            barcodes_path=barcodes_path,
+            matrix_path=raw_counts_matrix_path,
+            output_parquet=root / "data/processed/disease_context/ipf_gse136831_expression_reference.parquet",
+            output_csv=root / "docs/ipf/gse136831_expression_group_reference.csv",
+            top_genes_csv=root / "docs/ipf/gse136831_expression_ipf_vs_control_top_genes.csv",
+            summary_json=root / "docs/ipf/gse136831_expression_reference_summary.json",
+        )
+        artifacts["gse136831_expression_reference"] = {
+            "source_accession": "GSE136831",
+            "source_mode": "sparse_matrix_expression_reference",
+            "expression_reference_parquet": str(
+                root / "data/processed/disease_context/ipf_gse136831_expression_reference.parquet"
+            ),
+            "expression_group_reference_csv": str(
+                root / "docs/ipf/gse136831_expression_group_reference.csv"
+            ),
+            "expression_top_genes_csv": str(
+                root / "docs/ipf/gse136831_expression_ipf_vs_control_top_genes.csv"
+            ),
+            "expression_reference_summary": str(
+                root / "docs/ipf/gse136831_expression_reference_summary.json"
+            ),
+            "group_rows": gse136831_expression_summary["group_rows"],
+            "total_cells": gse136831_expression_summary["total_cells"],
+            "manuscripts_compared_ipf_vs_control": gse136831_expression_summary[
+                "manuscripts_compared_ipf_vs_control"
+            ],
+        }
+    else:
+        missing_inputs = []
+        for candidate in [metadata_path, gene_ids_path, barcodes_path, raw_counts_matrix_path]:
+            if not candidate.exists():
+                missing_inputs.append(str(candidate))
+        artifacts["gse136831_expression_reference"] = {
             "source_accession": "GSE136831",
             "missing_inputs": missing_inputs,
         }

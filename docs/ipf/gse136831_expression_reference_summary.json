@@ -1,0 +1,16 @@
+{
+  "accession": "GSE136831",
+  "total_cells": 312928,
+  "group_rows": 285,
+  "matrix_gene_rows": 45947,
+  "manuscripts_compared_ipf_vs_control": 38,
+  "top_gene_rows_exported": 570,
+  "disease_distribution": {
+    "IPF": 147169,
+    "Control": 96303,
+    "COPD": 69456
+  },
+  "output_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_gse136831_expression_reference.parquet",
+  "output_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_expression_group_reference.csv",
+  "top_genes_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_expression_ipf_vs_control_top_genes.csv"
+}

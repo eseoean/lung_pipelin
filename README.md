@@ -44,6 +44,7 @@ PYTHONPATH=src python scripts/audit_ipf_sources.py
 make ipf-download-plan
 make ipf-download-geo-small
 make ipf-build-cell-reference
+make ipf-build-cell-expression
 make ipf-build-sample-reference
 make ipf-build-sample-expression
 ```

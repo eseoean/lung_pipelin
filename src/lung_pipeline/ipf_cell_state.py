@@ -16,6 +16,7 @@ def default_gse136831_paths(repo_root: Path) -> dict[str, Path]:
         "metadata": supp / f"{DEFAULT_ACCESSION}_AllCells.Samples.CellType.MetadataTable.txt.gz",
         "gene_ids": supp / f"{DEFAULT_ACCESSION}_AllCells.GeneIDs.txt.gz",
         "barcodes": supp / f"{DEFAULT_ACCESSION}_AllCells.cellBarcodes.txt.gz",
+        "raw_counts_matrix": supp / f"{DEFAULT_ACCESSION}_RawCounts_Sparse.mtx.gz",
     }
 
 

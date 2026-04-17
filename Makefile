@@ -2,7 +2,7 @@ CONFIG ?= configs/lung.yaml
 PYTHON ?= python3
 PYTHONPATH := src
 
-.PHONY: dry-run stage-standardize stage-disease stage-model-inputs stage-train stage-patient stage-rerank ipf-audit ipf-dry-run ipf-download-plan ipf-download-geo ipf-download-geo-small ipf-build-cell-reference ipf-build-sample-reference ipf-build-sample-expression test
+.PHONY: dry-run stage-standardize stage-disease stage-model-inputs stage-train stage-patient stage-rerank ipf-audit ipf-dry-run ipf-download-plan ipf-download-geo ipf-download-geo-small ipf-build-cell-reference ipf-build-cell-expression ipf-build-sample-reference ipf-build-sample-expression test
 
 dry-run:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m lung_pipeline.cli --config $(CONFIG) --stage all --dry-run
@@ -42,6 +42,9 @@ ipf-download-geo-small:
 
 ipf-build-cell-reference:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) scripts/build_ipf_cell_state_reference.py --config configs/ipf.yaml
+
+ipf-build-cell-expression:
+	PYTHONPATH=$(PYTHONPATH) $(PYTHON) scripts/build_ipf_cell_state_expression_reference.py --config configs/ipf.yaml
 
 ipf-build-sample-reference:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) scripts/build_ipf_sample_reference.py --config configs/ipf.yaml
