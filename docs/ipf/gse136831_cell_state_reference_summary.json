@@ -1,0 +1,43 @@
+{
+  "accession": "GSE136831",
+  "total_cells": 312928,
+  "cell_state_rows": 285,
+  "gene_reference_rows": 45947,
+  "disease_distribution": {
+    "IPF": 147169,
+    "Control": 96303,
+    "COPD": 69456
+  },
+  "celltype_distribution": {
+    "Myeloid": 215938,
+    "Lymphoid": 55543,
+    "Epithelial": 21184,
+    "Stromal": 7542,
+    "Endothelial": 7443,
+    "Multiplet": 5278
+  },
+  "top_subclass_distribution": {
+    "Macrophage": 75626,
+    "Macrophage_Alveolar": 62304,
+    "T": 16102,
+    "Monocyte": 13563,
+    "NK": 11338,
+    "Macrophage_Outlier_B": 9161,
+    "Ciliated": 8444,
+    "B": 7895,
+    "T_Cytotoxic_A": 7762,
+    "T_Cytotoxic_C": 6507,
+    "Dendritic_A": 6211,
+    "Monocyte_Non-Classical": 5708,
+    "Macrophage_Outlier_C": 4309,
+    "Macrophage_MT-tRNAs": 3786,
+    "Macrophage_Outlier_F": 3631,
+    "Macrophage_Outlier_A": 3564,
+    "Myofibroblast": 3517,
+    "Macrophage_Alveolar_CellCycle_A": 3358,
+    "Macrophage_Alveolar_CellCycle_B": 3014,
+    "Macrophage_CellCycle_B": 2661
+  },
+  "output_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_cell_state_reference.parquet",
+  "output_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_cell_state_reference.csv"
+}

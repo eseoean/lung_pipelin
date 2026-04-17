@@ -15,6 +15,9 @@ This branch adapts the lung pipeline scaffold from a lung-cancer response workfl
 - Added a GEO download helper and workflow note for missing IPF cohorts:
   - [scripts/download_ipf_geo_sources.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/download_ipf_geo_sources.py)
   - [docs/ipf_geo_download_workflow.md](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf_geo_download_workflow.md)
+- Added a first real scRNA parser for `GSE136831`:
+  - [scripts/build_ipf_cell_state_reference.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/build_ipf_cell_state_reference.py)
+  - [src/lung_pipeline/ipf_cell_state.py](/Users/skku_aws2_18/pre_project/lung_pipelin/src/lung_pipeline/ipf_cell_state.py)
 
 ## Working assumptions from the planning page
 
@@ -101,6 +104,30 @@ These dry-run outputs confirm the intended IPF stage sequence:
 5. Score disease signatures
 6. Rerank with target, safety, and translation support
 
+## First real disease-context artifact
+
+Using the downloaded `GSE136831` supplementary files, the branch now builds a metadata-driven scRNA cell-state reference.
+
+- Reviewable table:
+  - [docs/ipf/gse136831_cell_state_reference.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_cell_state_reference.csv)
+- Summary:
+  - [docs/ipf/gse136831_cell_state_reference_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_cell_state_reference_summary.json)
+- Updated stage manifest:
+  - [docs/ipf/manifests/build_disease_context.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/manifests/build_disease_context.json)
+
+Current parser result:
+
+- accession: `GSE136831`
+- total cells: `312,928`
+- aggregated disease x cell-state rows: `285`
+- gene reference rows: `45,947`
+- disease distribution:
+  - `IPF 147,169`
+  - `Control 96,303`
+  - `COPD 69,456`
+
+This is intentionally a metadata-driven first pass. Expression-level cell-state signatures still require the remaining large sparse-matrix supplementary payloads.
+
 ## Validation status
 
 - `make test`: passed
@@ -109,15 +136,20 @@ These dry-run outputs confirm the intended IPF stage sequence:
 - `make ipf-download-plan`: passed
 - `make ipf-download-geo`: passed
 - `make ipf-download-geo-small`: passed
+- `make ipf-build-cell-reference`: passed
 
 ## Next recommended steps
 
 1. Download the remaining large supplementary payloads from `docs/ipf/ipf_geo_supplementary_queue.csv`
 2. Promote the local GEO downloads into a stable shared raw-data location and update `configs/datasets_ipf.yaml` if the final landing path changes
-3. Add dataset-specific unpack/parsing helpers for the downloaded GEO artifacts, especially the IPF scRNA cohorts
-4. Replace dry-run placeholders with real builders for:
+3. Download the remaining large scRNA supplementary payloads needed for expression-level signatures, especially:
+   - `GSE136831_RawCounts_Sparse.mtx.gz`
+   - `GSE122960_RAW.tar`
+   - `GSE233844_RAW.tar`
+4. Extend the current metadata-driven parser into an expression-aware cell-state signature builder
+5. Replace dry-run placeholders with real builders for:
    - bulk IPF signatures
    - scRNA cell-state references
    - pseudo-label generation
    - reversal and network scoring
-5. Add accession-aware validation once multiple IPF cohorts are ingested
+6. Add accession-aware validation once multiple IPF cohorts are ingested
