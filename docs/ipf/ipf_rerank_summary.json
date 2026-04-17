@@ -1,0 +1,23 @@
+{
+  "study": "IPF",
+  "row_count": 5292,
+  "top10_drugs": [
+    "Fostamatinib",
+    "Tivozanib",
+    "Crizotinib",
+    "Sunitinib",
+    "Ilomastat",
+    "Marimastat",
+    "Curcumin",
+    "PR-15",
+    "Dasatinib",
+    "Troglitazone"
+  ],
+  "approved_in_top20": 17,
+  "lincs_in_top20": 16,
+  "top_final_rerank_score": 0.7861744667472679,
+  "final_ranked_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports/final_ranked_candidates.parquet",
+  "review_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_final_ranked_candidates.csv",
+  "translation_report_md": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports/translation_support_report.md",
+  "download_gap_report_md": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports/download_gap_report.md"
+}

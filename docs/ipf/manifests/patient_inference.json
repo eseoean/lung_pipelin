@@ -1,8 +1,8 @@
 {
   "stage": "patient_inference",
   "description": "Score IPF disease signatures with trained reversal models.",
-  "status": "dry_run",
-  "generated_at": "2026-04-17T06:33:42.649310+00:00",
+  "status": "partial_built",
+  "generated_at": "2026-04-17T09:35:36.664005+00:00",
   "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/patient_inference",
   "inputs": [
     "ipf_disease_features",
@@ -15,5 +15,55 @@
   "notes": [
     "Score each candidate against IPF disease signatures and cell-state programs.",
     "Treat this stage as disease-profile scoring rather than cancer patient response prediction."
-  ]
+  ],
+  "artifacts": {
+    "required_inputs": {
+      "train_table_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/train_table.parquet",
+      "accession_metrics_json": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_accessioncv_metrics.json",
+      "random_metrics_json": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_randomcv_metrics.json"
+    },
+    "ipf_patient_inference": {
+      "stage": "patient_inference",
+      "study": "IPF",
+      "objective": "disease_signature_reversal",
+      "selected_models": {
+        "accessioncv": "Ridge",
+        "randomcv": "Ridge"
+      },
+      "row_count": 5292,
+      "feature_columns": [
+        "is_approved",
+        "is_investigational",
+        "target_gene_count",
+        "has_lincs_match",
+        "lincs_signature_count",
+        "lincs_cell_count",
+        "target_overlap_count",
+        "target_overlap_weight",
+        "target_overlap_norm",
+        "lincs_support_norm",
+        "target_overlap_count_norm",
+        "target_overlap_density",
+        "target_overlap_density_norm",
+        "specific_overlap_norm",
+        "approval_bonus",
+        "smiles_bonus",
+        "fibrosis_priority_overlap_count",
+        "fibrosis_priority_overlap_norm",
+        "broad_target_penalty",
+        "mineral_keyword_penalty",
+        "inorganic_like_penalty",
+        "broad_chemistry_penalty",
+        "disease_gene_panel_size"
+      ],
+      "artifacts": {
+        "train_table_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/train_table.parquet",
+        "accession_metrics_json": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_accessioncv_metrics.json",
+        "random_metrics_json": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_randomcv_metrics.json",
+        "output_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/patient_inference/patient_ranked_candidates.parquet",
+        "review_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_patient_ranked_candidates.csv",
+        "summary_json": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_patient_inference_summary.json"
+      }
+    }
+  }
 }

@@ -51,6 +51,8 @@ make ipf-build-bulk-references
 make ipf-build-pbmc-validation
 make ipf-build-model-inputs
 make ipf-train-baseline
+make ipf-patient-inference
+make ipf-rerank
 ```
 
 If the S3 bucket is missing required IPF GEO cohorts, use the download helper to plan and fetch official GEO assets into the local raw-data area:

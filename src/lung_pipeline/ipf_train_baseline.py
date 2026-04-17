@@ -51,13 +51,13 @@ def _compute_metrics(y_true: np.ndarray, y_pred: np.ndarray, *, top_k: int = 20)
     }
 
 
-def _feature_columns(frame: pd.DataFrame) -> list[str]:
+def feature_columns_for_baseline(frame: pd.DataFrame) -> list[str]:
     numeric_columns = frame.select_dtypes(include=[np.number, bool]).columns.tolist()
     excluded = {"pseudo_label_score", "pseudo_label_rank"}
     return [col for col in numeric_columns if col not in excluded]
 
 
-def _model_factories() -> dict[str, EstimatorFactory]:
+def model_factories() -> dict[str, EstimatorFactory]:
     return {
         "DummyMean": lambda seed: DummyRegressor(strategy="mean"),
         "Ridge": lambda seed: Pipeline(
@@ -79,6 +79,13 @@ def _model_factories() -> dict[str, EstimatorFactory]:
             random_state=seed,
         ),
     }
+
+
+def create_ipf_baseline_estimator(model_name: str, seed: int) -> Any:
+    factories = model_factories()
+    if model_name not in factories:
+        raise KeyError(f"Unknown baseline model: {model_name}")
+    return factories[model_name](seed)
 
 
 def _dominant_accession_groups(
@@ -127,7 +134,7 @@ def _evaluate_split(
     split_iter = splitter.split(x, y, groups) if groups is not None else splitter.split(x, y)
     splits = list(split_iter)
 
-    for model_name, factory in _model_factories().items():
+    for model_name, factory in model_factories().items():
         predictions = np.zeros(len(frame), dtype=float)
         fold_metrics: list[dict[str, float]] = []
         start = time.time()
@@ -197,7 +204,7 @@ def run_ipf_train_baselines(
 ) -> dict[str, Any]:
     train_table = pd.read_parquet(train_table_parquet)
     disease_features = pd.read_parquet(disease_features_parquet)
-    feature_columns = _feature_columns(train_table)
+    feature_columns = feature_columns_for_baseline(train_table)
     if not feature_columns:
         raise ValueError("No numeric feature columns available for baseline training.")
 

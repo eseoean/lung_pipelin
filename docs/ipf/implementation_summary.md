@@ -410,6 +410,89 @@ Current accession-group distribution:
 
 This is a strong sign that the current feature table is internally learnable, but it also means the baseline is still mainly reproducing our heuristic pseudo labels rather than validating a truly external endpoint. The next value-add will come from improving label quality and adding stronger biology-aware reranking.
 
+## First executable patient-inference artifacts
+
+The `patient_inference` stage is now a real executable step on the IPF branch. It fits the best accession-aware and random-split baseline estimators on the full pseudo-label table, then emits a consensus patient-side ranking table for downstream translational reranking.
+
+- Reviewable summary:
+  - [docs/ipf/ipf_patient_inference_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_patient_inference_summary.json)
+- Reviewable ranked candidates:
+  - [docs/ipf/ipf_patient_ranked_candidates.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_patient_ranked_candidates.csv)
+- Updated stage manifest:
+  - [docs/ipf/manifests/patient_inference.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/manifests/patient_inference.json)
+
+Current `patient_inference` result:
+
+- row count: `5,292`
+- feature count: `23`
+- selected accession-aware model: `Ridge`
+- selected random-split model: `Ridge`
+
+Current patient-inference top-ranked candidates:
+
+- `Fostamatinib`
+- `Tivozanib`
+- `Marimastat`
+- `Ilomastat`
+- `Curcumin`
+- `Crizotinib`
+- `Sunitinib`
+- `Dasatinib`
+- `PR-15`
+- `Zinc acetate`
+
+## First executable rerank outputs
+
+The `rerank_outputs` stage is now also a real executable step. It fuses the locally available evidence layers that are already in this branch:
+
+- patient-inference consensus model score
+- refined pseudo-label score
+- fibrosis-priority target overlap
+- LINCS perturbation support
+- approval / investigational support
+- broad-target / broad-chemistry penalties
+
+It also emits an explicit download-gap report instead of silently pretending unavailable translational sources already exist.
+
+- Reviewable final ranking:
+  - [docs/ipf/ipf_final_ranked_candidates.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_final_ranked_candidates.csv)
+- Reviewable summary:
+  - [docs/ipf/ipf_rerank_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_rerank_summary.json)
+- Translation support report:
+  - [docs/ipf/ipf_translation_support_report.md](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_translation_support_report.md)
+- Download gap report:
+  - [docs/ipf/ipf_download_gap_report.md](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_download_gap_report.md)
+- Updated stage manifest:
+  - [docs/ipf/manifests/rerank_outputs.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/manifests/rerank_outputs.json)
+
+Current `rerank_outputs` result:
+
+- row count: `5,292`
+- top final rerank score: `0.7862`
+- approved drugs in top20: `17`
+- LINCS-supported drugs in top20: `16`
+
+Current final top-ranked candidates:
+
+- `Fostamatinib`
+- `Tivozanib`
+- `Crizotinib`
+- `Sunitinib`
+- `Ilomastat`
+- `Marimastat`
+- `Curcumin`
+- `PR-15`
+- `Dasatinib`
+- `Troglitazone`
+
+Current known local translational gaps:
+
+- `ADMET`: missing
+- `SIDER`: missing
+- `ClinicalTrials`: missing
+- `STRING`: missing
+- `OpenTargets`: downloaded, but not yet fused because the local branch still lacks a stable ENSG-to-symbol bridge for disease-target association scoring
+
 ## Validation status
 
 - `make test`: passed
@@ -426,10 +509,12 @@ This is a strong sign that the current feature table is internally learnable, bu
 - `make ipf-build-bulk-references`: passed
 - `make ipf-build-model-inputs`: passed
 - `make ipf-train-baseline`: passed
+- `make ipf-patient-inference`: passed
+- `make ipf-rerank`: passed
 
 ## Next recommended steps
 
-1. Promote the local GEO downloads into a stable shared raw-data location and update `configs/datasets_ipf.yaml` if the final landing path changes
-2. Add explicit target/pathway/network fusion using ChEMBL/Open Targets/STRING rather than keeping them as downloaded-but-not-yet-scored sources
-3. Introduce fibrosis-aware negative priors so broad ions / supplements are pushed further down even after model training
-4. Move from pseudo-label fidelity into a first reranking / validation stage that checks whether high-ranking candidates stay stable under multiple disease-signature definitions
+1. Add a stable ENSG-to-symbol bridge so `OpenTargets` disease-target evidence can be fused into the rerank layer instead of staying in schema-gap status
+2. Bring in `STRING`, `ClinicalTrials`, `ADMET`, and `SIDER` so the rerank layer moves from local proxy support into true translational filtering
+3. Stress-test candidate stability across alternative disease panels, for example bulk-only, scRNA-only, and PBMC-anchored definitions
+4. Once the translational evidence stack is fuller, promote the current rerank outputs into a review-ready shortlist / report stage

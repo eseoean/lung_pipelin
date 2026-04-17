@@ -1,0 +1,58 @@
+{
+  "stage": "rerank_outputs",
+  "study": "IPF",
+  "objective": "disease_signature_reversal",
+  "row_count": 5292,
+  "top10_drugs": [
+    "Fostamatinib",
+    "Tivozanib",
+    "Crizotinib",
+    "Sunitinib",
+    "Ilomastat",
+    "Marimastat",
+    "Curcumin",
+    "PR-15",
+    "Dasatinib",
+    "Troglitazone"
+  ],
+  "artifacts": {
+    "patient_scores_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/patient_inference/patient_ranked_candidates.parquet",
+    "final_ranked_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports/final_ranked_candidates.parquet",
+    "review_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_final_ranked_candidates.csv",
+    "summary_json": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_rerank_summary.json",
+    "translation_report_md": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports/translation_support_report.md",
+    "download_gap_report_md": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports/download_gap_report.md"
+  },
+  "local_gap_status": [
+    {
+      "source": "admet",
+      "status": "missing",
+      "path": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/raw/knowledge/admet",
+      "purpose": "Safety and pharmacokinetic filtering"
+    },
+    {
+      "source": "siderside",
+      "status": "missing",
+      "path": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/raw/knowledge/siderside",
+      "purpose": "Side-effect plausibility checks"
+    },
+    {
+      "source": "clinicaltrials",
+      "status": "missing",
+      "path": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/raw/knowledge/clinicaltrials",
+      "purpose": "Trial-stage translation support"
+    },
+    {
+      "source": "string",
+      "status": "missing",
+      "path": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/raw/knowledge/string",
+      "purpose": "Network proximity / PPI support"
+    },
+    {
+      "source": "opentargets",
+      "status": "available_schema_gap",
+      "path": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/raw/knowledge/opentargets/association_by_overall_indirect",
+      "purpose": "Disease-target association scores are present, but a stable ENSG-to-symbol mapping is still missing in the local IPF branch."
+    }
+  ]
+}
