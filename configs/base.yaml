@@ -1,0 +1,31 @@
+project:
+  name: lung-pipelin
+  raw_root: data/raw
+  interim_root: data/interim
+  processed_root: data/processed
+  output_root: outputs
+
+pipeline:
+  write_manifests: true
+  stage_order:
+    - standardize_tables
+    - build_disease_context
+    - build_model_inputs
+    - train_baseline
+    - patient_inference
+    - rerank_outputs
+
+stages:
+  standardize_tables:
+    output_dir: data/interim/masters
+  build_disease_context:
+    output_dir: data/processed/disease_context
+  build_model_inputs:
+    output_dir: data/processed/model_inputs
+  train_baseline:
+    output_dir: outputs/model_runs
+  patient_inference:
+    output_dir: outputs/patient_inference
+  rerank_outputs:
+    output_dir: outputs/reports
+

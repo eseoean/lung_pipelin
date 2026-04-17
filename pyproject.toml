@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lung-pipelin"
+version = "0.1.0"
+description = "Clean lung cancer drug-response pipeline scaffold"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+]
+train = [
+  "numpy>=2.0",
+  "pandas>=2.2",
+  "pyarrow>=18.0",
+  "scikit-learn>=1.5",
+  "lightgbm>=4.5",
+  "xgboost>=2.1",
+  "catboost>=1.2",
+  "torch>=2.6",
+]
+
+[project.scripts]
+lung-pipeline = "lung_pipeline.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

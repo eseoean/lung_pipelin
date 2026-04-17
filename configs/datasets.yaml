@@ -1,0 +1,90 @@
+datasets:
+  disease_context:
+    - tcga_luad
+    - tcga_lusc
+    - gtex_lung
+    - geo_lung
+    - cptac_lung
+  supervision:
+    - gdsc
+    - prism
+  cell_context:
+    - depmap
+    - cosmic
+  drug_knowledge:
+    - drugbank
+    - chembl
+    - dgidb
+    - oncokb
+    - opentargets
+  perturbation_pathway:
+    - lincs
+    - string
+    - msigdb
+  validation_filter:
+    - admet
+    - siderside
+    - clinicaltrials
+
+data_sources:
+  tcga_luad:
+    uri: s3://say2-4team/Lung_raw/TCGA/tcga_luad_rna_star_counts/
+    enabled: true
+  tcga_lusc:
+    uri: s3://say2-4team/Lung_raw/TCGA/tcga_lusc_rna_star_counts/
+    enabled: true
+  gtex_lung:
+    uri: s3://say2-4team/Lung_raw/GTEx/
+    enabled: true
+  geo_lung:
+    uri: s3://say2-4team/Lung_raw/GEO/
+    enabled: true
+  cptac_lung:
+    uri: s3://say2-4team/Lung_raw/CPTAC/
+    enabled: true
+  gdsc:
+    uri: s3://say2-4team/Lung_raw/GDSC/
+    enabled: true
+  prism:
+    uri: s3://say2-4team/Lung_raw/additional_sources/prism/
+    enabled: true
+  depmap:
+    uri: s3://say2-4team/Lung_raw/depmap/
+    enabled: true
+  cosmic:
+    uri: s3://say2-4team/Lung_raw/additional_sources/cosmic_lung/
+    enabled: false
+  drugbank:
+    uri: s3://say2-4team/Lung_raw/drugbank/
+    enabled: true
+  chembl:
+    uri: s3://say2-4team/Lung_raw/chembl/
+    enabled: true
+  dgidb:
+    uri: s3://say2-4team/Lung_raw/additional_sources/dgidb/
+    enabled: true
+  oncokb:
+    uri: s3://say2-4team/Lung_raw/additional_sources/oncokb/
+    enabled: false
+  opentargets:
+    uri: s3://say2-4team/Lung_raw/opentargets/
+    enabled: false
+  lincs:
+    uri: s3://say2-4team/Lung_raw/LINC1000/
+    enabled: true
+  string:
+    uri: s3://say2-4team/Lung_raw/additional_sources/string/
+    enabled: false
+  msigdb:
+    uri: s3://say2-4team/Lung_raw/additional_sources/msigdb/
+    enabled: false
+  admet:
+    uri: s3://say2-4team/Lung_raw/additional_sources/admet/
+    enabled: false
+  siderside:
+    uri: s3://say2-4team/Lung_raw/additional_sources/SIDERside/
+    enabled: false
+  clinicaltrials:
+    uri: s3://say2-4team/Lung_raw/additional_sources/clinicaltrials/
+    enabled: true
+

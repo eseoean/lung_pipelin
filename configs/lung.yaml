@@ -1,0 +1,35 @@
+inherits:
+  - base.yaml
+  - datasets.yaml
+
+study:
+  name: lung_cancer_drug_response
+  histologies:
+    - LUAD
+    - LUSC
+    - NSCLC
+  label_source: GDSC
+  auxiliary_label_source: PRISM
+  random_seed: 42
+  n_splits: 3
+  group_key: canonical_drug_id
+
+deliverables:
+  masters:
+    - drug_master
+    - cell_line_master
+  disease_context:
+    - luad_signature
+    - lusc_signature
+    - disease_pathway_activity
+  model_inputs:
+    - sample_features
+    - drug_features
+    - pair_features
+    - train_table
+    - labels_y
+
+extensions:
+  enable_patient_inference: true
+  enable_rerank_outputs: true
+
