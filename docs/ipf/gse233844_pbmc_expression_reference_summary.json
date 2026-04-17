@@ -1,0 +1,23 @@
+{
+  "accession": "GSE233844",
+  "sample_count": 38,
+  "matched_matrix_count": 38,
+  "total_cells": 185613,
+  "median_cells_per_sample": 4925.0,
+  "detected_genes_union": 26212,
+  "group_bucket_distribution": {
+    "Control": 13,
+    "IPF-Stable": 13,
+    "IPF-Progressive": 12
+  },
+  "bucket_total_umis": {
+    "IPF-Progressive": 328564521.0,
+    "IPF-Stable": 315682534.0,
+    "Control": 278594584.0
+  },
+  "comparison_count": 3,
+  "top_gene_rows_exported": 450,
+  "output_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_gse233844_pbmc_expression_reference.parquet",
+  "output_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_expression_sample_summary.csv",
+  "top_genes_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_expression_top_genes.csv"
+}

@@ -1,0 +1,19 @@
+{
+  "accession": "GSE233844",
+  "sample_count": 38,
+  "group_distribution": {
+    "Stable IPF": 13,
+    "Control": 13,
+    "Progressive IPF": 12
+  },
+  "group_bucket_distribution": {
+    "IPF-Stable": 13,
+    "Control": 13,
+    "IPF-Progressive": 12
+  },
+  "matrix_available_count": 38,
+  "barcodes_available_count": 38,
+  "features_available_count": 38,
+  "output_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_gse233844_pbmc_sample_reference.parquet",
+  "output_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_sample_reference.csv"
+}

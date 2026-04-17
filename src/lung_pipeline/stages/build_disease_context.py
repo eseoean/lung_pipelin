@@ -14,6 +14,11 @@ from ..ipf_geo_metadata import (
     default_gse122960_paths,
 )
 from ..ipf_geo_expression import build_gse122960_expression_reference
+from ..ipf_pbmc_validation import (
+    build_gse233844_pbmc_expression_reference,
+    build_gse233844_pbmc_sample_reference,
+    default_gse233844_paths,
+)
 from ..io import write_json
 from ..registry import dataset_buckets
 from ._common import build_stage_manifest, resolve_stage_inputs, resolve_stage_notes
@@ -49,6 +54,10 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     series_matrix_path = gse122960_paths["series_matrix"]
     filelist_path = gse122960_paths["filelist"]
     raw_tar_path = gse122960_paths["raw_tar"]
+    gse233844_paths = default_gse233844_paths(root)
+    gse233844_series_matrix_path = gse233844_paths["series_matrix"]
+    gse233844_filelist_path = gse233844_paths["filelist"]
+    gse233844_raw_tar_path = gse233844_paths["raw_tar"]
     stage_outputs = [
         resolve_repo_path(cfg, item)
         for item in cfg["stage_contracts"]["build_disease_context"]["outputs"]
@@ -206,6 +215,77 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
             missing_inputs.append(str(root / "docs/ipf/gse122960_sample_reference.csv"))
         artifacts["gse122960_expression_reference"] = {
             "source_accession": "GSE122960",
+            "missing_inputs": missing_inputs,
+        }
+
+    if gse233844_series_matrix_path.exists() and gse233844_filelist_path.exists():
+        gse233844_sample_summary = build_gse233844_pbmc_sample_reference(
+            series_matrix_path=gse233844_series_matrix_path,
+            filelist_path=gse233844_filelist_path,
+            output_parquet=root / "data/processed/disease_context/ipf_gse233844_pbmc_sample_reference.parquet",
+            output_csv=root / "docs/ipf/gse233844_pbmc_sample_reference.csv",
+            summary_json=root / "docs/ipf/gse233844_pbmc_sample_reference_summary.json",
+        )
+        artifacts["gse233844_pbmc_sample_reference"] = {
+            "source_accession": "GSE233844",
+            "source_mode": "pbmc_metadata_reference",
+            "sample_reference_parquet": str(
+                root / "data/processed/disease_context/ipf_gse233844_pbmc_sample_reference.parquet"
+            ),
+            "sample_reference_csv": str(root / "docs/ipf/gse233844_pbmc_sample_reference.csv"),
+            "sample_reference_summary": str(
+                root / "docs/ipf/gse233844_pbmc_sample_reference_summary.json"
+            ),
+            "sample_count": gse233844_sample_summary["sample_count"],
+            "matrix_available_count": gse233844_sample_summary["matrix_available_count"],
+        }
+    else:
+        missing_inputs = []
+        if not gse233844_series_matrix_path.exists():
+            missing_inputs.append(str(gse233844_series_matrix_path))
+        if not gse233844_filelist_path.exists():
+            missing_inputs.append(str(gse233844_filelist_path))
+        artifacts["gse233844_pbmc_sample_reference"] = {
+            "source_accession": "GSE233844",
+            "missing_inputs": missing_inputs,
+        }
+
+    if gse233844_raw_tar_path.exists() and (root / "docs/ipf/gse233844_pbmc_sample_reference.csv").exists():
+        gse233844_expression_summary = build_gse233844_pbmc_expression_reference(
+            sample_reference_path=root / "docs/ipf/gse233844_pbmc_sample_reference.csv",
+            raw_tar_path=gse233844_raw_tar_path,
+            output_parquet=root / "data/processed/disease_context/ipf_gse233844_pbmc_expression_reference.parquet",
+            output_csv=root / "docs/ipf/gse233844_pbmc_expression_sample_summary.csv",
+            top_genes_csv=root / "docs/ipf/gse233844_pbmc_expression_top_genes.csv",
+            summary_json=root / "docs/ipf/gse233844_pbmc_expression_reference_summary.json",
+        )
+        artifacts["gse233844_pbmc_expression_reference"] = {
+            "source_accession": "GSE233844",
+            "source_mode": "pbmc_expression_validation_reference",
+            "expression_reference_parquet": str(
+                root / "data/processed/disease_context/ipf_gse233844_pbmc_expression_reference.parquet"
+            ),
+            "expression_sample_summary_csv": str(
+                root / "docs/ipf/gse233844_pbmc_expression_sample_summary.csv"
+            ),
+            "expression_top_genes_csv": str(
+                root / "docs/ipf/gse233844_pbmc_expression_top_genes.csv"
+            ),
+            "expression_reference_summary": str(
+                root / "docs/ipf/gse233844_pbmc_expression_reference_summary.json"
+            ),
+            "sample_count": gse233844_expression_summary["sample_count"],
+            "total_cells": gse233844_expression_summary["total_cells"],
+            "comparison_count": gse233844_expression_summary["comparison_count"],
+        }
+    else:
+        missing_inputs = []
+        if not gse233844_raw_tar_path.exists():
+            missing_inputs.append(str(gse233844_raw_tar_path))
+        if not (root / "docs/ipf/gse233844_pbmc_sample_reference.csv").exists():
+            missing_inputs.append(str(root / "docs/ipf/gse233844_pbmc_sample_reference.csv"))
+        artifacts["gse233844_pbmc_expression_reference"] = {
+            "source_accession": "GSE233844",
             "missing_inputs": missing_inputs,
         }
 

@@ -27,6 +27,9 @@ This branch adapts the lung pipeline scaffold from a lung-cancer response workfl
 - Added an expression-aware filtered-H5 parser for `GSE122960`:
   - [scripts/build_ipf_sample_expression_reference.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/build_ipf_sample_expression_reference.py)
   - [src/lung_pipeline/ipf_geo_expression.py](/Users/skku_aws2_18/pre_project/lung_pipelin/src/lung_pipeline/ipf_geo_expression.py)
+- Added a PBMC external-validation parser for `GSE233844`:
+  - [scripts/build_ipf_pbmc_validation_reference.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/build_ipf_pbmc_validation_reference.py)
+  - [src/lung_pipeline/ipf_pbmc_validation.py](/Users/skku_aws2_18/pre_project/lung_pipelin/src/lung_pipeline/ipf_pbmc_validation.py)
 
 ## Working assumptions from the planning page
 
@@ -223,6 +226,39 @@ Current expression parser result:
 
 This gives the branch a third real disease-context artifact: `GSE122960` now contributes not just metadata, but sample-level pseudobulk expression summaries and a first-pass `IPF vs Control` gene ranking.
 
+Using the downloaded `GSE233844` series matrix and per-sample PBMC sparse matrices, the branch now also builds an external-validation PBMC reference with progression-aware comparisons.
+
+- Reviewable sample reference:
+  - [docs/ipf/gse233844_pbmc_sample_reference.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_sample_reference.csv)
+- Reviewable expression sample summary:
+  - [docs/ipf/gse233844_pbmc_expression_sample_summary.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_expression_sample_summary.csv)
+- Reviewable top genes:
+  - [docs/ipf/gse233844_pbmc_expression_top_genes.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_expression_top_genes.csv)
+- Summaries:
+  - [docs/ipf/gse233844_pbmc_sample_reference_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_sample_reference_summary.json)
+  - [docs/ipf/gse233844_pbmc_expression_reference_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_expression_reference_summary.json)
+- Updated stage manifest:
+  - [docs/ipf/manifests/build_disease_context.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/manifests/build_disease_context.json)
+
+Current `GSE233844` parser result:
+
+- accession: `GSE233844`
+- sample count: `38`
+- group distribution:
+  - `Progressive IPF 12`
+  - `Stable IPF 13`
+  - `Control 13`
+- total cells: `185,613`
+- median cells per sample: `4,925`
+- detected genes in union: `26,212`
+- comparison count: `3`
+  - `IPF-Progressive vs Control`
+  - `IPF-Stable vs Control`
+  - `IPF-Progressive vs IPF-Stable`
+- top gene rows exported: `450`
+
+This gives the branch its first real external-validation scRNA signature set, extending disease-context artifacts beyond discovery cohorts into a progression-aware validation cohort.
+
 ## Validation status
 
 - `make test`: passed
@@ -235,6 +271,7 @@ This gives the branch a third real disease-context artifact: `GSE122960` now con
 - `make ipf-build-cell-expression`: passed
 - `make ipf-build-sample-reference`: passed
 - `make ipf-build-sample-expression`: passed
+- `make ipf-build-pbmc-validation`: passed
 
 ## Next recommended steps
 

@@ -2,7 +2,7 @@
   "stage": "build_disease_context",
   "description": "Create IPF bulk signatures, scRNA cell-state references, and external validation panels.",
   "status": "partial_built",
-  "generated_at": "2026-04-17T07:54:33.476265+00:00",
+  "generated_at": "2026-04-17T08:06:41.336364+00:00",
   "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context",
   "inputs": [
     "geo_ipf_bulk",
@@ -63,6 +63,26 @@
       "sample_count": 17,
       "total_cells": 80919,
       "top_gene_count": 200
+    },
+    "gse233844_pbmc_sample_reference": {
+      "source_accession": "GSE233844",
+      "source_mode": "pbmc_metadata_reference",
+      "sample_reference_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_gse233844_pbmc_sample_reference.parquet",
+      "sample_reference_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_sample_reference.csv",
+      "sample_reference_summary": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_sample_reference_summary.json",
+      "sample_count": 38,
+      "matrix_available_count": 38
+    },
+    "gse233844_pbmc_expression_reference": {
+      "source_accession": "GSE233844",
+      "source_mode": "pbmc_expression_validation_reference",
+      "expression_reference_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_gse233844_pbmc_expression_reference.parquet",
+      "expression_sample_summary_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_expression_sample_summary.csv",
+      "expression_top_genes_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_expression_top_genes.csv",
+      "expression_reference_summary": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_expression_reference_summary.json",
+      "sample_count": 38,
+      "total_cells": 185613,
+      "comparison_count": 3
     }
   }
 }
