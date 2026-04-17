@@ -110,6 +110,18 @@
         "Control": 108,
         "Other-ILD": 94
       }
+    },
+    "gse47460_bulk_expression_reference": {
+      "source_accession": "GSE47460",
+      "source_mode": "bulk_raw_tar_expression_reference",
+      "expression_reference_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_gse47460_bulk_expression_reference.parquet",
+      "expression_reference_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse47460_bulk_expression_reference.csv",
+      "top_genes_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse47460_bulk_ipf_vs_control_top_genes.csv",
+      "reference_summary": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse47460_bulk_expression_reference_summary.json",
+      "sample_count": 582,
+      "ipf_sample_count": 160,
+      "control_sample_count": 108,
+      "feature_union_count": 52170
     }
   }
 }

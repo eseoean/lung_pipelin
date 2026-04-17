@@ -6,6 +6,7 @@ from pathlib import Path
 from lung_pipeline.config import load_config, repo_root
 from lung_pipeline.ipf_bulk_geo import (
     build_gse32537_bulk_reference,
+    build_gse47460_bulk_expression_reference,
     build_gse47460_bulk_sample_reference,
     default_gse32537_paths,
     default_gse47460_paths,
@@ -53,7 +54,22 @@ def main() -> None:
         summary_json=root / "docs/ipf/gse47460_bulk_sample_reference_summary.json",
     )
 
-    print({"gse32537_bulk_reference": gse32537_summary, "gse47460_bulk_sample_reference": gse47460_summary})
+    gse47460_expression_summary = build_gse47460_bulk_expression_reference(
+        sample_reference_path=root / "docs/ipf/gse47460_bulk_sample_reference.csv",
+        raw_tar_path=gse47460_paths["raw_tar"],
+        output_parquet=root / "data/processed/disease_context/ipf_gse47460_bulk_expression_reference.parquet",
+        output_csv=root / "docs/ipf/gse47460_bulk_expression_reference.csv",
+        top_genes_csv=root / "docs/ipf/gse47460_bulk_ipf_vs_control_top_genes.csv",
+        summary_json=root / "docs/ipf/gse47460_bulk_expression_reference_summary.json",
+    )
+
+    print(
+        {
+            "gse32537_bulk_reference": gse32537_summary,
+            "gse47460_bulk_sample_reference": gse47460_summary,
+            "gse47460_bulk_expression_reference": gse47460_expression_summary,
+        }
+    )
 
 
 if __name__ == "__main__":

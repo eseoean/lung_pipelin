@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 import gzip
+import io
 import json
+import tarfile
 from pathlib import Path
 
 import pandas as pd
 
 from lung_pipeline.ipf_bulk_geo import (
     build_gse32537_bulk_reference,
+    build_gse47460_bulk_expression_reference,
     build_gse47460_bulk_sample_reference,
 )
 
@@ -82,6 +85,29 @@ def _write_gse47460_family_soft(path: Path) -> None:
         fh.write(text)
 
 
+def _write_gse47460_raw_tar(path: Path) -> None:
+    sample_a = """FEATURES\tFeatureNum\tControlType\tProbeName\tSystematicName\tgProcessedSignal
+DATA\t1\t0\tA_1\tNM_001\t100
+DATA\t2\t0\tA_2\tNM_002\t20
+DATA\t3\t1\tCTRL\tCTRL\t500
+"""
+    sample_b = """FEATURES\tFeatureNum\tControlType\tProbeName\tSystematicName\tgProcessedSignal
+DATA\t1\t0\tA_1\tNM_001\t10
+DATA\t2\t0\tA_2\tNM_002\t200
+"""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tarfile.open(path, "w") as tf:
+        payloads = {
+            "GSM1149948_LT000842RU_CTRL.txt.gz": sample_a,
+            "GSM1149950_LT001600RL_ILD.txt.gz": sample_b,
+        }
+        for name, text in payloads.items():
+            raw = gzip.compress(text.encode())
+            info = tarfile.TarInfo(name=name)
+            info.size = len(raw)
+            tf.addfile(info, io.BytesIO(raw))
+
+
 def test_build_gse32537_bulk_reference(tmp_path: Path) -> None:
     series_matrix = tmp_path / "GSE32537_series_matrix.txt.gz"
     family_soft = tmp_path / "GSE32537_family.soft.gz"
@@ -136,3 +162,34 @@ def test_build_gse47460_bulk_sample_reference(tmp_path: Path) -> None:
     assert summary["sample_count"] == 2
     assert summary["disease_bucket_distribution"]["Control"] == 1
     assert summary["disease_bucket_distribution"]["IPF"] == 1
+
+
+def test_build_gse47460_bulk_expression_reference(tmp_path: Path) -> None:
+    family_soft = tmp_path / "GSE47460_family.soft.gz"
+    _write_gse47460_family_soft(family_soft)
+    _write_gse47460_raw_tar(tmp_path / "supplementary" / "GSE47460_RAW.tar")
+
+    sample_csv = tmp_path / "gse47460.csv"
+    build_gse47460_bulk_sample_reference(
+        family_soft_path=family_soft,
+        output_parquet=tmp_path / "gse47460.parquet",
+        output_csv=sample_csv,
+        summary_json=tmp_path / "gse47460_summary.json",
+    )
+
+    summary = build_gse47460_bulk_expression_reference(
+        sample_reference_path=sample_csv,
+        raw_tar_path=tmp_path / "supplementary" / "GSE47460_RAW.tar",
+        output_parquet=tmp_path / "expr.parquet",
+        output_csv=tmp_path / "expr.csv",
+        top_genes_csv=tmp_path / "top.csv",
+        summary_json=tmp_path / "expr_summary.json",
+        top_gene_limit=2,
+    )
+
+    assert summary["sample_count"] == 2
+    assert summary["ipf_sample_count"] == 1
+    assert summary["control_sample_count"] == 1
+    top = pd.read_csv(tmp_path / "top.csv")
+    assert len(top) == 2
+    assert set(top["feature_label"]) == {"NM_001", "NM_002"}

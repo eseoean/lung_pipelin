@@ -307,6 +307,31 @@ Current `GSE47460` parser result:
 
 This gives the branch a second real bulk cohort reference and makes the disease-context stage span both discovery bulk cohorts and the scRNA/PBMC validation cohorts described in the planning page.
 
+Using the downloaded `GSE47460_RAW.tar`, the branch now also builds an expression-aware bulk reference and an `IPF vs Control` top-gene table for the same cohort.
+
+- Reviewable expression sample summary:
+  - [docs/ipf/gse47460_bulk_expression_reference.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse47460_bulk_expression_reference.csv)
+- Reviewable top genes:
+  - [docs/ipf/gse47460_bulk_ipf_vs_control_top_genes.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse47460_bulk_ipf_vs_control_top_genes.csv)
+- Summary:
+  - [docs/ipf/gse47460_bulk_expression_reference_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse47460_bulk_expression_reference_summary.json)
+
+Current `GSE47460` expression parser result:
+
+- accession: `GSE47460`
+- sample count: `582`
+- feature union count: `52,170`
+- disease bucket distribution:
+  - `COPD 220`
+  - `IPF 160`
+  - `Control 108`
+  - `Other-ILD 94`
+- `IPF` samples in comparison: `160`
+- `Control` samples in comparison: `108`
+- top gene rows exported: `200`
+
+This upgrades `GSE47460` from cohort metadata support to a true bulk expression reference, giving the IPF branch two real bulk discovery axes (`GSE32537`, `GSE47460`) in addition to the scRNA and PBMC validation references.
+
 ## Validation status
 
 - `make test`: passed

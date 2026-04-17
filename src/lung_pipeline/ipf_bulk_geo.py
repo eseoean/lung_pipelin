@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import tarfile
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -131,6 +132,63 @@ def _extract_first_gene_symbol(gene_assignment: str) -> str:
             if symbol and symbol != "---":
                 return symbol
     return ""
+
+
+def _normalize_gse47460_feature_label(probe_name: str, systematic_name: str) -> str:
+    systematic_name = str(systematic_name).strip()
+    probe_name = str(probe_name).strip()
+    if systematic_name and systematic_name.lower() not in {"nan", "---"}:
+        return systematic_name
+    return probe_name
+
+
+def parse_gse47460_feature_table(raw_member_bytes: bytes) -> pd.DataFrame:
+    lines = gzip.decompress(raw_member_bytes).decode("utf-8", "ignore").splitlines()
+
+    header: list[str] | None = None
+    records: list[dict[str, Any]] = []
+    capture = False
+    for line in lines:
+        if line.startswith("FEATURES\t"):
+            header = line.split("\t")
+            capture = True
+            continue
+        if not capture or not line.startswith("DATA\t") or header is None:
+            continue
+        parts = line.split("\t")
+        if len(parts) != len(header):
+            continue
+        row = dict(zip(header, parts))
+        if row.get("ControlType") != "0":
+            continue
+        feature_label = _normalize_gse47460_feature_label(
+            row.get("ProbeName", ""),
+            row.get("SystematicName", ""),
+        )
+        signal = _clean_numeric(row.get("gProcessedSignal", ""))
+        if not feature_label or signal is None:
+            continue
+        records.append(
+            {
+                "feature_label": feature_label,
+                "probe_name": row.get("ProbeName", ""),
+                "systematic_name": row.get("SystematicName", ""),
+                "g_processed_signal": float(signal),
+            }
+        )
+
+    if not records:
+        raise ValueError("No gene-level feature rows parsed from GSE47460 raw member")
+
+    feature_frame = pd.DataFrame(records)
+    return (
+        feature_frame.groupby("feature_label", as_index=False)
+        .agg(
+            probe_name=("probe_name", "first"),
+            systematic_name=("systematic_name", "first"),
+            g_processed_signal=("g_processed_signal", "mean"),
+        )
+    )
 
 
 def parse_gse32537_platform_gene_map(family_soft_path: Path) -> pd.DataFrame:
@@ -366,6 +424,127 @@ def build_gse47460_bulk_sample_reference(
     }
     if output_csv:
         summary["output_csv"] = str(output_csv)
+    if summary_json:
+        summary_json.parent.mkdir(parents=True, exist_ok=True)
+        summary_json.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n")
+    return summary
+
+
+def build_gse47460_bulk_expression_reference(
+    sample_reference_path: Path,
+    raw_tar_path: Path,
+    output_parquet: Path,
+    output_csv: Path | None = None,
+    top_genes_csv: Path | None = None,
+    summary_json: Path | None = None,
+    top_gene_limit: int = 200,
+) -> dict[str, Any]:
+    sample_reference = pd.read_csv(sample_reference_path)
+    sample_lookup = sample_reference.set_index("gsm_accession")
+
+    sample_rows: list[dict[str, Any]] = []
+    bucket_feature_sums: dict[str, Counter[str]] = {
+        bucket: Counter() for bucket in sample_reference["disease_bucket"].dropna().unique()
+    }
+    bucket_feature_counts: dict[str, Counter[str]] = {
+        bucket: Counter() for bucket in sample_reference["disease_bucket"].dropna().unique()
+    }
+
+    with tarfile.open(raw_tar_path, "r") as tf:
+        for member in tf.getmembers():
+            if not member.isfile() or not member.name.endswith(".txt.gz"):
+                continue
+            gsm_accession = Path(member.name).name.split("_", 1)[0]
+            if gsm_accession not in sample_lookup.index:
+                continue
+            extracted = tf.extractfile(member)
+            if extracted is None:
+                continue
+            feature_frame = parse_gse47460_feature_table(extracted.read())
+            bucket = str(sample_lookup.loc[gsm_accession, "disease_bucket"])
+
+            feature_means = dict(
+                zip(
+                    feature_frame["feature_label"].astype(str),
+                    feature_frame["g_processed_signal"].astype(float),
+                )
+            )
+            bucket_feature_sums.setdefault(bucket, Counter()).update(feature_means)
+            bucket_feature_counts.setdefault(bucket, Counter()).update(
+                {feature: 1 for feature in feature_means}
+            )
+
+            sample_rows.append(
+                {
+                    "gsm_accession": gsm_accession,
+                    "sample_title": sample_lookup.loc[gsm_accession, "sample_title"],
+                    "disease_bucket": bucket,
+                    "feature_count": int(len(feature_frame)),
+                    "mean_processed_signal": float(feature_frame["g_processed_signal"].mean()),
+                    "median_processed_signal": float(feature_frame["g_processed_signal"].median()),
+                }
+            )
+
+    if not sample_rows:
+        raise ValueError(f"No GSE47460 sample rows were parsed from {raw_tar_path}")
+
+    all_features = sorted(
+        {
+            feature
+            for bucket_counter in bucket_feature_sums.values()
+            for feature in bucket_counter.keys()
+        }
+    )
+    expression_summary = pd.DataFrame({"feature_label": all_features})
+    for bucket in sorted(bucket_feature_sums):
+        sums = bucket_feature_sums[bucket]
+        counts = bucket_feature_counts[bucket]
+        expression_summary[f"{bucket.lower().replace('-', '_')}_mean_expression"] = [
+            (sums[feature] / counts[feature]) if counts[feature] else np.nan
+            for feature in all_features
+        ]
+
+    if {
+        "ipf_mean_expression",
+        "control_mean_expression",
+    }.issubset(expression_summary.columns):
+        expression_summary["delta_ipf_vs_control"] = (
+            expression_summary["ipf_mean_expression"]
+            - expression_summary["control_mean_expression"]
+        )
+    else:
+        expression_summary["delta_ipf_vs_control"] = np.nan
+
+    top_genes = expression_summary.reindex(
+        expression_summary["delta_ipf_vs_control"].abs().sort_values(ascending=False).index
+    ).head(top_gene_limit)
+
+    sample_summary = pd.DataFrame(sample_rows).sort_values(
+        ["disease_bucket", "gsm_accession"]
+    )
+    output_parquet.parent.mkdir(parents=True, exist_ok=True)
+    sample_summary.to_parquet(output_parquet, index=False)
+    if output_csv:
+        output_csv.parent.mkdir(parents=True, exist_ok=True)
+        sample_summary.to_csv(output_csv, index=False)
+    if top_genes_csv:
+        top_genes_csv.parent.mkdir(parents=True, exist_ok=True)
+        top_genes.to_csv(top_genes_csv, index=False)
+
+    summary = {
+        "accession": "GSE47460",
+        "sample_count": int(len(sample_summary)),
+        "disease_bucket_distribution": sample_summary["disease_bucket"].value_counts().to_dict(),
+        "feature_union_count": int(len(all_features)),
+        "ipf_sample_count": int((sample_summary["disease_bucket"] == "IPF").sum()),
+        "control_sample_count": int((sample_summary["disease_bucket"] == "Control").sum()),
+        "top_gene_count": int(len(top_genes)),
+        "output_parquet": str(output_parquet),
+    }
+    if output_csv:
+        summary["output_csv"] = str(output_csv)
+    if top_genes_csv:
+        summary["top_genes_csv"] = str(top_genes_csv)
     if summary_json:
         summary_json.parent.mkdir(parents=True, exist_ok=True)
         summary_json.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n")

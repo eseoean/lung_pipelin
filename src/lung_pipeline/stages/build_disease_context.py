@@ -21,6 +21,7 @@ from ..ipf_pbmc_validation import (
 )
 from ..ipf_bulk_geo import (
     build_gse32537_bulk_reference,
+    build_gse47460_bulk_expression_reference,
     build_gse47460_bulk_sample_reference,
     default_gse32537_paths,
     default_gse47460_paths,
@@ -363,6 +364,42 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         artifacts["gse47460_bulk_sample_reference"] = {
             "source_accession": "GSE47460",
             "missing_inputs": [str(gse47460_family_soft_path)],
+        }
+
+    if gse47460_paths["raw_tar"].exists() and (root / "docs/ipf/gse47460_bulk_sample_reference.csv").exists():
+        gse47460_expression_summary = build_gse47460_bulk_expression_reference(
+            sample_reference_path=root / "docs/ipf/gse47460_bulk_sample_reference.csv",
+            raw_tar_path=gse47460_paths["raw_tar"],
+            output_parquet=root / "data/processed/disease_context/ipf_gse47460_bulk_expression_reference.parquet",
+            output_csv=root / "docs/ipf/gse47460_bulk_expression_reference.csv",
+            top_genes_csv=root / "docs/ipf/gse47460_bulk_ipf_vs_control_top_genes.csv",
+            summary_json=root / "docs/ipf/gse47460_bulk_expression_reference_summary.json",
+        )
+        artifacts["gse47460_bulk_expression_reference"] = {
+            "source_accession": "GSE47460",
+            "source_mode": "bulk_raw_tar_expression_reference",
+            "expression_reference_parquet": str(
+                root / "data/processed/disease_context/ipf_gse47460_bulk_expression_reference.parquet"
+            ),
+            "expression_reference_csv": str(root / "docs/ipf/gse47460_bulk_expression_reference.csv"),
+            "top_genes_csv": str(root / "docs/ipf/gse47460_bulk_ipf_vs_control_top_genes.csv"),
+            "reference_summary": str(
+                root / "docs/ipf/gse47460_bulk_expression_reference_summary.json"
+            ),
+            "sample_count": gse47460_expression_summary["sample_count"],
+            "ipf_sample_count": gse47460_expression_summary["ipf_sample_count"],
+            "control_sample_count": gse47460_expression_summary["control_sample_count"],
+            "feature_union_count": gse47460_expression_summary["feature_union_count"],
+        }
+    else:
+        missing_inputs = []
+        if not gse47460_paths["raw_tar"].exists():
+            missing_inputs.append(str(gse47460_paths["raw_tar"]))
+        if not (root / "docs/ipf/gse47460_bulk_sample_reference.csv").exists():
+            missing_inputs.append(str(root / "docs/ipf/gse47460_bulk_sample_reference.csv"))
+        artifacts["gse47460_bulk_expression_reference"] = {
+            "source_accession": "GSE47460",
+            "missing_inputs": missing_inputs,
         }
 
     has_real_artifacts = any(
