@@ -2,7 +2,7 @@
   "stage": "build_disease_context",
   "description": "Create IPF bulk signatures, scRNA cell-state references, and external validation panels.",
   "status": "partial_built",
-  "generated_at": "2026-04-17T07:18:23.257516+00:00",
+  "generated_at": "2026-04-17T07:29:48.731194+00:00",
   "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context",
   "inputs": [
     "geo_ipf_bulk",
@@ -23,12 +23,24 @@
     "Keep an external blood/PBMC validation panel for reproducibility checks."
   ],
   "artifacts": {
-    "source_accession": "GSE136831",
-    "source_mode": "metadata_driven_reference",
-    "cell_state_reference_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_cell_state_reference.parquet",
-    "cell_state_reference_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_cell_state_reference.csv",
-    "cell_state_reference_summary": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_cell_state_reference_summary.json",
-    "total_cells": 312928,
-    "cell_state_rows": 285
+    "gse136831_cell_state_reference": {
+      "source_accession": "GSE136831",
+      "source_mode": "metadata_driven_reference",
+      "cell_state_reference_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_cell_state_reference.parquet",
+      "cell_state_reference_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_cell_state_reference.csv",
+      "cell_state_reference_summary": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_cell_state_reference_summary.json",
+      "total_cells": 312928,
+      "cell_state_rows": 285
+    },
+    "gse122960_sample_reference": {
+      "source_accession": "GSE122960",
+      "source_mode": "sample_metadata_reference",
+      "sample_reference_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_gse122960_sample_reference.parquet",
+      "sample_reference_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse122960_sample_reference.csv",
+      "sample_reference_summary": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse122960_sample_reference_summary.json",
+      "sample_count": 17,
+      "filtered_h5_available_count": 17,
+      "raw_h5_available_count": 17
+    }
   }
 }

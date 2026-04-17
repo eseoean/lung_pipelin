@@ -1,0 +1,20 @@
+{
+  "accession": "GSE122960",
+  "sample_count": 17,
+  "disease_distribution": {
+    "Donor": 8,
+    "Idiopathic pulmonary fibrosis": 5,
+    "Systemic sclerosis-associated interstitial lung disease": 2,
+    "Hypersensitivity pneumonitis": 1,
+    "Myositis-associated interstitial lung disease": 1
+  },
+  "disease_bucket_distribution": {
+    "Control": 8,
+    "IPF": 5,
+    "Other-ILD": 4
+  },
+  "filtered_h5_available_count": 17,
+  "raw_h5_available_count": 17,
+  "output_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_gse122960_sample_reference.parquet",
+  "output_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse122960_sample_reference.csv"
+}

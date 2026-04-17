@@ -18,6 +18,9 @@ This branch adapts the lung pipeline scaffold from a lung-cancer response workfl
 - Added a first real scRNA parser for `GSE136831`:
   - [scripts/build_ipf_cell_state_reference.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/build_ipf_cell_state_reference.py)
   - [src/lung_pipeline/ipf_cell_state.py](/Users/skku_aws2_18/pre_project/lung_pipelin/src/lung_pipeline/ipf_cell_state.py)
+- Added a GEO sample-metadata parser for `GSE122960`:
+  - [scripts/build_ipf_sample_reference.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/build_ipf_sample_reference.py)
+  - [src/lung_pipeline/ipf_geo_metadata.py](/Users/skku_aws2_18/pre_project/lung_pipelin/src/lung_pipeline/ipf_geo_metadata.py)
 
 ## Working assumptions from the planning page
 
@@ -104,7 +107,7 @@ These dry-run outputs confirm the intended IPF stage sequence:
 5. Score disease signatures
 6. Rerank with target, safety, and translation support
 
-## First real disease-context artifact
+## First real disease-context artifacts
 
 Using the downloaded `GSE136831` supplementary files, the branch now builds a metadata-driven scRNA cell-state reference.
 
@@ -128,6 +131,35 @@ Current parser result:
 
 This is intentionally a metadata-driven first pass. Expression-level cell-state signatures still require the remaining large sparse-matrix supplementary payloads.
 
+Using the downloaded `GSE122960` series-matrix and supplementary file index, the branch now also builds a sample-level scRNA reference for IPF and related ILD cohorts.
+
+- Reviewable table:
+  - [docs/ipf/gse122960_sample_reference.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse122960_sample_reference.csv)
+- Summary:
+  - [docs/ipf/gse122960_sample_reference_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse122960_sample_reference_summary.json)
+- Updated stage manifest:
+  - [docs/ipf/manifests/build_disease_context.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/manifests/build_disease_context.json)
+
+Current parser result:
+
+- accession: `GSE122960`
+- sample count: `17`
+- disease distribution:
+  - `Donor 8`
+  - `Idiopathic pulmonary fibrosis 5`
+  - `Systemic sclerosis-associated interstitial lung disease 2`
+  - `Hypersensitivity pneumonitis 1`
+  - `Myositis-associated interstitial lung disease 1`
+- disease bucket distribution:
+  - `Control 8`
+  - `IPF 5`
+  - `Other-ILD 3`
+  - `Other 1`
+- filtered H5 availability: `17/17`
+- raw H5 availability: `17/17`
+
+This gives the branch a second real disease-context artifact: `GSE136831` provides cell-state-level scRNA metadata, while `GSE122960` provides cohort/sample-level scRNA context and downloadable raw/filtered H5 pointers.
+
 ## Validation status
 
 - `make test`: passed
@@ -137,6 +169,7 @@ This is intentionally a metadata-driven first pass. Expression-level cell-state 
 - `make ipf-download-geo`: passed
 - `make ipf-download-geo-small`: passed
 - `make ipf-build-cell-reference`: passed
+- `make ipf-build-sample-reference`: passed
 
 ## Next recommended steps
 
@@ -146,7 +179,9 @@ This is intentionally a metadata-driven first pass. Expression-level cell-state 
    - `GSE136831_RawCounts_Sparse.mtx.gz`
    - `GSE122960_RAW.tar`
    - `GSE233844_RAW.tar`
-4. Extend the current metadata-driven parser into an expression-aware cell-state signature builder
+4. Extend the current metadata-driven parsers into expression-aware builders:
+   - `GSE136831` for cell-state signatures
+   - `GSE122960` for sample-to-cell matrix ingestion from H5 payloads
 5. Replace dry-run placeholders with real builders for:
    - bulk IPF signatures
    - scRNA cell-state references
