@@ -1,0 +1,151 @@
+{
+  "config": "configs/ipf.yaml",
+  "stages": [
+    {
+      "stage": "standardize_tables",
+      "description": "Build canonical drug tables plus an IPF cohort registry and source availability view.",
+      "status": "dry_run",
+      "generated_at": "2026-04-17T06:33:42.648439+00:00",
+      "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/interim/masters",
+      "inputs": [
+        "geo_ipf_bulk",
+        "geo_ipf_scrna",
+        "geo_ipf_external_validation",
+        "gtex_lung",
+        "drugbank",
+        "chembl",
+        "opentargets"
+      ],
+      "outputs": [
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/interim/masters/drug_master.parquet",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/interim/masters/ipf_cohort_registry.json",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/interim/masters/ipf_dataset_availability.json",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/interim/masters/source_crosswalks.json"
+      ],
+      "notes": [
+        "Build a canonical registry for required IPF GEO cohorts and shared drug knowledge sources.",
+        "Treat GDSC/DepMap as optional transfer-support, not the primary supervision source.",
+        "Record bucket availability and missing GEO accessions before any downstream build."
+      ]
+    },
+    {
+      "stage": "build_disease_context",
+      "description": "Create IPF bulk signatures, scRNA cell-state references, and external validation panels.",
+      "status": "dry_run",
+      "generated_at": "2026-04-17T06:33:42.648776+00:00",
+      "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context",
+      "inputs": [
+        "geo_ipf_bulk",
+        "gtex_lung",
+        "geo_ipf_scrna",
+        "geo_ipf_external_validation",
+        "msigdb"
+      ],
+      "outputs": [
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_bulk_signature.parquet",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_cell_state_reference.parquet",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_pathway_activity.parquet",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_external_validation_panel.parquet"
+      ],
+      "notes": [
+        "Use bulk IPF cohorts plus GTEx lung as the primary disease-vs-normal axis.",
+        "Build scRNA-derived cell-state references for fibroblast, myofibroblast, epithelial, and macrophage programs.",
+        "Keep an external blood/PBMC validation panel for reproducibility checks."
+      ]
+    },
+    {
+      "stage": "build_model_inputs",
+      "description": "Assemble disease, drug, ranking, and pseudo-label tables for IPF drug reversal modeling.",
+      "status": "dry_run",
+      "generated_at": "2026-04-17T06:33:42.648956+00:00",
+      "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs",
+      "inputs": [
+        "geo_ipf_bulk",
+        "geo_ipf_scrna",
+        "gtex_lung",
+        "drugbank",
+        "chembl",
+        "lincs",
+        "string",
+        "msigdb",
+        "opentargets",
+        "disease_context_outputs"
+      ],
+      "outputs": [
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/disease_features.parquet",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/drug_features.parquet",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/ranking_features.parquet",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/train_table.parquet",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/pseudo_labels.parquet"
+      ],
+      "notes": [
+        "Replace direct IC50 labels with reversal, target relevance, and network proximity pseudo-labels.",
+        "Assemble disease features, drug perturbation features, and target/pathway/network features.",
+        "Keep fibrosis-model supervised labels as optional extensions only."
+      ]
+    },
+    {
+      "stage": "train_baseline",
+      "description": "Run ranking-oriented baseline experiments for IPF pseudo-labels.",
+      "status": "dry_run",
+      "generated_at": "2026-04-17T06:33:42.649163+00:00",
+      "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs",
+      "inputs": [
+        "pseudo_label_table",
+        "ranking_feature_table"
+      ],
+      "outputs": [
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs/randomcv_metrics.json",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs/accession_cv_metrics.json",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs/ranking_manifest.json"
+      ],
+      "notes": [
+        "Start with ranking-friendly baselines over pseudo-labels rather than cell line x drug response regression.",
+        "Prefer random split first, then accession- or cohort-aware validation once more cohorts are available.",
+        "Track candidate ordering quality, not only point-estimate regression metrics."
+      ]
+    },
+    {
+      "stage": "patient_inference",
+      "description": "Score IPF disease signatures with trained reversal models.",
+      "status": "dry_run",
+      "generated_at": "2026-04-17T06:33:42.649310+00:00",
+      "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/patient_inference",
+      "inputs": [
+        "ipf_disease_features",
+        "trained_models"
+      ],
+      "outputs": [
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/patient_inference/patient_ranked_candidates.parquet",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/patient_inference/patient_manifest.json"
+      ],
+      "notes": [
+        "Score each candidate against IPF disease signatures and cell-state programs.",
+        "Treat this stage as disease-profile scoring rather than cancer patient response prediction."
+      ]
+    },
+    {
+      "stage": "rerank_outputs",
+      "description": "Combine reversal, target, network, safety, and translation evidence into final IPF candidates.",
+      "status": "dry_run",
+      "generated_at": "2026-04-17T06:33:42.649430+00:00",
+      "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports",
+      "inputs": [
+        "admet",
+        "siderside",
+        "clinicaltrials",
+        "ranked_candidates"
+      ],
+      "outputs": [
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports/final_ranked_candidates.parquet",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports/translation_support_report.md",
+        "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports/download_gap_report.md"
+      ],
+      "notes": [
+        "Fuse reversal evidence with target/pathway/network support.",
+        "Keep ADMET, SIDER, and ClinicalTrials as the final translational filter stack.",
+        "Emit a download-gap report so missing external cohorts remain visible to the team."
+      ]
+    }
+  ]
+}

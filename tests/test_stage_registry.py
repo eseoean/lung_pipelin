@@ -17,3 +17,9 @@ def test_dry_run_emits_stage_manifest() -> None:
     assert result["stage"] == "standardize_tables"
     assert result["status"] == "dry_run"
 
+
+def test_ipf_dry_run_uses_ipf_contract_outputs() -> None:
+    cfg = load_config(Path("configs/ipf.yaml"))
+    result = RUNNERS["build_model_inputs"](cfg, dry_run=True)
+    assert result["stage"] == "build_model_inputs"
+    assert any("pseudo_labels.parquet" in output for output in result["outputs"])

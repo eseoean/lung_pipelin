@@ -1,6 +1,6 @@
 # lung_pipelin
 
-Clean-room repository for rebuilding the lung cancer drug-response pipeline from raw source datasets to model-ready inputs.
+Clean-room repository for rebuilding pulmonary disease drug-prioritization pipelines from raw source datasets to model-ready inputs.
 
 This repository is organized around the published project plan:
 
@@ -26,6 +26,22 @@ This repository is organized around the published project plan:
 - Build a `cell line master table`
 - Build `LUAD/LUSC disease signatures`
 - Build the final `cell line x drug` training table (`X`, `y`)
+
+## IPF Branch Notes
+
+The `ipf` branch adapts the scaffold for idiopathic pulmonary fibrosis (IPF):
+
+- bulk IPF GEO cohorts as the disease axis
+- scRNA-seq IPF cohorts as the cell-state axis
+- pseudo-label ranking instead of direct `ln(IC50)` supervision
+- translational reranking with ADMET, SIDER, and ClinicalTrials
+
+Useful commands on the `ipf` branch:
+
+```bash
+make dry-run CONFIG=configs/ipf.yaml
+PYTHONPATH=src python scripts/audit_ipf_sources.py
+```
 
 ## Repository Layout
 
@@ -64,4 +80,3 @@ make stage-rerank
 - The first version in this repo focuses on a clean pipeline skeleton, contracts, and stage manifests.
 - Raw data and generated artifacts are intentionally kept out of git.
 - Optional sources like `OncoKB` and licensed `COSMIC` assets are configured but can stay disabled until access is ready.
-

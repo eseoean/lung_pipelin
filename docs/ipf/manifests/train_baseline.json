@@ -1,0 +1,21 @@
+{
+  "stage": "train_baseline",
+  "description": "Run ranking-oriented baseline experiments for IPF pseudo-labels.",
+  "status": "dry_run",
+  "generated_at": "2026-04-17T06:33:42.649163+00:00",
+  "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs",
+  "inputs": [
+    "pseudo_label_table",
+    "ranking_feature_table"
+  ],
+  "outputs": [
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs/randomcv_metrics.json",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs/accession_cv_metrics.json",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs/ranking_manifest.json"
+  ],
+  "notes": [
+    "Start with ranking-friendly baselines over pseudo-labels rather than cell line x drug response regression.",
+    "Prefer random split first, then accession- or cohort-aware validation once more cohorts are available.",
+    "Track candidate ordering quality, not only point-estimate regression metrics."
+  ]
+}

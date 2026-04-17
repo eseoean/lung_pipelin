@@ -5,7 +5,23 @@ from typing import Any
 
 from ..config import resolve_repo_path, stage_output_dir
 from ..io import ensure_dir, utc_now_iso, write_json
-from ..schemas import STAGE_CONTRACTS
+from ..schemas import get_stage_contract
+
+
+def resolve_stage_inputs(
+    cfg: dict[str, Any],
+    stage_name: str,
+    default_inputs: list[str],
+) -> list[str]:
+    return cfg.get("stage_inputs", {}).get(stage_name, default_inputs)
+
+
+def resolve_stage_notes(
+    cfg: dict[str, Any],
+    stage_name: str,
+    default_notes: list[str],
+) -> list[str]:
+    return cfg.get("stage_notes", {}).get(stage_name, default_notes)
 
 
 def build_stage_manifest(
@@ -15,7 +31,7 @@ def build_stage_manifest(
     notes: list[str],
     dry_run: bool,
 ) -> dict[str, Any]:
-    contract = STAGE_CONTRACTS[stage_name]
+    contract = get_stage_contract(cfg, stage_name)
     output_dir = ensure_dir(stage_output_dir(cfg, stage_name))
     manifest = {
         "stage": stage_name,
@@ -35,4 +51,3 @@ def build_stage_manifest(
             "This stage scaffold is ready. Port the implementation into this module.\n"
         )
     return manifest
-

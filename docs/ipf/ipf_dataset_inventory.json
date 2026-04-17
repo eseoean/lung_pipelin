@@ -1,0 +1,266 @@
+{
+  "generated_at": "2026-04-17T06:32:19.417623+00:00",
+  "study": "ipf_drug_repositioning",
+  "objective": "disease_signature_reversal",
+  "bucket_root": "s3://say2-4team/Lung_raw/",
+  "sources": [
+    {
+      "source_name": "geo_ipf_bulk",
+      "uri": "s3://say2-4team/Lung_raw/geo/",
+      "enabled": true,
+      "status": "missing_in_bucket",
+      "required_accessions": "GSE32537,GSE47460",
+      "required_files": "",
+      "matched_count": 0,
+      "detail": "Missing accessions: GSE32537, GSE47460",
+      "example_matches": []
+    },
+    {
+      "source_name": "geo_ipf_scrna",
+      "uri": "s3://say2-4team/Lung_raw/geo/",
+      "enabled": true,
+      "status": "missing_in_bucket",
+      "required_accessions": "GSE122960,GSE136831",
+      "required_files": "",
+      "matched_count": 0,
+      "detail": "Missing accessions: GSE122960, GSE136831",
+      "example_matches": []
+    },
+    {
+      "source_name": "geo_ipf_external_validation",
+      "uri": "s3://say2-4team/Lung_raw/geo/",
+      "enabled": true,
+      "status": "missing_in_bucket",
+      "required_accessions": "GSE233844",
+      "required_files": "",
+      "matched_count": 0,
+      "detail": "Missing accessions: GSE233844",
+      "example_matches": []
+    },
+    {
+      "source_name": "gtex_lung",
+      "uri": "s3://say2-4team/Lung_raw/gtex/",
+      "enabled": true,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt,GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt",
+      "matched_count": 2,
+      "detail": "Normal lung baseline; expression matrices may still need to be added.",
+      "example_matches": [
+        "2026-04-12 18:28:12   11512258 Lung_raw/gtex/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
+        "2026-04-12 18:28:12      20271 Lung_raw/gtex/GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt"
+      ]
+    },
+    {
+      "source_name": "drugbank",
+      "uri": "s3://say2-4team/Lung_raw/drugbank/",
+      "enabled": true,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "",
+      "matched_count": 2,
+      "detail": "",
+      "example_matches": [
+        "2026-04-10 18:48:28  183573678 Lung_raw/drugbank/drugbank_all_full_database.xml.zip",
+        "2026-04-10 18:48:28 1908516502 Lung_raw/drugbank/full_database.xml"
+      ]
+    },
+    {
+      "source_name": "chembl",
+      "uri": "s3://say2-4team/Lung_raw/chembl/",
+      "enabled": true,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "",
+      "matched_count": 5,
+      "detail": "",
+      "example_matches": [
+        "2026-04-12 19:11:38       3601 Lung_raw/chembl/README",
+        "2026-04-12 19:11:36        790 Lung_raw/chembl/checksums.txt",
+        "2026-04-12 19:11:36  286873029 Lung_raw/chembl/chembl_36_chemreps.txt.gz"
+      ]
+    },
+    {
+      "source_name": "lincs",
+      "uri": "s3://say2-4team/Lung_raw/lincs/",
+      "enabled": true,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "",
+      "matched_count": 5,
+      "detail": "",
+      "example_matches": [
+        "2026-04-13 15:45:28 21328033748 Lung_raw/lincs/GSE92742_Broad_LINCS_Level5_COMPZ.MODZ_n473647x12328.gctx.gz",
+        "2026-04-13 15:45:39       2528 Lung_raw/lincs/GSE92742_Broad_LINCS_cell_info.txt.gz",
+        "2026-04-13 15:45:40     216692 Lung_raw/lincs/GSE92742_Broad_LINCS_gene_info.txt.gz"
+      ]
+    },
+    {
+      "source_name": "string",
+      "uri": "s3://say2-4team/Lung_raw/string/",
+      "enabled": true,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "",
+      "matched_count": 3,
+      "detail": "",
+      "example_matches": [
+        "2026-04-10 18:47:43   19777800 Lung_raw/string/9606.protein.aliases.v12.0.txt.gz",
+        "2026-04-10 18:47:43    1970090 Lung_raw/string/9606.protein.info.v12.0.txt.gz",
+        "2026-04-10 18:47:43   83164437 Lung_raw/string/9606.protein.links.v12.0.txt.gz"
+      ]
+    },
+    {
+      "source_name": "msigdb",
+      "uri": "s3://say2-4team/Lung_raw/msigdb/",
+      "enabled": true,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "",
+      "matched_count": 3,
+      "detail": "",
+      "example_matches": [
+        "2026-04-10 18:48:09    4634828 Lung_raw/msigdb/c2.all.v2026.1.Hs.symbols.gmt",
+        "2026-04-10 18:48:09     205653 Lung_raw/msigdb/c6.all.v2026.1.Hs.symbols.gmt",
+        "2026-04-10 18:48:09      48686 Lung_raw/msigdb/h.all.v2026.1.Hs.symbols.gmt"
+      ]
+    },
+    {
+      "source_name": "opentargets",
+      "uri": "s3://say2-4team/Lung_raw/opentargets/",
+      "enabled": true,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "",
+      "matched_count": 5,
+      "detail": "",
+      "example_matches": [
+        "2026-04-10 18:47:45          0 Lung_raw/opentargets/association_by_overall_indirect/_SUCCESS",
+        "2026-04-10 18:47:45     543262 Lung_raw/opentargets/association_by_overall_indirect/part-00000-cf86150c-376a-4889-be2d-2ae6eb5800e7-c000.snappy.parquet",
+        "2026-04-10 18:47:45     534047 Lung_raw/opentargets/association_by_overall_indirect/part-00001-cf86150c-376a-4889-be2d-2ae6eb5800e7-c000.snappy.parquet"
+      ]
+    },
+    {
+      "source_name": "admet",
+      "uri": "s3://say2-4team/Lung_raw/admet/",
+      "enabled": true,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "",
+      "matched_count": 5,
+      "detail": "",
+      "example_matches": [
+        "2026-04-10 18:48:09    1472501 Lung_raw/admet/admet_group.zip",
+        "2026-04-10 18:48:09       6148 Lung_raw/admet/tdc_admet_group/admet_group/.DS_Store",
+        "2026-04-10 18:48:09      69441 Lung_raw/admet/tdc_admet_group/admet_group/ames/test.csv"
+      ]
+    },
+    {
+      "source_name": "siderside",
+      "uri": "s3://say2-4team/Lung_raw/SIDERside(와부검증)/",
+      "enabled": true,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "",
+      "matched_count": 5,
+      "detail": "",
+      "example_matches": [
+        "2026-04-10 18:57:08          0 Lung_raw/SIDERside(와부검증)/",
+        "2026-04-10 18:58:20      32760 Lung_raw/SIDERside(와부검증)/drug_atc.tsv",
+        "2026-04-10 18:58:19      34759 Lung_raw/SIDERside(와부검증)/drug_names.tsv"
+      ]
+    },
+    {
+      "source_name": "clinicaltrials",
+      "uri": "s3://say2-4team/Lung_raw/additional_sources/clinicaltrials/",
+      "enabled": true,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "",
+      "matched_count": 5,
+      "detail": "",
+      "example_matches": [
+        "2026-04-13 15:41:24  403111145 Lung_raw/additional_sources/clinicaltrials/clinicaltrials_lung_cancer_all_studies.json",
+        "2026-04-13 15:41:40   25472004 Lung_raw/additional_sources/clinicaltrials/clinicaltrials_lung_cancer_page_001.json",
+        "2026-04-13 15:41:41   27254045 Lung_raw/additional_sources/clinicaltrials/clinicaltrials_lung_cancer_page_002.json"
+      ]
+    },
+    {
+      "source_name": "gdsc",
+      "uri": "s3://say2-4team/Lung_raw/gdsc/",
+      "enabled": true,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "",
+      "matched_count": 5,
+      "detail": "",
+      "example_matches": [
+        "2026-04-13 15:44:13   29353210 Lung_raw/gdsc/GDSC1_fitted_dose_response_27Oct23.xlsx",
+        "2026-04-13 15:44:14   66241250 Lung_raw/gdsc/GDSC1_public_raw_data_27Oct23.csv.zip",
+        "2026-04-13 15:44:22   21330376 Lung_raw/gdsc/GDSC2_fitted_dose_response_27Oct23.xlsx"
+      ]
+    },
+    {
+      "source_name": "depmap",
+      "uri": "s3://say2-4team/Lung_raw/depmap/",
+      "enabled": true,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "",
+      "matched_count": 5,
+      "detail": "",
+      "example_matches": [
+        "2026-04-10 18:48:18  412265681 Lung_raw/depmap/CRISPRGeneDependency.csv",
+        "2026-04-10 18:48:18  419330454 Lung_raw/depmap/CRISPRGeneEffect.csv",
+        "2026-04-10 18:48:18     559182 Lung_raw/depmap/Model.csv"
+      ]
+    },
+    {
+      "source_name": "cosmic",
+      "uri": "s3://say2-4team/Lung_raw/additional_sources/cosmic_lung/",
+      "enabled": false,
+      "status": "available",
+      "required_accessions": "",
+      "required_files": "",
+      "matched_count": 5,
+      "detail": "",
+      "example_matches": [
+        "2026-04-17 10:04:00     191822 Lung_raw/additional_sources/cosmic_lung/20260417/cosmic_lung_actionability_v19_grch37.parquet",
+        "2026-04-17 10:04:00     128435 Lung_raw/additional_sources/cosmic_lung/20260417/cosmic_lung_actionability_v19_grch37.tsv.gz",
+        "2026-04-17 10:04:00      19544 Lung_raw/additional_sources/cosmic_lung/20260417/cosmic_lung_cancer_gene_census_v103_grch38.parquet"
+      ]
+    }
+  ],
+  "missing_downloads": [
+    {
+      "source_name": "geo_ipf_bulk",
+      "accession_or_file": "GSE32537",
+      "status": "missing",
+      "external_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE32537"
+    },
+    {
+      "source_name": "geo_ipf_bulk",
+      "accession_or_file": "GSE47460",
+      "status": "missing",
+      "external_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE47460"
+    },
+    {
+      "source_name": "geo_ipf_scrna",
+      "accession_or_file": "GSE122960",
+      "status": "missing",
+      "external_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122960"
+    },
+    {
+      "source_name": "geo_ipf_scrna",
+      "accession_or_file": "GSE136831",
+      "status": "missing",
+      "external_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136831"
+    },
+    {
+      "source_name": "geo_ipf_external_validation",
+      "accession_or_file": "GSE233844",
+      "status": "missing",
+      "external_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE233844"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "stage": "build_disease_context",
+  "description": "Create IPF bulk signatures, scRNA cell-state references, and external validation panels.",
+  "status": "dry_run",
+  "generated_at": "2026-04-17T06:33:42.648776+00:00",
+  "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context",
+  "inputs": [
+    "geo_ipf_bulk",
+    "gtex_lung",
+    "geo_ipf_scrna",
+    "geo_ipf_external_validation",
+    "msigdb"
+  ],
+  "outputs": [
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_bulk_signature.parquet",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_cell_state_reference.parquet",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_pathway_activity.parquet",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/disease_context/ipf_external_validation_panel.parquet"
+  ],
+  "notes": [
+    "Use bulk IPF cohorts plus GTEx lung as the primary disease-vs-normal axis.",
+    "Build scRNA-derived cell-state references for fibroblast, myofibroblast, epithelial, and macrophage programs.",
+    "Keep an external blood/PBMC validation panel for reproducibility checks."
+  ]
+}

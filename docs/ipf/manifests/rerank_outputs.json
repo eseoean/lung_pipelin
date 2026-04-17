@@ -1,0 +1,23 @@
+{
+  "stage": "rerank_outputs",
+  "description": "Combine reversal, target, network, safety, and translation evidence into final IPF candidates.",
+  "status": "dry_run",
+  "generated_at": "2026-04-17T06:33:42.649430+00:00",
+  "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports",
+  "inputs": [
+    "admet",
+    "siderside",
+    "clinicaltrials",
+    "ranked_candidates"
+  ],
+  "outputs": [
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports/final_ranked_candidates.parquet",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports/translation_support_report.md",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/reports/download_gap_report.md"
+  ],
+  "notes": [
+    "Fuse reversal evidence with target/pathway/network support.",
+    "Keep ADMET, SIDER, and ClinicalTrials as the final translational filter stack.",
+    "Emit a download-gap report so missing external cohorts remain visible to the team."
+  ]
+}

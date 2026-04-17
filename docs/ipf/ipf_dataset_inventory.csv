@@ -1,0 +1,17 @@
+source_name,uri,enabled,status,required_accessions,required_files,matched_count,detail
+geo_ipf_bulk,s3://say2-4team/Lung_raw/geo/,True,missing_in_bucket,"GSE32537,GSE47460",,0,"Missing accessions: GSE32537, GSE47460"
+geo_ipf_scrna,s3://say2-4team/Lung_raw/geo/,True,missing_in_bucket,"GSE122960,GSE136831",,0,"Missing accessions: GSE122960, GSE136831"
+geo_ipf_external_validation,s3://say2-4team/Lung_raw/geo/,True,missing_in_bucket,GSE233844,,0,Missing accessions: GSE233844
+gtex_lung,s3://say2-4team/Lung_raw/gtex/,True,available,,"GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt,GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt",2,Normal lung baseline; expression matrices may still need to be added.
+drugbank,s3://say2-4team/Lung_raw/drugbank/,True,available,,,2,
+chembl,s3://say2-4team/Lung_raw/chembl/,True,available,,,5,
+lincs,s3://say2-4team/Lung_raw/lincs/,True,available,,,5,
+string,s3://say2-4team/Lung_raw/string/,True,available,,,3,
+msigdb,s3://say2-4team/Lung_raw/msigdb/,True,available,,,3,
+opentargets,s3://say2-4team/Lung_raw/opentargets/,True,available,,,5,
+admet,s3://say2-4team/Lung_raw/admet/,True,available,,,5,
+siderside,s3://say2-4team/Lung_raw/SIDERside(와부검증)/,True,available,,,5,
+clinicaltrials,s3://say2-4team/Lung_raw/additional_sources/clinicaltrials/,True,available,,,5,
+gdsc,s3://say2-4team/Lung_raw/gdsc/,True,available,,,5,
+depmap,s3://say2-4team/Lung_raw/depmap/,True,available,,,5,
+cosmic,s3://say2-4team/Lung_raw/additional_sources/cosmic_lung/,False,available,,,5,

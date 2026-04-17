@@ -15,3 +15,8 @@ def test_load_config_resolves_repo_root() -> None:
     assert repo_root(cfg).name == "lung_pipelin"
     assert cfg["study"]["label_source"] == "GDSC"
 
+
+def test_load_ipf_config_overrides_lung_defaults() -> None:
+    cfg = load_config(Path("configs/ipf.yaml"))
+    assert cfg["study"]["objective"] == "disease_signature_reversal"
+    assert "geo_ipf_bulk" in cfg["dataset_buckets"]["disease_context"]

@@ -1,0 +1,19 @@
+{
+  "stage": "patient_inference",
+  "description": "Score IPF disease signatures with trained reversal models.",
+  "status": "dry_run",
+  "generated_at": "2026-04-17T06:33:42.649310+00:00",
+  "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/patient_inference",
+  "inputs": [
+    "ipf_disease_features",
+    "trained_models"
+  ],
+  "outputs": [
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/patient_inference/patient_ranked_candidates.parquet",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/patient_inference/patient_manifest.json"
+  ],
+  "notes": [
+    "Score each candidate against IPF disease signatures and cell-state programs.",
+    "Treat this stage as disease-profile scoring rather than cancer patient response prediction."
+  ]
+}

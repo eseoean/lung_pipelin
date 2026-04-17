@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-STAGE_CONTRACTS = {
+DEFAULT_STAGE_CONTRACTS = {
     "standardize_tables": {
         "description": "Build canonical master tables for drugs, cell lines, labels, and source crosswalks.",
         "outputs": [
@@ -54,3 +54,11 @@ STAGE_CONTRACTS = {
     },
 }
 
+STAGE_CONTRACTS = DEFAULT_STAGE_CONTRACTS
+
+
+def get_stage_contract(cfg: dict, stage_name: str) -> dict:
+    override = cfg.get("stage_contracts", {}).get(stage_name)
+    if override:
+        return override
+    return DEFAULT_STAGE_CONTRACTS[stage_name]

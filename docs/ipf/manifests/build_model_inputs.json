@@ -1,0 +1,31 @@
+{
+  "stage": "build_model_inputs",
+  "description": "Assemble disease, drug, ranking, and pseudo-label tables for IPF drug reversal modeling.",
+  "status": "dry_run",
+  "generated_at": "2026-04-17T06:33:42.648956+00:00",
+  "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs",
+  "inputs": [
+    "geo_ipf_bulk",
+    "geo_ipf_scrna",
+    "gtex_lung",
+    "drugbank",
+    "chembl",
+    "lincs",
+    "string",
+    "msigdb",
+    "opentargets",
+    "disease_context_outputs"
+  ],
+  "outputs": [
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/disease_features.parquet",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/drug_features.parquet",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/ranking_features.parquet",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/train_table.parquet",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/pseudo_labels.parquet"
+  ],
+  "notes": [
+    "Replace direct IC50 labels with reversal, target relevance, and network proximity pseudo-labels.",
+    "Assemble disease features, drug perturbation features, and target/pathway/network features.",
+    "Keep fibrosis-model supervised labels as optional extensions only."
+  ]
+}

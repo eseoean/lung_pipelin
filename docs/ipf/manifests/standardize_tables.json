@@ -1,0 +1,27 @@
+{
+  "stage": "standardize_tables",
+  "description": "Build canonical drug tables plus an IPF cohort registry and source availability view.",
+  "status": "dry_run",
+  "generated_at": "2026-04-17T06:33:42.648439+00:00",
+  "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/interim/masters",
+  "inputs": [
+    "geo_ipf_bulk",
+    "geo_ipf_scrna",
+    "geo_ipf_external_validation",
+    "gtex_lung",
+    "drugbank",
+    "chembl",
+    "opentargets"
+  ],
+  "outputs": [
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/interim/masters/drug_master.parquet",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/interim/masters/ipf_cohort_registry.json",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/interim/masters/ipf_dataset_availability.json",
+    "/Users/skku_aws2_18/pre_project/lung_pipelin/data/interim/masters/source_crosswalks.json"
+  ],
+  "notes": [
+    "Build a canonical registry for required IPF GEO cohorts and shared drug knowledge sources.",
+    "Treat GDSC/DepMap as optional transfer-support, not the primary supervision source.",
+    "Record bucket availability and missing GEO accessions before any downstream build."
+  ]
+}

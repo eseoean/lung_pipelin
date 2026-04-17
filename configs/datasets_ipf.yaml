@@ -1,0 +1,109 @@
+dataset_buckets:
+  disease_context:
+    - geo_ipf_bulk
+    - gtex_lung
+    - geo_ipf_scrna
+    - geo_ipf_external_validation
+  supervision:
+    - ipf_pseudolabels
+    - fibrosis_model_labels
+  cell_context:
+    - geo_ipf_scrna
+  drug_knowledge:
+    - drugbank
+    - chembl
+    - opentargets
+  perturbation_pathway:
+    - lincs
+    - string
+    - msigdb
+  validation_filter:
+    - admet
+    - siderside
+    - clinicaltrials
+  transfer_support:
+    - gdsc
+    - depmap
+    - cosmic
+
+data_sources:
+  geo_ipf_bulk:
+    uri: s3://say2-4team/Lung_raw/geo/
+    enabled: true
+    required_accessions:
+      - GSE32537
+      - GSE47460
+    note: "Primary bulk IPF disease cohorts."
+  geo_ipf_scrna:
+    uri: s3://say2-4team/Lung_raw/geo/
+    enabled: true
+    required_accessions:
+      - GSE122960
+      - GSE136831
+    note: "Single-cell cohorts for cell-state reference and bulk deconvolution."
+  geo_ipf_external_validation:
+    uri: s3://say2-4team/Lung_raw/geo/
+    enabled: true
+    required_accessions:
+      - GSE233844
+    note: "External PBMC validation cohort."
+  gtex_lung:
+    uri: s3://say2-4team/Lung_raw/gtex/
+    enabled: true
+    required_files:
+      - GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt
+      - GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt
+    note: "Normal lung baseline; expression matrices may still need to be added."
+  drugbank:
+    uri: s3://say2-4team/Lung_raw/drugbank/
+    enabled: true
+  chembl:
+    uri: s3://say2-4team/Lung_raw/chembl/
+    enabled: true
+  lincs:
+    uri: s3://say2-4team/Lung_raw/lincs/
+    enabled: true
+  string:
+    uri: s3://say2-4team/Lung_raw/string/
+    enabled: true
+  msigdb:
+    uri: s3://say2-4team/Lung_raw/msigdb/
+    enabled: true
+  opentargets:
+    uri: s3://say2-4team/Lung_raw/opentargets/
+    enabled: true
+  admet:
+    uri: s3://say2-4team/Lung_raw/admet/
+    enabled: true
+  siderside:
+    uri: s3://say2-4team/Lung_raw/SIDERside(와부검증)/
+    enabled: true
+  clinicaltrials:
+    uri: s3://say2-4team/Lung_raw/additional_sources/clinicaltrials/
+    enabled: true
+  gdsc:
+    uri: s3://say2-4team/Lung_raw/gdsc/
+    enabled: true
+  depmap:
+    uri: s3://say2-4team/Lung_raw/depmap/
+    enabled: true
+  cosmic:
+    uri: s3://say2-4team/Lung_raw/additional_sources/cosmic_lung/
+    enabled: false
+
+planned_external_downloads:
+  GSE32537:
+    category: geo_ipf_bulk
+    url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE32537
+  GSE47460:
+    category: geo_ipf_bulk
+    url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE47460
+  GSE122960:
+    category: geo_ipf_scrna
+    url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122960
+  GSE136831:
+    category: geo_ipf_scrna
+    url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136831
+  GSE233844:
+    category: geo_ipf_external_validation
+    url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE233844

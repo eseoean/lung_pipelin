@@ -34,3 +34,11 @@
 - `SIDER`: side-effect plausibility checks
 - `ClinicalTrials.gov`: translational support
 
+## IPF Adaptation
+
+On the `ipf` branch, the disease side changes as follows:
+
+- `GEO bulk IPF cohorts` replace TCGA disease cohorts
+- `GEO single-cell IPF cohorts` replace the cancer cell-line-centered view
+- `GTEx Lung` remains the normal baseline
+- direct cell-line drug-response labels are replaced by reversal-oriented pseudo-labels

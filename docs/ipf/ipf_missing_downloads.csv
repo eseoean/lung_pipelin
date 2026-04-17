@@ -1,0 +1,6 @@
+source_name,accession_or_file,status,external_url
+geo_ipf_bulk,GSE32537,missing,https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE32537
+geo_ipf_bulk,GSE47460,missing,https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE47460
+geo_ipf_scrna,GSE122960,missing,https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122960
+geo_ipf_scrna,GSE136831,missing,https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136831
+geo_ipf_external_validation,GSE233844,missing,https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE233844
