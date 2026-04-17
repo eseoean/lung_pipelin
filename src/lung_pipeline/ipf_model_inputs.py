@@ -12,6 +12,36 @@ import pandas as pd
 
 
 DRUGBANK_NS = {"db": "http://www.drugbank.ca"}
+FIBROSIS_PRIORITY_GENES = {
+    "CCL2",
+    "COL1A1",
+    "COL1A2",
+    "COL3A1",
+    "CXCL14",
+    "FN1",
+    "LUM",
+    "MET",
+    "MMP1",
+    "MMP7",
+    "MMP9",
+    "PDGFRA",
+    "PDGFRB",
+    "SERPINE1",
+    "SFRP2",
+    "SPP1",
+    "TGFBR1",
+    "TGFBR2",
+    "TNC",
+}
+MINERAL_KEYWORDS = (
+    "calcium",
+    "copper",
+    "ferric",
+    "ferrous",
+    "iron",
+    "nitrous acid",
+    "zinc",
+)
 
 
 def _normalize_name(value: str) -> str:
@@ -25,6 +55,11 @@ def _coerce_gene_name(value: str) -> str:
     if not text or text.lower() in {"nan", "-666", "---"}:
         return ""
     return text.upper()
+
+
+def _has_carbon(smiles: str) -> bool:
+    text = str(smiles or "")
+    return "C" in text or "c" in text
 
 
 def default_model_input_paths(repo_root: Path) -> dict[str, Path]:
@@ -369,21 +404,72 @@ def build_ranking_inputs(
 
     overlap_max = ranking["target_overlap_weight"].max() or 1.0
     sig_max = ranking["lincs_signature_count"].max() or 1.0
+    overlap_count_max = ranking["target_overlap_count"].max() or 1.0
+    density = ranking["target_overlap_count"] / ranking["target_gene_count"].clip(lower=1)
+    density_max = density.max() or 1.0
+
     ranking["target_overlap_norm"] = ranking["target_overlap_weight"] / overlap_max
-    ranking["lincs_support_norm"] = ranking["lincs_signature_count"] / sig_max
+    ranking["lincs_support_norm"] = np.log1p(ranking["lincs_signature_count"]) / np.log1p(sig_max)
+    ranking["target_overlap_count_norm"] = np.log1p(ranking["target_overlap_count"]) / np.log1p(overlap_count_max)
+    ranking["target_overlap_density"] = density
+    ranking["target_overlap_density_norm"] = density / density_max
+    ranking["specific_overlap_norm"] = (
+        ranking["target_overlap_density_norm"] * ranking["target_overlap_count_norm"]
+    )
     ranking["approval_bonus"] = ranking["is_approved"].astype(float)
     ranking["smiles_bonus"] = ranking["canonical_smiles"].astype(str).str.len().gt(0).astype(float)
-    ranking["pseudo_label_score"] = (
-        0.60 * ranking["target_overlap_norm"]
-        + 0.20 * ranking["lincs_support_norm"]
-        + 0.15 * ranking["approval_bonus"]
-        + 0.05 * ranking["smiles_bonus"]
+    ranking["target_overlap_genes_list"] = ranking["target_overlap_genes"].fillna("").astype(str).str.split("|")
+    ranking["fibrosis_priority_overlap_count"] = ranking["target_overlap_genes_list"].map(
+        lambda genes: sum(1 for gene in genes if gene in FIBROSIS_PRIORITY_GENES)
     )
+    fibrosis_max = ranking["fibrosis_priority_overlap_count"].max() or 1.0
+    ranking["fibrosis_priority_overlap_norm"] = (
+        ranking["fibrosis_priority_overlap_count"] / fibrosis_max
+    )
+    ranking["broad_target_penalty"] = np.where(
+        (ranking["target_gene_count"] >= 100) & (ranking["has_lincs_match"] == 0),
+        np.minimum((ranking["target_gene_count"] - 100) / 150.0, 1.0),
+        0.0,
+    )
+    ranking["mineral_keyword_penalty"] = ranking["drug_name"].fillna("").astype(str).str.lower().map(
+        lambda name: float(any(keyword in name for keyword in MINERAL_KEYWORDS))
+    )
+    ranking["inorganic_like_penalty"] = ranking["canonical_smiles"].fillna("").astype(str).map(
+        lambda smiles: float((not _has_carbon(smiles)) and bool(str(smiles).strip()))
+    )
+    ranking["broad_chemistry_penalty"] = np.maximum(
+        ranking["mineral_keyword_penalty"],
+        np.where(
+            (ranking["inorganic_like_penalty"] > 0) & (ranking["has_lincs_match"] == 0),
+            1.0,
+            0.0,
+        ),
+    )
+    ranking["pseudo_label_score"] = (
+        0.25 * ranking["target_overlap_norm"]
+        + 0.20 * ranking["specific_overlap_norm"]
+        + 0.15 * ranking["target_overlap_count_norm"]
+        + 0.15 * ranking["lincs_support_norm"]
+        + 0.15 * ranking["fibrosis_priority_overlap_norm"]
+        + 0.10 * ranking["approval_bonus"]
+        + 0.05 * ranking["smiles_bonus"]
+        - 0.15 * ranking["broad_target_penalty"]
+        - 0.25 * ranking["broad_chemistry_penalty"]
+    )
+    ranking["pseudo_label_score"] = ranking["pseudo_label_score"].clip(lower=0.0)
     ranking = ranking.sort_values(
-        ["pseudo_label_score", "target_overlap_weight", "has_lincs_match", "is_approved"],
-        ascending=[False, False, False, False],
+        [
+            "pseudo_label_score",
+            "fibrosis_priority_overlap_count",
+            "lincs_support_norm",
+            "target_overlap_weight",
+            "has_lincs_match",
+            "is_approved",
+        ],
+        ascending=[False, False, False, False, False, False],
     ).reset_index(drop=True)
     ranking["pseudo_label_rank"] = np.arange(1, len(ranking) + 1)
+    ranking = ranking.drop(columns=["target_overlap_genes_list"])
 
     disease_summary = {
         "disease_gene_panel_size": int(len(disease_features)),

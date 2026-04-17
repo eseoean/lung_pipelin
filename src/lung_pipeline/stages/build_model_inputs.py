@@ -63,6 +63,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         manifest["status"] = "partial_built_missing_inputs"
         manifest["artifacts"] = artifacts
         write_json(resolve_repo_path(cfg, "outputs/manifests/build_model_inputs.json"), manifest)
+        write_json(root / "docs/ipf/manifests/build_model_inputs.json", manifest)
         return manifest
 
     summary = build_ipf_model_inputs(
@@ -98,4 +99,5 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     manifest["status"] = "partial_built"
     manifest["artifacts"] = artifacts
     write_json(resolve_repo_path(cfg, "outputs/manifests/build_model_inputs.json"), manifest)
+    write_json(root / "docs/ipf/manifests/build_model_inputs.json", manifest)
     return manifest

@@ -1,8 +1,8 @@
 {
   "stage": "train_baseline",
   "description": "Run ranking-oriented baseline experiments for IPF pseudo-labels.",
-  "status": "dry_run",
-  "generated_at": "2026-04-17T06:33:42.649163+00:00",
+  "status": "partial_built",
+  "generated_at": "2026-04-17T09:23:56.202636+00:00",
   "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs",
   "inputs": [
     "pseudo_label_table",
@@ -17,5 +17,40 @@
     "Start with ranking-friendly baselines over pseudo-labels rather than cell line x drug response regression.",
     "Prefer random split first, then accession- or cohort-aware validation once more cohorts are available.",
     "Track candidate ordering quality, not only point-estimate regression metrics."
-  ]
+  ],
+  "artifacts": {
+    "required_inputs": {
+      "train_table_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/train_table.parquet",
+      "disease_features_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/disease_features.parquet"
+    },
+    "ipf_train_baseline": {
+      "stage": "train_baseline",
+      "study": "IPF",
+      "objective": "disease_signature_reversal",
+      "label_source": "pseudo_label_score",
+      "row_count": 5292,
+      "feature_count": 23,
+      "random_seed": 42,
+      "requested_splits": 3,
+      "randomcv_best_model": "Ridge",
+      "accessioncv_best_model": "Ridge",
+      "randomcv_best_spearman": 0.9848308033548795,
+      "accessioncv_best_spearman": 0.9868606856420766,
+      "group_distribution": {
+        "NO_OVERLAP": 4501,
+        "GSE136831": 422,
+        "GSE122960": 159,
+        "GSE233844": 112,
+        "GSE32537": 98
+      },
+      "artifacts": {
+        "random_metrics_json": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs/randomcv_metrics.json",
+        "accession_metrics_json": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs/accession_cv_metrics.json",
+        "random_oof_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs/randomcv_oof_predictions.csv",
+        "accession_oof_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/outputs/model_runs/accessioncv_oof_predictions.csv",
+        "train_table_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/train_table.parquet",
+        "disease_features_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/disease_features.parquet"
+      }
+    }
+  }
 }

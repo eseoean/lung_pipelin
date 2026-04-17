@@ -363,22 +363,52 @@ Current `build_model_inputs` result:
 - LINCS-matched drugs: `1,750`
 - approved drugs: `2,737`
 - mean target-overlap count: `0.206`
-- max pseudo-label score: `0.80`
+- max pseudo-label score: `0.574`
 
-Current top-ranked first-pass candidates:
+Current refined top-ranked candidates:
 
-- `Copper`
-- `Zinc`
-- `Zinc acetate`
-- `Zinc chloride`
-- `Zinc sulfate, unspecified form`
 - `Fostamatinib`
-- `Vorinostat`
-- `Glutathione`
 - `Marimastat`
-- `Vitamin A`
+- `Tivozanib`
+- `Ilomastat`
+- `Curcumin`
+- `Crizotinib`
+- `Sunitinib`
+- `PR-15`
+- `Dasatinib`
+- `Zinc`
 
-This is intentionally a first-pass heuristic ranking. It is already useful as a reproducible input layer, but the ranking still over-prioritizes broad micronutrient / supplement-like agents because the current pseudo label emphasizes target overlap, approval status, and LINCS presence before downstream fibrosis-specific reranking.
+The ranking is still heuristic, but it is no longer dominated by broad micronutrient-style agents. A fibrosis-priority overlap term, count-aware specificity term, and broad-chemistry penalty now push targeted kinase / matrix-remodeling candidates above `Copper` / `Zinc`-style broad agents while still keeping the whole layer reproducible.
+
+## First real baseline-training artifacts
+
+Using the refined pseudo-label table, the branch now also runs the first real ranking-oriented baseline stage.
+
+- Reviewable summaries:
+  - [docs/ipf/ipf_train_baseline_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_train_baseline_summary.json)
+  - [docs/ipf/ipf_randomcv_metrics.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_randomcv_metrics.json)
+  - [docs/ipf/ipf_accessioncv_metrics.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_accessioncv_metrics.json)
+- Updated stage manifest:
+  - [docs/ipf/manifests/train_baseline.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/manifests/train_baseline.json)
+
+Current `train_baseline` result:
+
+- row count: `5,292`
+- feature count: `23`
+- random split best model: `Ridge`
+- random split best Spearman: `0.9848`
+- accession-aware best model: `Ridge`
+- accession-aware best Spearman: `0.9869`
+
+Current accession-group distribution:
+
+- `NO_OVERLAP 4,501`
+- `GSE136831 422`
+- `GSE122960 159`
+- `GSE233844 112`
+- `GSE32537 98`
+
+This is a strong sign that the current feature table is internally learnable, but it also means the baseline is still mainly reproducing our heuristic pseudo labels rather than validating a truly external endpoint. The next value-add will come from improving label quality and adding stronger biology-aware reranking.
 
 ## Validation status
 
@@ -395,10 +425,11 @@ This is intentionally a first-pass heuristic ranking. It is already useful as a 
 - `make ipf-build-pbmc-validation`: passed
 - `make ipf-build-bulk-references`: passed
 - `make ipf-build-model-inputs`: passed
+- `make ipf-train-baseline`: passed
 
 ## Next recommended steps
 
 1. Promote the local GEO downloads into a stable shared raw-data location and update `configs/datasets_ipf.yaml` if the final landing path changes
-2. Refine pseudo-label scoring so broad ions/supplements do not dominate the ranking ahead of fibrosis-relevant targeted agents
-3. Add explicit target/pathway/network fusion using ChEMBL/Open Targets/STRING rather than keeping them as downloaded-but-not-yet-scored sources
-4. Move from input construction into `train_baseline` with IPF-specific reversal/ranking objectives and accession-aware validation
+2. Add explicit target/pathway/network fusion using ChEMBL/Open Targets/STRING rather than keeping them as downloaded-but-not-yet-scored sources
+3. Introduce fibrosis-aware negative priors so broad ions / supplements are pushed further down even after model training
+4. Move from pseudo-label fidelity into a first reranking / validation stage that checks whether high-ranking candidates stay stable under multiple disease-signature definitions

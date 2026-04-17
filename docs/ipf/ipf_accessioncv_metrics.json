@@ -1,0 +1,264 @@
+{
+  "split_name": "accessioncv",
+  "row_count": 5292,
+  "feature_count": 23,
+  "feature_columns": [
+    "is_approved",
+    "is_investigational",
+    "target_gene_count",
+    "has_lincs_match",
+    "lincs_signature_count",
+    "lincs_cell_count",
+    "target_overlap_count",
+    "target_overlap_weight",
+    "target_overlap_norm",
+    "lincs_support_norm",
+    "target_overlap_count_norm",
+    "target_overlap_density",
+    "target_overlap_density_norm",
+    "specific_overlap_norm",
+    "approval_bonus",
+    "smiles_bonus",
+    "fibrosis_priority_overlap_count",
+    "fibrosis_priority_overlap_norm",
+    "broad_target_penalty",
+    "mineral_keyword_penalty",
+    "inorganic_like_penalty",
+    "broad_chemistry_penalty",
+    "disease_gene_panel_size"
+  ],
+  "best_model": "Ridge",
+  "models": [
+    {
+      "model_name": "Ridge",
+      "spearman": 0.9868606856420766,
+      "pearson": 0.9931701452124283,
+      "rmse": 0.009021847980480389,
+      "mae": 0.0038184323523491417,
+      "r2": 0.9858039391896711,
+      "ndcg_at_20": 0.9843874360602681,
+      "top20_overlap": 0.8,
+      "elapsed_sec": 0.032675981521606445,
+      "folds": 3,
+      "fold_metrics": [
+        {
+          "spearman": 0.9832181949640153,
+          "pearson": 0.9935670944355572,
+          "rmse": 0.007953719394384651,
+          "mae": 0.003281484388915099,
+          "r2": 0.9856709896193105,
+          "ndcg_at_20": 0.9998986140566144,
+          "top20_overlap": 0.95,
+          "fold": 0
+        },
+        {
+          "spearman": 0.9954876355084573,
+          "pearson": 0.9882113807547764,
+          "rmse": 0.012315174964852313,
+          "mae": 0.0065035088109988695,
+          "r2": 0.9740067979726305,
+          "ndcg_at_20": 0.9896530089825021,
+          "top20_overlap": 0.95,
+          "fold": 1
+        },
+        {
+          "spearman": 0.9948424945689253,
+          "pearson": 0.9851782289207698,
+          "rmse": 0.014906480755840548,
+          "mae": 0.007297295544399122,
+          "r2": 0.9655272553219016,
+          "ndcg_at_20": 0.989897581598211,
+          "top20_overlap": 0.9,
+          "fold": 2
+        }
+      ],
+      "top10_predicted_drugs": [
+        "Fostamatinib",
+        "Tivozanib",
+        "Sunitinib",
+        "Crizotinib",
+        "Curcumin",
+        "Marimastat",
+        "Ilomastat",
+        "Dasatinib",
+        "Troglitazone",
+        "Nintedanib"
+      ]
+    },
+    {
+      "model_name": "HistGradientBoosting",
+      "spearman": 0.9606246769474618,
+      "pearson": 0.9562537267483275,
+      "rmse": 0.044971804970391834,
+      "mae": 0.041699007368173065,
+      "r2": 0.6472577519160005,
+      "ndcg_at_20": 0.9134770846332232,
+      "top20_overlap": 0.6,
+      "elapsed_sec": 0.6946399211883545,
+      "folds": 3,
+      "fold_metrics": [
+        {
+          "spearman": 0.9812336635271769,
+          "pearson": 0.9920364811320866,
+          "rmse": 0.04719411864667166,
+          "mae": 0.046726394888999497,
+          "r2": 0.4955113183592583,
+          "ndcg_at_20": 0.9645363935702037,
+          "top20_overlap": 0.75,
+          "fold": 0
+        },
+        {
+          "spearman": 0.9307192393494743,
+          "pearson": 0.9061626807413357,
+          "rmse": 0.03248222396271184,
+          "mae": 0.01284122518186869,
+          "r2": 0.8191701498162758,
+          "ndcg_at_20": 0.9671501192000358,
+          "top20_overlap": 0.55,
+          "fold": 1
+        },
+        {
+          "spearman": 0.9794770541616334,
+          "pearson": 0.9534357164569708,
+          "rmse": 0.02510770295991091,
+          "mae": 0.013378445989800918,
+          "r2": 0.9021998368367726,
+          "ndcg_at_20": 0.9250852641608108,
+          "top20_overlap": 0.75,
+          "fold": 2
+        }
+      ],
+      "top10_predicted_drugs": [
+        "Dasatinib",
+        "Curcumin",
+        "Fostamatinib",
+        "Crizotinib",
+        "Tivozanib",
+        "Sunitinib",
+        "Nintedanib",
+        "Glutathione",
+        "Tretinoin",
+        "Troglitazone"
+      ]
+    },
+    {
+      "model_name": "RandomForest",
+      "spearman": 0.942068898320293,
+      "pearson": 0.9323134399951684,
+      "rmse": 0.04907214837415927,
+      "mae": 0.045370020787204215,
+      "r2": 0.5800022297283909,
+      "ndcg_at_20": 0.8743601363267272,
+      "top20_overlap": 0.35,
+      "elapsed_sec": 0.8722381591796875,
+      "folds": 3,
+      "fold_metrics": [
+        {
+          "spearman": 0.9788916069371171,
+          "pearson": 0.9932822366453979,
+          "rmse": 0.05008825933461691,
+          "mae": 0.04949214531865954,
+          "r2": 0.4317393996211,
+          "ndcg_at_20": 0.9806824698172177,
+          "top20_overlap": 0.75,
+          "fold": 0
+        },
+        {
+          "spearman": 0.8811482087109919,
+          "pearson": 0.8056467199238434,
+          "rmse": 0.04719934911604268,
+          "mae": 0.02074363617134672,
+          "r2": 0.6181870722770499,
+          "ndcg_at_20": 0.9480866974553459,
+          "top20_overlap": 0.45,
+          "fold": 1
+        },
+        {
+          "spearman": 0.951189122909381,
+          "pearson": 0.9106619591555428,
+          "rmse": 0.03721881787514369,
+          "mae": 0.023252545968265103,
+          "r2": 0.7850928990669889,
+          "ndcg_at_20": 0.9032418528483315,
+          "top20_overlap": 0.6,
+          "fold": 2
+        }
+      ],
+      "top10_predicted_drugs": [
+        "Curcumin",
+        "Dasatinib",
+        "Nintedanib",
+        "Minocycline",
+        "Danazol",
+        "Fostamatinib",
+        "Captopril",
+        "Crizotinib",
+        "Tivozanib",
+        "Carvedilol"
+      ]
+    },
+    {
+      "model_name": "DummyMean",
+      "spearman": -0.3808432024467574,
+      "pearson": -0.4265386853510615,
+      "rmse": 0.11257455961914974,
+      "mae": 0.09524382621624729,
+      "r2": -1.2103312033052451,
+      "ndcg_at_20": 0.2656915938366097,
+      "top20_overlap": 0.0,
+      "elapsed_sec": 0.0030231475830078125,
+      "folds": 3,
+      "fold_metrics": [
+        {
+          "spearman": 0.0,
+          "pearson": 0.0,
+          "rmse": 0.11212076812827104,
+          "mae": 0.0950766606822944,
+          "r2": -1.847395510309915,
+          "ndcg_at_20": 0.4244625283653646,
+          "top20_overlap": 0.05,
+          "fold": 0
+        },
+        {
+          "spearman": 0.0,
+          "pearson": 0.0,
+          "rmse": 0.12354418955026047,
+          "mae": 0.10645725129122292,
+          "r2": -1.6159127769436128,
+          "ndcg_at_20": 0.5491257766512234,
+          "top20_overlap": 0.05,
+          "fold": 1
+        },
+        {
+          "spearman": 0.0,
+          "pearson": 0.0,
+          "rmse": 0.10466432610490731,
+          "mae": 0.08445885788747273,
+          "r2": -0.6995070806927026,
+          "ndcg_at_20": 0.5042518580781726,
+          "top20_overlap": 0.05,
+          "fold": 2
+        }
+      ],
+      "top10_predicted_drugs": [
+        "Pirinixic acid",
+        "Tenocyclidine",
+        "Selenocysteine",
+        "2'-Deoxyuridine",
+        "3,4-Dihydroxycinnamic Acid",
+        "Diprenorphine",
+        "Masoprocol",
+        "Tepilamide fumarate",
+        "Itanapraced",
+        "Surufatinib"
+      ]
+    }
+  ],
+  "group_distribution": {
+    "NO_OVERLAP": 4501,
+    "GSE136831": 422,
+    "GSE122960": 159,
+    "GSE233844": 112,
+    "GSE32537": 98
+  }
+}

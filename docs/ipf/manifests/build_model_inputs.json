@@ -2,7 +2,7 @@
   "stage": "build_model_inputs",
   "description": "Assemble disease, drug, ranking, and pseudo-label tables for IPF drug reversal modeling.",
   "status": "partial_built",
-  "generated_at": "2026-04-17T08:51:27.039088+00:00",
+  "generated_at": "2026-04-17T09:22:44.197096+00:00",
   "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs",
   "inputs": [
     "geo_ipf_bulk",
@@ -63,21 +63,21 @@
       "train_row_count": 5292,
       "pseudo_label_count": 5292,
       "top_ranked_drugs": [
-        "Copper",
-        "Zinc",
-        "Zinc acetate",
-        "Zinc chloride",
-        "Zinc sulfate, unspecified form",
         "Fostamatinib",
-        "Vorinostat",
-        "Glutathione",
         "Marimastat",
-        "Vitamin A"
+        "Tivozanib",
+        "Ilomastat",
+        "Curcumin",
+        "Crizotinib",
+        "Sunitinib",
+        "PR-15",
+        "Dasatinib",
+        "Zinc"
       ],
       "lincs_matched_drugs": 1750,
       "approved_drugs": 2737,
       "mean_target_overlap": 0.20597127739984883,
-      "max_pseudo_label_score": 0.8
+      "max_pseudo_label_score": 0.5741833161119526
     }
   }
 }
