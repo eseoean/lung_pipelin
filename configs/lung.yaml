@@ -54,6 +54,11 @@ disease_context:
     gtex_sample_attributes: s3://say2-4team/Lung_raw/gtex/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt
     gtex_subject_phenotypes: s3://say2-4team/Lung_raw/gtex/GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt
 
+model_inputs:
+  top_signature_genes_per_cohort: 12
+  top_pathways_per_collection: 8
+  filter_to_depmap_mapped: false
+
 deliverables:
   masters:
     - drug_master
