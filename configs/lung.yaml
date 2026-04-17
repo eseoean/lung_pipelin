@@ -36,6 +36,24 @@ standardization:
     prism_response: s3://say2-4team/Lung_raw/additional_sources/prism/
     cosmic_lung: s3://say2-4team/Lung_raw/additional_sources/cosmic_lung/
 
+disease_context:
+  cache_dir: .cache/disease_context
+  expression_value_column: tpm_unstranded
+  gene_types:
+    - protein_coding
+  minimum_pathway_genes: 10
+  patient_feature_top_k_hallmark: 25
+  max_files_per_cohort:
+  sources:
+    tcga_luad_counts: s3://say2-4team/Lung_raw/tcga_luad_rna_star_counts/
+    tcga_lusc_counts: s3://say2-4team/Lung_raw/tcga_lusc_rna_star_counts/
+    tcga_luad_manifest: s3://say2-4team/Lung_raw/manifests/luad_manifest_rna_only.tsv
+    tcga_lusc_manifest: s3://say2-4team/Lung_raw/manifests/lusc_manifest_rna_only.tsv
+    msigdb_hallmark: s3://say2-4team/Lung_raw/msigdb/h.all.v2026.1.Hs.symbols.gmt
+    msigdb_oncogenic: s3://say2-4team/Lung_raw/msigdb/c6.all.v2026.1.Hs.symbols.gmt
+    gtex_sample_attributes: s3://say2-4team/Lung_raw/gtex/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt
+    gtex_subject_phenotypes: s3://say2-4team/Lung_raw/gtex/GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt
+
 deliverables:
   masters:
     - drug_master
