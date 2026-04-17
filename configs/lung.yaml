@@ -72,8 +72,13 @@ train_baseline:
     - flat_mlp
   conditions:
     - no_gtex
+    - sample_summary_only
+    - sample_nonconstant
     - sample_only
     - pair_only
+    - pair_plus_summary
+    - pair_plus_top4
+    - pair_plus_nonconstant
     - full_gtex
   random_forest:
     n_estimators: 240

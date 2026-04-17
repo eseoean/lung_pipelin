@@ -103,7 +103,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         "train_baseline",
         ["model_input_table"],
         notes + [
-            f"Executed quick GTEx ablation with models: {', '.join(settings['models'])}.",
+            f"Executed GTEx ablation with models: {', '.join(settings['models'])}.",
             f"Conditions: {', '.join(settings['conditions'])}",
             f"Best GroupCV result: {groupcv_best['model']} / {groupcv_best['condition']} ({groupcv_best['spearman']:.4f})",
             f"Best random-split result: {randomcv_best['model']} / {randomcv_best['condition']} ({randomcv_best['spearman']:.4f})",
@@ -188,6 +188,7 @@ def _run_quick_gtex_ablation(
     pair_ids = train_table["pair_id"].astype(str).to_numpy()
 
     numeric_columns = _numeric_feature_columns(train_table, exclude={target_column, "label_binary"})
+    sample_gtex_groups = _sample_gtex_column_groups(train_table=train_table, numeric_columns=numeric_columns)
     split_indices = _split_indices(
         train_table=train_table,
         y=y,
@@ -207,7 +208,11 @@ def _run_quick_gtex_ablation(
             "conditions": {},
         }
         for condition in settings["conditions"]:
-            feature_columns = _feature_columns_for_condition(numeric_columns, condition)
+            feature_columns = _feature_columns_for_condition(
+                columns=numeric_columns,
+                condition=condition,
+                sample_gtex_groups=sample_gtex_groups,
+            )
             X = train_table[feature_columns].apply(pd.to_numeric, errors="coerce").fillna(0.0).to_numpy(dtype=float)
             if model_name == "random_forest":
                 metrics, oof = _run_random_forest_groupcv(
@@ -495,25 +500,78 @@ def _numeric_feature_columns(train_table: pd.DataFrame, *, exclude: set[str]) ->
     ]
 
 
-def _feature_columns_for_condition(columns: list[str], condition: str) -> list[str]:
-    if condition not in {"no_gtex", "sample_only", "pair_only", "full_gtex"}:
+def _sample_gtex_column_groups(
+    *,
+    train_table: pd.DataFrame,
+    numeric_columns: list[str],
+) -> dict[str, list[str]]:
+    summary_columns = [column for column in numeric_columns if column in GTEX_SAMPLE_COLUMNS]
+    signormal_columns = [column for column in numeric_columns if column.startswith("ctx__signormal__")]
+
+    nonconstant_signormal = []
+    for column in signormal_columns:
+        series = pd.to_numeric(train_table[column], errors="coerce")
+        std = float(series.std())
+        if std > 1e-9:
+            nonconstant_signormal.append((column, std))
+    nonconstant_signormal.sort(key=lambda item: item[1], reverse=True)
+
+    top4_signormal = [column for column, _ in nonconstant_signormal[:4]]
+    nonconstant_signormal_columns = [column for column, _ in nonconstant_signormal]
+
+    return {
+        "summary": summary_columns,
+        "top4_signormal": top4_signormal,
+        "nonconstant_signormal": nonconstant_signormal_columns,
+        "full_sample": summary_columns + signormal_columns,
+    }
+
+
+def _feature_columns_for_condition(
+    columns: list[str],
+    condition: str,
+    sample_gtex_groups: dict[str, list[str]],
+) -> list[str]:
+    supported = {
+        "no_gtex",
+        "sample_summary_only",
+        "sample_nonconstant",
+        "sample_only",
+        "pair_only",
+        "pair_plus_summary",
+        "pair_plus_top4",
+        "pair_plus_nonconstant",
+        "full_gtex",
+    }
+    if condition not in supported:
         raise ValueError(f"Unsupported GTEx ablation condition: {condition}")
 
-    sample_gtex_columns = [
-        column
-        for column in columns
-        if column in GTEX_SAMPLE_COLUMNS or column.startswith("ctx__signormal__")
-    ]
+    sample_gtex_columns = sample_gtex_groups["full_sample"]
     pair_gtex_columns = [column for column in columns if "_vs_normal" in column]
+    summary_columns = sample_gtex_groups["summary"]
+    top4_signormal = sample_gtex_groups["top4_signormal"]
+    nonconstant_signormal = sample_gtex_groups["nonconstant_signormal"]
 
-    selected = list(columns)
+    base_columns = [c for c in columns if c not in sample_gtex_columns and c not in pair_gtex_columns]
+    pair_columns = base_columns + pair_gtex_columns
+
     if condition == "no_gtex":
-        selected = [c for c in selected if c not in sample_gtex_columns and c not in pair_gtex_columns]
-    elif condition == "sample_only":
-        selected = [c for c in selected if c not in pair_gtex_columns]
-    elif condition == "pair_only":
-        selected = [c for c in selected if c not in sample_gtex_columns]
-    return selected
+        return base_columns
+    if condition == "sample_summary_only":
+        return base_columns + summary_columns
+    if condition == "sample_nonconstant":
+        return base_columns + summary_columns + nonconstant_signormal
+    if condition == "sample_only":
+        return base_columns + sample_gtex_columns
+    if condition == "pair_only":
+        return pair_columns
+    if condition == "pair_plus_summary":
+        return pair_columns + summary_columns
+    if condition == "pair_plus_top4":
+        return pair_columns + summary_columns + top4_signormal
+    if condition == "pair_plus_nonconstant":
+        return pair_columns + summary_columns + nonconstant_signormal
+    return base_columns + sample_gtex_columns + pair_gtex_columns
 
 
 def _rmse(y_true: np.ndarray, y_pred: np.ndarray) -> float:
