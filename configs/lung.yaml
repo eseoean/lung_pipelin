@@ -24,6 +24,7 @@ standardization:
     gdsc_dataset: s3://say2-4team/Lung_raw/GDSC/GDSC2-dataset.csv
     gdsc_compounds: s3://say2-4team/Lung_raw/GDSC/Compounds-annotation.csv
     depmap_model: s3://say2-4team/Lung_raw/depmap/Model.csv
+    depmap_crispr: s3://say2-4team/Lung_raw/depmap/CRISPRGeneDependency.csv
     lincs_pert_info_primary: s3://say2-4team/Lung_raw/LInc1000(세포주)/GSE70138_Broad_LINCS_pert_info.txt.gz
     lincs_pert_info_secondary: s3://say2-4team/Lung_raw/lincs/GSE92742_Broad_LINCS_pert_info.txt.gz
     drugbank_master: s3://say2-4team/20260409_eseo/data/drugbank/drugbank_drug_master_basic_20260406.parquet
@@ -31,6 +32,7 @@ standardization:
     chembl_master: s3://say2-4team/20260409_eseo/data/chembl/chembl_compound_master_basic_20260406.parquet
     exact_drug_catalog: s3://say2-4team/20260409_eseo/data/drug_features_catalog.parquet
     exact_target_mapping: s3://say2-4team/20260409_eseo/data/drug_target_mapping.parquet
+  crispr_chunksize: 32
 
   optional_sources:
     prism_response: s3://say2-4team/Lung_raw/additional_sources/prism/
@@ -60,6 +62,10 @@ model_inputs:
   top_pathways_per_collection: 8
   filter_to_depmap_mapped: false
   include_label_aggregate_features: false
+  include_sample_crispr_features: true
+  include_drug_structure_features: true
+  drug_fingerprint_radius: 2
+  drug_fingerprint_nbits: 2048
 
 train_baseline:
   mode: quick_gtex_groupcv_ablation

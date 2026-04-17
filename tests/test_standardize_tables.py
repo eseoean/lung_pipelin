@@ -102,6 +102,14 @@ def test_standardize_tables_builds_expected_outputs(tmp_path: Path) -> None:
         ]
     ).to_csv(depmap_model_csv, index=False)
 
+    depmap_crispr_csv = sources_dir / "CRISPRGeneDependency.csv"
+    pd.DataFrame(
+        [
+            {"ModelID": "ACH-0001", "EGFR (1956)": 0.8, "KRAS (3845)": 0.3},
+            {"ModelID": "ACH-0002", "EGFR (1956)": 0.2, "KRAS (3845)": 0.9},
+        ]
+    ).to_csv(depmap_crispr_csv, index=False)
+
     exact_drug_catalog = sources_dir / "drug_features_catalog.parquet"
     pd.DataFrame(
         [
@@ -157,6 +165,7 @@ def test_standardize_tables_builds_expected_outputs(tmp_path: Path) -> None:
                 "gdsc_dataset": str(gdsc_csv),
                 "gdsc_compounds": str(compounds_csv),
                 "depmap_model": str(depmap_model_csv),
+                "depmap_crispr": str(depmap_crispr_csv),
                 "exact_drug_catalog": str(exact_drug_catalog),
                 "exact_target_mapping": str(exact_target_mapping),
             },
@@ -171,6 +180,8 @@ def test_standardize_tables_builds_expected_outputs(tmp_path: Path) -> None:
     assert manifest["status"] == "implemented"
     assert (output_dir / "gdsc_lung_response.parquet").exists()
     assert (output_dir / "depmap_mapping.parquet").exists()
+    assert (output_dir / "depmap_crispr_long.parquet").exists()
+    assert (output_dir / "sample_crispr_wide.parquet").exists()
     assert (output_dir / "drug_master.parquet").exists()
     assert (output_dir / "drug_target_mapping.parquet").exists()
     assert (output_dir / "cell_line_master.parquet").exists()
@@ -180,6 +191,7 @@ def test_standardize_tables_builds_expected_outputs(tmp_path: Path) -> None:
     drug_master = pd.read_parquet(output_dir / "drug_master.parquet")
     response_labels = pd.read_parquet(output_dir / "response_labels.parquet")
     cell_master = pd.read_parquet(output_dir / "cell_line_master.parquet")
+    sample_crispr = pd.read_parquet(output_dir / "sample_crispr_wide.parquet")
     crosswalks = json.loads((output_dir / "source_crosswalks.json").read_text(encoding="utf-8"))
 
     assert drug_master.shape[0] == 2
@@ -187,5 +199,6 @@ def test_standardize_tables_builds_expected_outputs(tmp_path: Path) -> None:
     assert response_labels.shape[0] == 2
     assert set(response_labels["model_id"]) == {"ACH-0001", "ACH-0002"}
     assert int(cell_master["is_depmap_mapped"].sum()) == 2
+    assert {"sample__crispr__EGFR", "sample__crispr__KRAS"} <= set(sample_crispr.columns)
     assert crosswalks["counts"]["mapped_cell_lines"] == 2
-
+    assert crosswalks["counts"]["depmap_crispr_genes"] == 2

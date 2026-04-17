@@ -5,6 +5,7 @@ from typing import Any
 import pandas as pd
 
 from ..config import resolve_repo_path, stage_output_dir
+from ..datasets.drug_knowledge import build_drug_structure_features
 from ..registry import DATASET_BUCKETS
 from ..io import ensure_dir, write_json
 from ._common import build_stage_manifest
@@ -14,6 +15,10 @@ DEFAULT_MODEL_INPUT_SETTINGS = {
     "top_pathways_per_collection": 8,
     "filter_to_depmap_mapped": False,
     "include_label_aggregate_features": False,
+    "include_sample_crispr_features": True,
+    "include_drug_structure_features": True,
+    "drug_fingerprint_radius": 2,
+    "drug_fingerprint_nbits": 2048,
 }
 
 
@@ -45,6 +50,8 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
                 "top_pathways_per_collection": settings["top_pathways_per_collection"],
                 "filter_to_depmap_mapped": settings["filter_to_depmap_mapped"],
                 "include_label_aggregate_features": settings["include_label_aggregate_features"],
+                "include_sample_crispr_features": settings["include_sample_crispr_features"],
+                "include_drug_structure_features": settings["include_drug_structure_features"],
             },
         )
 
@@ -59,6 +66,8 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     luad_signature = pd.read_parquet(disease_dir / "luad_signature.parquet")
     lusc_signature = pd.read_parquet(disease_dir / "lusc_signature.parquet")
     pathway_activity = pd.read_parquet(disease_dir / "pathway_activity.parquet")
+    sample_crispr_path = masters_dir / "sample_crispr_wide.parquet"
+    sample_crispr_wide = pd.read_parquet(sample_crispr_path) if sample_crispr_path.exists() else None
 
     labels_y = _prepare_labels_y(response_labels, settings["filter_to_depmap_mapped"])
     sample_cohorts = _build_sample_cohort_map(labels_y, cell_line_master)
@@ -66,14 +75,22 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         labels_y=labels_y,
         cell_line_master=cell_line_master,
         sample_cohorts=sample_cohorts,
+        sample_crispr_wide=sample_crispr_wide,
         luad_signature=luad_signature,
         lusc_signature=lusc_signature,
         pathway_activity=pathway_activity,
         top_signature_genes_per_cohort=settings["top_signature_genes_per_cohort"],
         top_pathways_per_collection=settings["top_pathways_per_collection"],
         include_label_aggregate_features=settings["include_label_aggregate_features"],
+        include_sample_crispr_features=settings["include_sample_crispr_features"],
     )
-    drug_features = _build_drug_features(drug_master, target_mapping)
+    drug_features = _build_drug_features(
+        drug_master,
+        target_mapping,
+        include_drug_structure_features=settings["include_drug_structure_features"],
+        drug_fingerprint_radius=settings["drug_fingerprint_radius"],
+        drug_fingerprint_nbits=settings["drug_fingerprint_nbits"],
+    )
     pair_features = _build_pair_features(
         labels_y=labels_y,
         sample_cohorts=sample_cohorts,
@@ -146,6 +163,10 @@ def _stage_settings(cfg: dict[str, Any]) -> dict[str, Any]:
     settings["top_pathways_per_collection"] = int(settings["top_pathways_per_collection"])
     settings["filter_to_depmap_mapped"] = bool(settings["filter_to_depmap_mapped"])
     settings["include_label_aggregate_features"] = bool(settings["include_label_aggregate_features"])
+    settings["include_sample_crispr_features"] = bool(settings["include_sample_crispr_features"])
+    settings["include_drug_structure_features"] = bool(settings["include_drug_structure_features"])
+    settings["drug_fingerprint_radius"] = int(settings["drug_fingerprint_radius"])
+    settings["drug_fingerprint_nbits"] = int(settings["drug_fingerprint_nbits"])
     return settings
 
 
@@ -194,12 +215,14 @@ def _build_sample_features(
     labels_y: pd.DataFrame,
     cell_line_master: pd.DataFrame,
     sample_cohorts: pd.DataFrame,
+    sample_crispr_wide: pd.DataFrame | None,
     luad_signature: pd.DataFrame,
     lusc_signature: pd.DataFrame,
     pathway_activity: pd.DataFrame,
     top_signature_genes_per_cohort: int,
     top_pathways_per_collection: int,
     include_label_aggregate_features: bool,
+    include_sample_crispr_features: bool,
 ) -> pd.DataFrame:
     if include_label_aggregate_features:
         label_summary = (
@@ -242,6 +265,39 @@ def _build_sample_features(
     context_df = pd.DataFrame(context_by_cohort.values())
 
     sample_features = base.merge(context_df, on="cohort", how="left")
+    sample_features["sample__has_crispr_profile"] = 0
+    if include_sample_crispr_features and sample_crispr_wide is not None and not sample_crispr_wide.empty:
+        crispr_features = sample_crispr_wide.copy()
+        crispr_features["sample_id"] = crispr_features["sample_id"].astype(str).str.strip()
+        crispr_columns = [column for column in crispr_features.columns if column.startswith("sample__crispr__")]
+        if crispr_columns:
+            crispr_features["sample__has_crispr_profile"] = (
+                crispr_features[crispr_columns].notna().any(axis=1).astype(int)
+            )
+            medians = crispr_features[crispr_columns].median(numeric_only=True)
+            crispr_features[crispr_columns] = crispr_features[crispr_columns].fillna(medians).fillna(0.0)
+            sample_features = sample_features.merge(
+                crispr_features[["sample_id", "sample__has_crispr_profile", *crispr_columns]],
+                on="sample_id",
+                how="left",
+                suffixes=("", "_crispr"),
+            )
+            if "sample__has_crispr_profile_crispr" in sample_features.columns:
+                sample_features["sample__has_crispr_profile"] = (
+                    pd.to_numeric(sample_features["sample__has_crispr_profile_crispr"], errors="coerce")
+                    .fillna(pd.to_numeric(sample_features["sample__has_crispr_profile"], errors="coerce"))
+                    .fillna(0)
+                    .astype(int)
+                )
+                sample_features = sample_features.drop(columns=["sample__has_crispr_profile_crispr"])
+            else:
+                sample_features["sample__has_crispr_profile"] = (
+                    pd.to_numeric(sample_features["sample__has_crispr_profile"], errors="coerce").fillna(0).astype(int)
+                )
+            for column in crispr_columns:
+                sample_features[column] = pd.to_numeric(sample_features[column], errors="coerce")
+            fill_values = sample_features[crispr_columns].median(numeric_only=True)
+            sample_features[crispr_columns] = sample_features[crispr_columns].fillna(fill_values).fillna(0.0)
     keep_columns = [
         "sample_id",
         "cell_line_name",
@@ -252,10 +308,11 @@ def _build_sample_features(
         "sample__is_depmap_mapped",
         "sample__is_luad",
         "sample__is_lusc",
+        "sample__has_crispr_profile",
     ] + [
         column
         for column in sample_features.columns
-        if column.startswith("ctx__")
+        if column.startswith("ctx__") or column.startswith("sample__crispr__")
     ]
     if include_label_aggregate_features:
         keep_columns.extend(
@@ -324,6 +381,10 @@ def _build_pathway_context_features(
 def _build_drug_features(
     drug_master: pd.DataFrame,
     target_mapping: pd.DataFrame,
+    *,
+    include_drug_structure_features: bool,
+    drug_fingerprint_radius: int,
+    drug_fingerprint_nbits: int,
 ) -> pd.DataFrame:
     target_summary = (
         target_mapping.assign(
@@ -348,6 +409,27 @@ def _build_drug_features(
     features["drug__synonym_count"] = (
         features["synonyms"].fillna("").astype(str).apply(lambda value: len([x for x in value.split(",") if x.strip()]))
     )
+    structure_columns: list[str] = []
+    if include_drug_structure_features:
+        structure_df = build_drug_structure_features(
+            features[["canonical_drug_id", "canonical_smiles"]],
+            radius=drug_fingerprint_radius,
+            nbits=drug_fingerprint_nbits,
+        )
+        features = features.merge(structure_df, on="canonical_drug_id", how="left")
+        structure_columns = [
+            "drug_has_valid_smiles",
+            *[f"drug_morgan_{bit_idx:04d}" for bit_idx in range(drug_fingerprint_nbits)],
+            "drug_desc_mol_wt",
+            "drug_desc_logp",
+            "drug_desc_tpsa",
+            "drug_desc_hbd",
+            "drug_desc_hba",
+            "drug_desc_rot_bonds",
+            "drug_desc_ring_count",
+            "drug_desc_heavy_atoms",
+            "drug_desc_frac_csp3",
+        ]
     keep_columns = [
         "canonical_drug_id",
         "DRUG_ID",
@@ -361,7 +443,7 @@ def _build_drug_features(
         "drug__has_target_mapping",
         "drug__synonym_count",
         "drug__target_list",
-    ]
+    ] + [column for column in structure_columns if column in features.columns]
     return features[keep_columns].sort_values("canonical_drug_id").reset_index(drop=True)
 
 

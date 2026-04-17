@@ -6,6 +6,8 @@ STAGE_CONTRACTS = {
         "outputs": [
             "data/interim/masters/gdsc_lung_response.parquet",
             "data/interim/masters/depmap_mapping.parquet",
+            "data/interim/masters/depmap_crispr_long.parquet",
+            "data/interim/masters/sample_crispr_wide.parquet",
             "data/interim/masters/drug_master.parquet",
             "data/interim/masters/drug_target_mapping.parquet",
             "data/interim/masters/cell_line_master.parquet",

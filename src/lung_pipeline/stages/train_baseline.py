@@ -308,7 +308,7 @@ def _run_quick_gtex_ablation(
     target_column = settings["target_column"]
     group_column = settings["group_column"]
 
-    y = pd.to_numeric(train_table[target_column], errors="coerce").fillna(0.0).to_numpy(dtype=float)
+    y = pd.to_numeric(train_table[target_column], errors="coerce").fillna(0.0).to_numpy(dtype=np.float32)
     groups = train_table[group_column].astype(str).to_numpy()
     pair_ids = train_table["pair_id"].astype(str).to_numpy()
 
@@ -338,7 +338,12 @@ def _run_quick_gtex_ablation(
                 condition=condition,
                 sample_gtex_groups=sample_gtex_groups,
             )
-            X = train_table[feature_columns].apply(pd.to_numeric, errors="coerce").fillna(0.0).to_numpy(dtype=float)
+            X = (
+                train_table[feature_columns]
+                .apply(pd.to_numeric, errors="coerce")
+                .fillna(0.0)
+                .to_numpy(dtype=np.float32)
+            )
             if model_name == "random_forest":
                 metrics, oof = _run_random_forest_groupcv(
                     X=X,

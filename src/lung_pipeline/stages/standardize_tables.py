@@ -6,7 +6,12 @@ from typing import Any
 import pandas as pd
 
 from ..config import resolve_repo_path, stage_output_dir
-from ..datasets.depmap import build_cell_line_master, build_depmap_mapping
+from ..datasets.depmap import (
+    build_cell_line_master,
+    build_depmap_crispr_long,
+    build_depmap_mapping,
+    build_sample_crispr_wide,
+)
 from ..datasets.drug_knowledge import (
     build_chembl_lookups,
     build_drug_catalog,
@@ -25,6 +30,7 @@ from ._common import build_stage_manifest
 def _load_optional_sources(cache_dir: Path, standardization_cfg: dict[str, Any]) -> dict[str, Path | None]:
     sources = standardization_cfg.get("sources", {})
     return {
+        "depmap_crispr": maybe_local_copy(sources.get("depmap_crispr"), cache_dir),
         "lincs_pert_info_primary": maybe_local_copy(sources.get("lincs_pert_info_primary"), cache_dir),
         "lincs_pert_info_secondary": maybe_local_copy(sources.get("lincs_pert_info_secondary"), cache_dir),
         "drugbank_master": maybe_local_copy(sources.get("drugbank_master"), cache_dir),
@@ -42,8 +48,10 @@ def _build_source_crosswalks(
     mapping_df: pd.DataFrame,
     drug_master: pd.DataFrame,
     target_mapping: pd.DataFrame,
+    depmap_crispr_long: pd.DataFrame | None,
     optional_paths: dict[str, Path | None],
 ) -> dict[str, Any]:
+    depmap_crispr_long = depmap_crispr_long if depmap_crispr_long is not None else pd.DataFrame()
     return {
         "source_paths": {key: str(value) for key, value in sources.items()},
         "optional_local_sources": {key: str(value) if value else "" for key, value in optional_paths.items()},
@@ -55,6 +63,9 @@ def _build_source_crosswalks(
             "drug_master_rows": int(drug_master.shape[0]),
             "drug_master_has_smiles": int(drug_master["has_smiles"].sum()),
             "drug_target_mapping_rows": int(target_mapping.shape[0]),
+            "depmap_crispr_rows": int(depmap_crispr_long.shape[0]),
+            "depmap_crispr_cell_lines": int(depmap_crispr_long["cell_line_name"].nunique()) if not depmap_crispr_long.empty else 0,
+            "depmap_crispr_genes": int(depmap_crispr_long["gene_name"].nunique()) if not depmap_crispr_long.empty else 0,
         },
         "mapping_rule_breakdown": {
             str(key): int(value)
@@ -75,6 +86,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     notes = [
         "Priority: build drug master table.",
         "Priority: build cell line master table.",
+        "Bring back sample-specific CRISPR and drug-structure inputs so the new pipeline does not lose core old-pipeline signals.",
         "Expected joins: GDSC/PRISM to DrugBank/ChEMBL and GDSC to DepMap/COSMIC.",
         f"Top repo priorities: {', '.join(PIPELINE_PRIORITIES[:2])}.",
     ]
@@ -91,6 +103,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
 
     output_dir = ensure_dir(stage_output_dir(cfg, "standardize_tables"))
     cache_dir = ensure_dir(resolve_repo_path(cfg, standardization_cfg.get("cache_dir", ".cache/standardize_tables")))
+    crispr_chunksize = int(standardization_cfg.get("crispr_chunksize", 32))
 
     gdsc_dataset = ensure_local_copy(sources["gdsc_dataset"], cache_dir)
     gdsc_compounds = ensure_local_copy(sources["gdsc_compounds"], cache_dir)
@@ -142,12 +155,27 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     else:
         target_mapping = build_target_mapping(drug_master)
 
+    depmap_crispr_long: pd.DataFrame | None = None
+    sample_crispr_wide: pd.DataFrame | None = None
+    depmap_crispr_path = optional_paths.get("depmap_crispr")
+    if depmap_crispr_path is not None:
+        depmap_crispr_long = build_depmap_crispr_long(
+            str(depmap_crispr_path),
+            mapping_df,
+            chunksize=crispr_chunksize,
+        )
+        sample_crispr_wide = build_sample_crispr_wide(depmap_crispr_long)
+
     gdsc_labels.to_parquet(output_dir / "gdsc_lung_response.parquet", index=False)
     mapping_df.to_parquet(output_dir / "depmap_mapping.parquet", index=False)
     drug_master.to_parquet(output_dir / "drug_master.parquet", index=False)
     target_mapping.to_parquet(output_dir / "drug_target_mapping.parquet", index=False)
     cell_line_master.to_parquet(output_dir / "cell_line_master.parquet", index=False)
     response_labels.to_parquet(output_dir / "response_labels.parquet", index=False)
+    if depmap_crispr_long is not None:
+        depmap_crispr_long.to_parquet(output_dir / "depmap_crispr_long.parquet", index=False)
+    if sample_crispr_wide is not None:
+        sample_crispr_wide.to_parquet(output_dir / "sample_crispr_wide.parquet", index=False)
 
     crosswalks = _build_source_crosswalks(
         sources=sources,
@@ -155,6 +183,7 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         mapping_df=mapping_df,
         drug_master=drug_master,
         target_mapping=target_mapping,
+        depmap_crispr_long=depmap_crispr_long,
         optional_paths=optional_paths,
     )
     write_json(output_dir / "source_crosswalks.json", crosswalks)
@@ -164,6 +193,11 @@ def run(cfg: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
         f"Mapped cell lines: {(mapping_df['ModelID'].astype(str) != '').sum()}",
         f"Drug master rows: {drug_master.shape[0]}",
     ]
+    if depmap_crispr_long is not None:
+        notes.append(
+            "DepMap CRISPR rows: "
+            f"{depmap_crispr_long.shape[0]} / genes: {depmap_crispr_long['gene_name'].nunique()}"
+        )
     return build_stage_manifest(
         cfg,
         "standardize_tables",

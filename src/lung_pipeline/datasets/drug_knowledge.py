@@ -3,14 +3,20 @@ from __future__ import annotations
 import re
 from typing import Iterable
 
+import numpy as np
 import pandas as pd
 
 try:
     from rdkit import Chem  # type: ignore
+    from rdkit import DataStructs  # type: ignore
     from rdkit import RDLogger  # type: ignore
+    from rdkit.Chem import AllChem, Descriptors  # type: ignore
 except Exception:  # pragma: no cover - optional dependency
     Chem = None
+    DataStructs = None
     RDLogger = None
+    AllChem = None
+    Descriptors = None
 
 if RDLogger is not None:  # pragma: no cover - logging side effect
     RDLogger.DisableLog("rdApp.*")
@@ -242,3 +248,64 @@ def build_target_mapping(drug_catalog: pd.DataFrame) -> pd.DataFrame:
                 }
             )
     return pd.DataFrame(rows).drop_duplicates().reset_index(drop=True)
+
+
+def build_drug_structure_features(
+    drug_catalog: pd.DataFrame,
+    *,
+    radius: int = 2,
+    nbits: int = 2048,
+) -> pd.DataFrame:
+    descriptor_names = [
+        "drug_desc_mol_wt",
+        "drug_desc_logp",
+        "drug_desc_tpsa",
+        "drug_desc_hbd",
+        "drug_desc_hba",
+        "drug_desc_rot_bonds",
+        "drug_desc_ring_count",
+        "drug_desc_heavy_atoms",
+        "drug_desc_frac_csp3",
+    ]
+
+    rows: list[dict[str, object]] = []
+    seen: set[str] = set()
+    for _, row in drug_catalog[["canonical_drug_id", "canonical_smiles"]].drop_duplicates(
+        subset=["canonical_drug_id"]
+    ).iterrows():
+        drug_id = str(row["canonical_drug_id"]).strip()
+        if drug_id in seen:
+            continue
+        seen.add(drug_id)
+
+        smiles = str(row.get("canonical_smiles", "")).strip()
+        mol = Chem.MolFromSmiles(smiles) if (Chem is not None and smiles) else None
+        record: dict[str, object] = {
+            "canonical_drug_id": drug_id,
+            "drug_has_valid_smiles": 1 if mol is not None else 0,
+        }
+        if mol is None or AllChem is None or DataStructs is None or Descriptors is None:
+            for bit_idx in range(nbits):
+                record[f"drug_morgan_{bit_idx:04d}"] = 0
+            for name in descriptor_names:
+                record[name] = np.nan
+            rows.append(record)
+            continue
+
+        fp = AllChem.GetMorganFingerprintAsBitVect(mol, radius=radius, nBits=nbits)
+        arr = np.zeros((nbits,), dtype=np.int8)
+        DataStructs.ConvertToNumpyArray(fp, arr)
+        for bit_idx in range(nbits):
+            record[f"drug_morgan_{bit_idx:04d}"] = int(arr[bit_idx])
+        record["drug_desc_mol_wt"] = float(Descriptors.MolWt(mol))
+        record["drug_desc_logp"] = float(Descriptors.MolLogP(mol))
+        record["drug_desc_tpsa"] = float(Descriptors.TPSA(mol))
+        record["drug_desc_hbd"] = float(Descriptors.NumHDonors(mol))
+        record["drug_desc_hba"] = float(Descriptors.NumHAcceptors(mol))
+        record["drug_desc_rot_bonds"] = float(Descriptors.NumRotatableBonds(mol))
+        record["drug_desc_ring_count"] = float(Descriptors.RingCount(mol))
+        record["drug_desc_heavy_atoms"] = float(Descriptors.HeavyAtomCount(mol))
+        record["drug_desc_frac_csp3"] = float(Descriptors.FractionCSP3(mol))
+        rows.append(record)
+
+    return pd.DataFrame(rows)

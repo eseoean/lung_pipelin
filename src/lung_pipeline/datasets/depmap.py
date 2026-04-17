@@ -41,6 +41,13 @@ def normalize_cosmic_id(value: object) -> str:
     return str(numeric) if numeric > 0 else ""
 
 
+def parse_gene_col(column_name: str) -> str:
+    match = re.match(r"^(.+?)\s*\(\d+\)$", str(column_name))
+    if match:
+        return match.group(1).strip()
+    return str(column_name).strip()
+
+
 def build_depmap_mapping(model_df: pd.DataFrame, gdsc_cell_df: pd.DataFrame) -> pd.DataFrame:
     alias_rows: list[dict[str, object]] = []
     for _, row in model_df.iterrows():
@@ -244,3 +251,54 @@ def build_cell_line_master(gdsc_labels: pd.DataFrame, mapping_df: pd.DataFrame) 
         "is_depmap_mapped",
     ]
     return merged[keep].reset_index(drop=True)
+
+
+def build_depmap_crispr_long(
+    crispr_csv: str,
+    mapping_df: pd.DataFrame,
+    chunksize: int = 32,
+) -> pd.DataFrame:
+    valid_map = mapping_df[mapping_df["ModelID"].astype(str) != ""].copy()
+    model_to_cell = dict(zip(valid_map["ModelID"].astype(str), valid_map["cell_line_name"].astype(str)))
+    wanted_model_ids = set(model_to_cell)
+
+    selected_chunks: list[pd.DataFrame] = []
+    for chunk in pd.read_csv(crispr_csv, chunksize=chunksize, low_memory=False):
+        id_col = str(chunk.columns[0])
+        subset = chunk[chunk[id_col].astype(str).isin(wanted_model_ids)].copy()
+        if not subset.empty:
+            selected_chunks.append(subset)
+
+    if not selected_chunks:
+        return pd.DataFrame(columns=["cell_line_name", "gene_name", "dependency"])
+
+    wide = pd.concat(selected_chunks, ignore_index=True)
+    id_col = str(wide.columns[0])
+    gene_cols = [col for col in wide.columns if col != id_col]
+
+    long_df = wide.melt(id_vars=[id_col], value_vars=gene_cols, var_name="gene_col", value_name="dependency")
+    long_df["gene_name"] = long_df["gene_col"].map(parse_gene_col)
+    long_df["cell_line_name"] = long_df[id_col].astype(str).map(model_to_cell)
+    long_df = long_df.dropna(subset=["cell_line_name", "dependency"]).copy()
+    long_df["dependency"] = pd.to_numeric(long_df["dependency"], errors="coerce")
+    long_df = long_df.dropna(subset=["dependency"])
+    return long_df[["cell_line_name", "gene_name", "dependency"]].reset_index(drop=True)
+
+
+def build_sample_crispr_wide(depmap_long: pd.DataFrame) -> pd.DataFrame:
+    if depmap_long.empty:
+        return pd.DataFrame(columns=["sample_id"])
+
+    wide = depmap_long.pivot_table(
+        index="cell_line_name",
+        columns="gene_name",
+        values="dependency",
+        aggfunc="mean",
+    )
+    wide.columns = [f"sample__crispr__{str(col)}" for col in wide.columns]
+    wide = wide.reset_index().rename(columns={"cell_line_name": "sample_id"})
+    numeric_cols = [col for col in wide.columns if col != "sample_id"]
+    if numeric_cols:
+        medians = wide[numeric_cols].median(numeric_only=True)
+        wide[numeric_cols] = wide[numeric_cols].fillna(medians).fillna(0.0)
+    return wide

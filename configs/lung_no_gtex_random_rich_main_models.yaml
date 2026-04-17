@@ -1,0 +1,32 @@
+inherits:
+  - lung.yaml
+
+stages:
+  train_baseline:
+    output_dir: outputs/model_runs/no_gtex_random_rich_main_models
+
+train_baseline:
+  split_types:
+    - randomcv
+  conditions:
+    - no_gtex
+  models:
+    - lightgbm
+    - residual_mlp
+  lightgbm:
+    n_estimators: 300
+    learning_rate: 0.05
+    num_leaves: 31
+    subsample: 0.8
+    colsample_bytree: 0.8
+    random_state: 42
+  residual_mlp:
+    hidden_dim: 128
+    num_blocks: 3
+    dropout: 0.1
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    batch_size: 512
+    epochs: 18
+    random_state: 42
+    device: cpu

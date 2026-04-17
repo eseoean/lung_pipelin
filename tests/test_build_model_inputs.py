@@ -139,6 +139,13 @@ def test_build_model_inputs_builds_expected_outputs(tmp_path: Path) -> None:
 
     pd.DataFrame(
         [
+            {"sample_id": "A549", "sample__crispr__EGFR": 0.8, "sample__crispr__KRAS": 0.3},
+            {"sample_id": "H2170", "sample__crispr__EGFR": 0.2, "sample__crispr__KRAS": 0.9},
+        ]
+    ).to_parquet(masters_dir / "sample_crispr_wide.parquet", index=False)
+
+    pd.DataFrame(
+        [
             {
                 "gene_symbol": "EGFR",
                 "cohort": "LUAD",
@@ -289,7 +296,12 @@ def test_build_model_inputs_builds_expected_outputs(tmp_path: Path) -> None:
     assert train_table.shape[0] == 2
     assert "ctx__sigdelta__egfr" in sample_features.columns
     assert "ctx__hallmark__hallmark_egfr_signaling" in sample_features.columns
+    assert "sample__crispr__EGFR" in sample_features.columns
+    assert "sample__has_crispr_profile" in sample_features.columns
     assert "drug__target_count" in drug_features.columns
+    assert "drug_morgan_0000" in drug_features.columns
+    assert "drug_desc_mol_wt" in drug_features.columns
+    assert "drug_has_valid_smiles" in drug_features.columns
     assert "sample__mean_label_regression" not in sample_features.columns
 
     gefitinib_pair = pair_features.loc[pair_features["canonical_drug_id"] == "1"].iloc[0]
