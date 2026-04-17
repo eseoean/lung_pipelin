@@ -14,6 +14,28 @@ study:
   n_splits: 3
   group_key: canonical_drug_id
 
+standardization:
+  cancer_codes:
+    - LUAD
+    - LUSC
+  binary_quantile: 0.3
+  cache_dir: .cache/standardize_tables
+  sources:
+    gdsc_dataset: s3://say2-4team/Lung_raw/GDSC/GDSC2-dataset.csv
+    gdsc_compounds: s3://say2-4team/Lung_raw/GDSC/Compounds-annotation.csv
+    depmap_model: s3://say2-4team/Lung_raw/depmap/Model.csv
+    lincs_pert_info_primary: s3://say2-4team/Lung_raw/LInc1000(세포주)/GSE70138_Broad_LINCS_pert_info.txt.gz
+    lincs_pert_info_secondary: s3://say2-4team/Lung_raw/lincs/GSE92742_Broad_LINCS_pert_info.txt.gz
+    drugbank_master: s3://say2-4team/20260409_eseo/data/drugbank/drugbank_drug_master_basic_20260406.parquet
+    drugbank_synonym: s3://say2-4team/20260409_eseo/data/drugbank/drugbank_synonym_table_basic_20260406.parquet
+    chembl_master: s3://say2-4team/20260409_eseo/data/chembl/chembl_compound_master_basic_20260406.parquet
+    exact_drug_catalog: s3://say2-4team/20260409_eseo/data/drug_features_catalog.parquet
+    exact_target_mapping: s3://say2-4team/20260409_eseo/data/drug_target_mapping.parquet
+
+  optional_sources:
+    prism_response: s3://say2-4team/Lung_raw/additional_sources/prism/
+    cosmic_lung: s3://say2-4team/Lung_raw/additional_sources/cosmic_lung/
+
 deliverables:
   masters:
     - drug_master
@@ -32,4 +54,3 @@ deliverables:
 extensions:
   enable_patient_inference: true
   enable_rerank_outputs: true
-

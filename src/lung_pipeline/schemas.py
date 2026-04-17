@@ -4,7 +4,10 @@ STAGE_CONTRACTS = {
     "standardize_tables": {
         "description": "Build canonical master tables for drugs, cell lines, labels, and source crosswalks.",
         "outputs": [
+            "data/interim/masters/gdsc_lung_response.parquet",
+            "data/interim/masters/depmap_mapping.parquet",
             "data/interim/masters/drug_master.parquet",
+            "data/interim/masters/drug_target_mapping.parquet",
             "data/interim/masters/cell_line_master.parquet",
             "data/interim/masters/response_labels.parquet",
             "data/interim/masters/source_crosswalks.json",
@@ -53,4 +56,3 @@ STAGE_CONTRACTS = {
         ],
     },
 }
-
