@@ -47,6 +47,9 @@ make ipf-build-cell-reference
 make ipf-build-cell-expression
 make ipf-build-sample-reference
 make ipf-build-sample-expression
+make ipf-build-bulk-references
+make ipf-build-pbmc-validation
+make ipf-build-model-inputs
 ```
 
 If the S3 bucket is missing required IPF GEO cohorts, use the download helper to plan and fetch official GEO assets into the local raw-data area:

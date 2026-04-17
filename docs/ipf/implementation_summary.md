@@ -30,6 +30,9 @@ This branch adapts the lung pipeline scaffold from a lung-cancer response workfl
 - Added a PBMC external-validation parser for `GSE233844`:
   - [scripts/build_ipf_pbmc_validation_reference.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/build_ipf_pbmc_validation_reference.py)
   - [src/lung_pipeline/ipf_pbmc_validation.py](/Users/skku_aws2_18/pre_project/lung_pipelin/src/lung_pipeline/ipf_pbmc_validation.py)
+- Added a first real IPF model-input builder:
+  - [scripts/build_ipf_model_inputs.py](/Users/skku_aws2_18/pre_project/lung_pipelin/scripts/build_ipf_model_inputs.py)
+  - [src/lung_pipeline/ipf_model_inputs.py](/Users/skku_aws2_18/pre_project/lung_pipelin/src/lung_pipeline/ipf_model_inputs.py)
 
 ## Working assumptions from the planning page
 
@@ -332,6 +335,51 @@ Current `GSE47460` expression parser result:
 
 This upgrades `GSE47460` from cohort metadata support to a true bulk expression reference, giving the IPF branch two real bulk discovery axes (`GSE32537`, `GSE47460`) in addition to the scRNA and PBMC validation references.
 
+## First real model-input artifacts
+
+Using the bulk/scRNA/PBMC disease signatures together with downloaded DrugBank and LINCS knowledge sources, the branch now also builds the first reversal-oriented IPF model-input tables.
+
+- Reviewable disease feature table:
+  - [docs/ipf/ipf_disease_features.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_disease_features.csv)
+- Reviewable drug feature table:
+  - [docs/ipf/ipf_drug_features.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_drug_features.csv)
+- Reviewable ranking table:
+  - [docs/ipf/ipf_ranking_features.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_ranking_features.csv)
+- Reviewable train table:
+  - [docs/ipf/ipf_train_table.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_train_table.csv)
+- Reviewable pseudo labels:
+  - [docs/ipf/ipf_pseudo_labels.csv](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_pseudo_labels.csv)
+- Summary:
+  - [docs/ipf/ipf_model_inputs_summary.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_model_inputs_summary.json)
+- Updated stage manifest:
+  - [docs/ipf/manifests/build_model_inputs.json](/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/manifests/build_model_inputs.json)
+
+Current `build_model_inputs` result:
+
+- disease genes aggregated: `1,085`
+- drug candidates retained: `5,292`
+- train rows: `5,292`
+- pseudo-label rows: `5,292`
+- LINCS-matched drugs: `1,750`
+- approved drugs: `2,737`
+- mean target-overlap count: `0.206`
+- max pseudo-label score: `0.80`
+
+Current top-ranked first-pass candidates:
+
+- `Copper`
+- `Zinc`
+- `Zinc acetate`
+- `Zinc chloride`
+- `Zinc sulfate, unspecified form`
+- `Fostamatinib`
+- `Vorinostat`
+- `Glutathione`
+- `Marimastat`
+- `Vitamin A`
+
+This is intentionally a first-pass heuristic ranking. It is already useful as a reproducible input layer, but the ranking still over-prioritizes broad micronutrient / supplement-like agents because the current pseudo label emphasizes target overlap, approval status, and LINCS presence before downstream fibrosis-specific reranking.
+
 ## Validation status
 
 - `make test`: passed
@@ -345,14 +393,12 @@ This upgrades `GSE47460` from cohort metadata support to a true bulk expression 
 - `make ipf-build-sample-reference`: passed
 - `make ipf-build-sample-expression`: passed
 - `make ipf-build-pbmc-validation`: passed
+- `make ipf-build-bulk-references`: passed
+- `make ipf-build-model-inputs`: passed
 
 ## Next recommended steps
 
 1. Promote the local GEO downloads into a stable shared raw-data location and update `configs/datasets_ipf.yaml` if the final landing path changes
-2. Parse `GSE233844` and the bulk GEO cohorts into comparable disease and validation signatures
-3. Replace dry-run placeholders with real builders for:
-   - bulk IPF signatures
-   - scRNA cell-state references
-   - pseudo-label generation
-   - reversal and network scoring
-4. Add accession-aware validation once multiple IPF cohorts are ingested
+2. Refine pseudo-label scoring so broad ions/supplements do not dominate the ranking ahead of fibrosis-relevant targeted agents
+3. Add explicit target/pathway/network fusion using ChEMBL/Open Targets/STRING rather than keeping them as downloaded-but-not-yet-scored sources
+4. Move from input construction into `train_baseline` with IPF-specific reversal/ranking objectives and accession-aware validation

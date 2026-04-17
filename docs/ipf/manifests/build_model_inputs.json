@@ -1,8 +1,8 @@
 {
   "stage": "build_model_inputs",
   "description": "Assemble disease, drug, ranking, and pseudo-label tables for IPF drug reversal modeling.",
-  "status": "dry_run",
-  "generated_at": "2026-04-17T06:33:42.648956+00:00",
+  "status": "partial_built",
+  "generated_at": "2026-04-17T08:51:27.039088+00:00",
   "output_dir": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs",
   "inputs": [
     "geo_ipf_bulk",
@@ -27,5 +27,57 @@
     "Replace direct IC50 labels with reversal, target relevance, and network proximity pseudo-labels.",
     "Assemble disease features, drug perturbation features, and target/pathway/network features.",
     "Keep fibrosis-model supervised labels as optional extensions only."
-  ]
+  ],
+  "artifacts": {
+    "required_inputs": {
+      "drugbank_zip": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/raw/knowledge/drugbank/drugbank_all_full_database.xml.zip",
+      "chembl_chemreps": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/raw/knowledge/chembl/chembl_36_chemreps.txt.gz",
+      "chembl_uniprot_mapping": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/raw/knowledge/chembl/chembl_uniprot_mapping.txt",
+      "lincs_pert_info": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/raw/knowledge/lincs/GSE92742_Broad_LINCS_pert_info.txt.gz",
+      "lincs_sig_info": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/raw/knowledge/lincs/GSE92742_Broad_LINCS_sig_info.txt.gz",
+      "lincs_gene_info": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/raw/knowledge/lincs/GSE92742_Broad_LINCS_gene_info.txt.gz",
+      "opentargets_indirect": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/raw/knowledge/opentargets/association_by_overall_indirect",
+      "gse32537_bulk_top_genes": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse32537_bulk_ipf_vs_control_top_genes.csv",
+      "gse47460_bulk_top_genes": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse47460_bulk_ipf_vs_control_top_genes.csv",
+      "gse122960_scrna_top_genes": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse122960_expression_ipf_vs_control_top_genes.csv",
+      "gse136831_scrna_top_genes": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse136831_expression_ipf_vs_control_top_genes.csv",
+      "gse233844_pbmc_top_genes": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/gse233844_pbmc_expression_top_genes.csv"
+    },
+    "ipf_model_inputs": {
+      "source_mode": "signature_reversal_pseudo_labels",
+      "disease_features_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/disease_features.parquet",
+      "drug_features_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/drug_features.parquet",
+      "ranking_features_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/ranking_features.parquet",
+      "train_table_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/train_table.parquet",
+      "pseudo_labels_parquet": "/Users/skku_aws2_18/pre_project/lung_pipelin/data/processed/model_inputs/pseudo_labels.parquet",
+      "disease_features_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_disease_features.csv",
+      "drug_features_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_drug_features.csv",
+      "ranking_features_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_ranking_features.csv",
+      "train_table_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_train_table.csv",
+      "pseudo_labels_csv": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_pseudo_labels.csv",
+      "summary_json": "/Users/skku_aws2_18/pre_project/lung_pipelin/docs/ipf/ipf_model_inputs_summary.json",
+      "study": "IPF",
+      "objective": "disease_signature_reversal",
+      "disease_gene_count": 1085,
+      "drug_candidate_count": 5292,
+      "train_row_count": 5292,
+      "pseudo_label_count": 5292,
+      "top_ranked_drugs": [
+        "Copper",
+        "Zinc",
+        "Zinc acetate",
+        "Zinc chloride",
+        "Zinc sulfate, unspecified form",
+        "Fostamatinib",
+        "Vorinostat",
+        "Glutathione",
+        "Marimastat",
+        "Vitamin A"
+      ],
+      "lincs_matched_drugs": 1750,
+      "approved_drugs": 2737,
+      "mean_target_overlap": 0.20597127739984883,
+      "max_pseudo_label_score": 0.8
+    }
+  }
 }

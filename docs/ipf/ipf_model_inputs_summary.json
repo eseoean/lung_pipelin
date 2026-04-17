@@ -1,0 +1,24 @@
+{
+  "study": "IPF",
+  "objective": "disease_signature_reversal",
+  "disease_gene_count": 1085,
+  "drug_candidate_count": 5292,
+  "train_row_count": 5292,
+  "pseudo_label_count": 5292,
+  "top_ranked_drugs": [
+    "Copper",
+    "Zinc",
+    "Zinc acetate",
+    "Zinc chloride",
+    "Zinc sulfate, unspecified form",
+    "Fostamatinib",
+    "Vorinostat",
+    "Glutathione",
+    "Marimastat",
+    "Vitamin A"
+  ],
+  "lincs_matched_drugs": 1750,
+  "approved_drugs": 2737,
+  "mean_target_overlap": 0.20597127739984883,
+  "max_pseudo_label_score": 0.8
+}
